@@ -161,76 +161,86 @@ body>*{position:relative;z-index:1;}
   <div class="cd-map-tooltip" id="mapTooltip"></div>
 
   <!-- Abstract Switzerland Map (SVG) -->
-  <svg class="cd-map-svg" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
-    <!-- Grid pattern background -->
+  <svg class="cd-map-svg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
         <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E2E8F0" stroke-width="0.5"/>
       </pattern>
     </defs>
-    <rect width="800" height="500" fill="#FAFBFC"/>
-    <rect width="800" height="500" fill="url(#grid)"/>
+    <rect width="800" height="400" fill="#FAFBFC"/>
+    <rect width="800" height="400" fill="url(#grid)"/>
 
-    <!-- Switzerland outline (simplified abstract) -->
-    <path d="M 120,180 C 140,140 200,100 280,90 C 340,82 400,75 460,80 C 520,85 580,95 630,120 C 670,140 700,170 710,200 C 720,240 710,280 680,310 C 650,340 610,360 560,375 C 510,390 460,395 400,390 C 340,385 280,375 230,350 C 180,325 150,300 130,270 C 110,240 105,210 120,180 Z"
-          fill="none" stroke="#004C82" stroke-width="2" stroke-dasharray="4,4" opacity="0.3"/>
-
-    <!-- Connection lines between cities -->
-    <line x1="340" y1="220" x2="430" y2="200" stroke="#004C82" stroke-width="1" opacity="0.15" stroke-dasharray="3,3"/>
-    <line x1="430" y1="200" x2="520" y2="230" stroke="#004C82" stroke-width="1" opacity="0.15" stroke-dasharray="3,3"/>
-    <line x1="340" y1="220" x2="380" y2="210" stroke="#004C82" stroke-width="1" opacity="0.15" stroke-dasharray="3,3"/>
-    <line x1="380" y1="210" x2="430" y2="200" stroke="#004C82" stroke-width="1" opacity="0.15" stroke-dasharray="3,3"/>
+    <!-- Switzerland outline -->
+    <path d="M 60,120 C 80,70 160,30 280,25 C 380,20 480,30 580,50 C 660,65 730,100 760,150 C 780,190 770,240 730,280 C 690,315 630,340 560,355 C 480,370 390,375 300,365 C 220,355 150,330 100,290 C 65,260 45,220 45,180 C 45,150 50,135 60,120 Z"
+          fill="none" stroke="#004C82" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.2"/>
 
     <!-- Region labels -->
-    <text x="200" y="160" font-family="Montserrat,sans-serif" font-size="10" fill="#4A5568" opacity="0.4" font-weight="500">AARGAU</text>
-    <text x="310" y="150" font-family="Montserrat,sans-serif" font-size="10" fill="#4A5568" opacity="0.4" font-weight="500">ZUG</text>
-    <text x="500" y="170" font-family="Montserrat,sans-serif" font-size="10" fill="#4A5568" opacity="0.4" font-weight="500">ZUERICH</text>
-    <text x="260" y="270" font-family="Montserrat,sans-serif" font-size="10" fill="#4A5568" opacity="0.4" font-weight="500">BERN</text>
-    <text x="350" y="310" font-family="Montserrat,sans-serif" font-size="10" fill="#4A5568" opacity="0.4" font-weight="500">LUZERN</text>
+    <text x="120" y="140" font-family="Montserrat,sans-serif" font-size="11" fill="#4A5568" opacity="0.3" font-weight="600" letter-spacing="0.1em">AARGAU</text>
+    <text x="380" y="80" font-family="Montserrat,sans-serif" font-size="11" fill="#4A5568" opacity="0.3" font-weight="600" letter-spacing="0.1em">ZUG</text>
+    <text x="600" y="110" font-family="Montserrat,sans-serif" font-size="11" fill="#4A5568" opacity="0.3" font-weight="600" letter-spacing="0.1em">ZUERICH</text>
+    <text x="140" y="290" font-family="Montserrat,sans-serif" font-size="11" fill="#4A5568" opacity="0.3" font-weight="600" letter-spacing="0.1em">BERN</text>
+    <text x="280" y="310" font-family="Montserrat,sans-serif" font-size="11" fill="#4A5568" opacity="0.3" font-weight="600" letter-spacing="0.1em">LUZERN</text>
 
-    <!-- Lake Zurich abstract -->
-    <ellipse cx="510" cy="250" rx="40" ry="12" fill="#004C82" opacity="0.06" transform="rotate(-15,510,250)"/>
-    <!-- Vierwaldstaettersee abstract -->
-    <path d="M 300,240 Q 340,230 370,250 Q 350,270 310,260 Z" fill="#004C82" opacity="0.06"/>
+    <!-- Lakes -->
+    <ellipse cx="620" cy="210" rx="50" ry="14" fill="#004C82" opacity="0.05" transform="rotate(-12,620,210)"/>
+    <path d="M 230,200 Q 290,180 340,210 Q 310,240 250,225 Z" fill="#004C82" opacity="0.05"/>
+
+    <!-- Connection lines -->
+    <line x1="250" y1="190" x2="420" y2="140" stroke="#004C82" stroke-width="1" opacity="0.1" stroke-dasharray="4,4"/>
+    <line x1="420" y1="140" x2="620" y2="190" stroke="#004C82" stroke-width="1" opacity="0.1" stroke-dasharray="4,4"/>
+    <line x1="250" y1="190" x2="340" y2="175" stroke="#004C82" stroke-width="1" opacity="0.1" stroke-dasharray="4,4"/>
+    <line x1="340" y1="175" x2="420" y2="140" stroke="#004C82" stroke-width="1" opacity="0.1" stroke-dasharray="4,4"/>
+    <line x1="250" y1="190" x2="620" y2="190" stroke="#004C82" stroke-width="1" opacity="0.06" stroke-dasharray="4,4"/>
 
     <!-- === PINS === -->
 
-    <!-- HEAD IT - Emmenbruecke -->
+    <!-- HEAD IT - Emmenbruecke (left) -->
     <g class="cd-pin" data-company="headit" onmouseenter="showTip(evt,'headit')" onmouseleave="hideTip()">
-      <circle class="cd-pin-pulse" cx="340" cy="220" r="16" fill="#004C82" opacity="0.3"/>
-      <circle cx="340" cy="220" r="8" fill="#004C82" stroke="#fff" stroke-width="2.5"/>
-      <text x="340" y="247" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#004C82">HEAD IT</text>
-      <text x="340" y="260" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" font-weight="500" fill="#4A5568">Emmenbruecke</text>
+      <circle class="cd-pin-pulse" cx="250" cy="190" r="18" fill="#004C82" opacity="0.3"/>
+      <circle cx="250" cy="190" r="10" fill="#004C82" stroke="#fff" stroke-width="3"/>
+      <text x="250" y="222" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#004C82">HEAD IT</text>
+      <text x="250" y="237" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10" font-weight="500" fill="#4A5568">Emmenbruecke</text>
     </g>
 
-    <!-- Leuchter - Luzern -->
+    <!-- Leuchter - Luzern (slightly right+below HEAD IT) -->
     <g class="cd-pin" data-company="leuchter" onmouseenter="showTip(evt,'leuchter')" onmouseleave="hideTip()">
-      <circle class="cd-pin-pulse" cx="380" cy="210" r="16" fill="#E63329" opacity="0.3"/>
-      <circle cx="380" cy="210" r="8" fill="#E63329" stroke="#fff" stroke-width="2.5"/>
-      <text x="395" y="200" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#E63329">Leuchter</text>
-      <text x="395" y="213" font-family="Montserrat,sans-serif" font-size="9" font-weight="500" fill="#4A5568">Luzern</text>
+      <circle class="cd-pin-pulse" cx="340" cy="175" r="18" fill="#E63329" opacity="0.3"/>
+      <circle cx="340" cy="175" r="10" fill="#E63329" stroke="#fff" stroke-width="3"/>
+      <text x="340" y="155" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#E63329">Leuchter</text>
+      <text x="340" y="170" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10" font-weight="500" fill="#4A5568">Luzern</text>
     </g>
 
-    <!-- iTrust - Cham -->
+    <!-- iTrust - Cham (center top) -->
     <g class="cd-pin" data-company="itrust" onmouseenter="showTip(evt,'itrust')" onmouseleave="hideTip()">
-      <circle class="cd-pin-pulse" cx="430" cy="200" r="16" fill="#2EA3F2" opacity="0.3"/>
-      <circle cx="430" cy="200" r="8" fill="#2EA3F2" stroke="#fff" stroke-width="2.5"/>
-      <text x="430" y="180" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#2EA3F2">iTrust</text>
-      <text x="430" y="193" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" font-weight="500" fill="#4A5568">Cham</text>
+      <circle class="cd-pin-pulse" cx="420" cy="140" r="18" fill="#2EA3F2" opacity="0.3"/>
+      <circle cx="420" cy="140" r="10" fill="#2EA3F2" stroke="#fff" stroke-width="3"/>
+      <text x="420" y="118" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#2EA3F2">iTrust</text>
+      <text x="420" y="133" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10" font-weight="500" fill="#4A5568">Cham</text>
     </g>
 
-    <!-- care4IT - Zuerich -->
+    <!-- care4IT - Zuerich (far right) -->
     <g class="cd-pin" data-company="care4it" onmouseenter="showTip(evt,'care4it')" onmouseleave="hideTip()">
-      <circle class="cd-pin-pulse" cx="520" cy="230" r="16" fill="#0170B9" opacity="0.3"/>
-      <circle cx="520" cy="230" r="8" fill="#0170B9" stroke="#fff" stroke-width="2.5"/>
-      <text x="545" y="225" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#0170B9">care4IT</text>
-      <text x="545" y="238" font-family="Montserrat,sans-serif" font-size="9" font-weight="500" fill="#4A5568">Zuerich</text>
+      <circle class="cd-pin-pulse" cx="620" cy="190" r="18" fill="#0170B9" opacity="0.3"/>
+      <circle cx="620" cy="190" r="10" fill="#0170B9" stroke="#fff" stroke-width="3"/>
+      <text x="620" y="222" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#0170B9">care4IT</text>
+      <text x="620" y="237" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10" font-weight="500" fill="#4A5568">Zuerich</text>
     </g>
 
-    <!-- Scale / compass -->
-    <text x="700" y="460" font-family="Montserrat,sans-serif" font-size="9" fill="#4A5568" opacity="0.4" text-anchor="end">Zentralschweiz</text>
-    <line x1="650" y1="470" x2="700" y2="470" stroke="#4A5568" stroke-width="1" opacity="0.3"/>
-    <text x="675" y="482" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" fill="#4A5568" opacity="0.3">~30 km</text>
+    <!-- HEAD IT 2nd location - Hunzenschwil -->
+    <circle cx="180" cy="150" r="5" fill="#004C82" opacity="0.4" stroke="#fff" stroke-width="1.5"/>
+    <text x="180" y="142" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" font-weight="600" fill="#004C82" opacity="0.6">Hunzenschwil</text>
+    <line x1="180" y1="150" x2="250" y2="190" stroke="#004C82" stroke-width="1" opacity="0.15" stroke-dasharray="2,3"/>
+
+    <!-- Distance annotations -->
+    <text x="290" y="198" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" font-weight="600" fill="#004C82" opacity="0.35">3 km</text>
+    <text x="380" y="155" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" font-weight="600" fill="#004C82" opacity="0.35">28 km</text>
+    <text x="520" y="158" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" font-weight="600" fill="#004C82" opacity="0.35">30 km</text>
+
+    <!-- Scale -->
+    <line x1="660" y1="360" x2="730" y2="360" stroke="#4A5568" stroke-width="1" opacity="0.3"/>
+    <line x1="660" y1="356" x2="660" y2="364" stroke="#4A5568" stroke-width="1" opacity="0.3"/>
+    <line x1="730" y1="356" x2="730" y2="364" stroke="#4A5568" stroke-width="1" opacity="0.3"/>
+    <text x="695" y="375" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" fill="#4A5568" opacity="0.35">~30 km</text>
   </svg>
 
   <!-- Legend -->
