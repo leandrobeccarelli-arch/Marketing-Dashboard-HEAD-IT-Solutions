@@ -7,39 +7,40 @@
 .cd-wrap{
   font-family:'Montserrat',sans-serif;
   color:#1A1A2E;
-  background:#F5F7FA;
+  background:#0B1A2E;
   padding:0 0 64px 0;
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
+  min-height:100vh;
 }
 
 /* === HEADER === */
 .cd-header{
-  background:#FFFFFF;
-  color:#1A1A2E;
+  background:#091525;
+  color:#fff;
   padding:40px 32px 32px;
-  border-bottom:1px solid #E2E8F0;
+  border-bottom:1px solid rgba(255,255,255,0.08);
 }
 .cd-header-inner{
   max-width:1200px;margin:0 auto;
   display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
 }
-.cd-header h1{font-size:24px;font-weight:700;letter-spacing:-0.02em;color:#1A1A2E;}
-.cd-header p{font-size:13px;font-weight:500;color:#4A5568;margin-top:2px;}
-.cd-header .cd-date{font-size:12px;font-weight:500;color:#4A5568;}
+.cd-header h1{font-size:24px;font-weight:700;letter-spacing:-0.02em;color:#fff;}
+.cd-header p{font-size:13px;font-weight:500;color:rgba(255,255,255,0.5);margin-top:2px;}
+.cd-header .cd-date{font-size:12px;font-weight:500;color:rgba(255,255,255,0.5);}
 .cd-refresh-bar{display:flex;align-items:center;gap:8px;}
 .cd-refresh-btn{
   display:inline-flex;align-items:center;gap:6px;padding:8px 16px;
-  background:#FFFFFF;color:#004C82;border:1px solid #E2E8F0;border-radius:6px;
+  background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:6px;
   font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;
   cursor:pointer;transition:all 0.15s;user-select:none;
 }
-.cd-refresh-btn:hover{background:#E8F0FE;border-color:#004C82;}
+.cd-refresh-btn:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.2);}
 .cd-refresh-btn.loading{opacity:0.5;pointer-events:none;}
 .cd-refresh-btn .cd-spin{display:inline-block;}
 .cd-refresh-btn.loading .cd-spin{animation:cdSpin 1s linear infinite;}
 @keyframes cdSpin{to{transform:rotate(360deg);}}
-.cd-refresh-status{font-size:12px;color:#4A5568;font-weight:500;}
+.cd-refresh-status{font-size:12px;color:rgba(255,255,255,0.5);font-weight:500;}
 
 /* === CONTAINER === */
 .cd-container{max-width:100%;margin:0;padding:0;}
@@ -47,20 +48,20 @@
 /* === TABS === */
 .cd-tabs{
   display:flex;gap:0;margin:0 auto;max-width:1200px;padding:0 32px;
-  background:#FFFFFF;border-bottom:1px solid #E2E8F0;
+  background:#091525;border-bottom:1px solid rgba(255,255,255,0.08);
 }
 .cd-tab{
   padding:14px 20px;background:none;border:none;border-bottom:2px solid transparent;
-  font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:#4A5568;
+  font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,0.45);
   cursor:pointer;transition:all 0.15s;user-select:none;
 }
-.cd-tab:hover{color:#004C82;}
-.cd-tab.active{color:#004C82;border-bottom-color:#004C82;}
+.cd-tab:hover{color:rgba(255,255,255,0.8);}
+.cd-tab.active{color:#fff;border-bottom-color:#fff;}
 
 /* === PANELS === */
 .cd-panel{
-  display:none;background:#FFFFFF;padding:32px;margin:0 auto;max-width:1200px;
-  border:1px solid #E2E8F0;border-top:none;border-radius:0 0 8px 8px;
+  display:none;background:#FFFFFF;padding:32px;margin:16px auto 0;max-width:1200px;
+  border-radius:8px;
 }
 .cd-panel.active{display:block;}
 
@@ -103,7 +104,7 @@
 .cd-card h3{font-size:15px;font-weight:700;color:#1A1A2E;margin-bottom:4px;}
 .cd-card .cd-card-sub{font-size:12px;color:#4A5568;font-weight:500;margin-bottom:16px;}
 .cd-card-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.cd-card-stat{background:#FFFFFF;border:1px solid #E2E8F0;padding:10px 12px;border-radius:6px;}
+.cd-card-stat{background:#F5F7FA;padding:10px 12px;border-radius:6px;}
 .cd-card-stat .val{font-size:18px;font-weight:700;color:#1A1A2E;display:block;letter-spacing:-0.02em;}
 .cd-card-stat .lbl{font-size:10px;color:#4A5568;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;margin-top:2px;}
 
@@ -218,9 +219,9 @@
   .cd-cards,.cd-content-grid,.cd-customer-grid,.cd-service-grid{grid-template-columns:1fr;}
   .cd-header h1{font-size:20px;}
   .cd-header-inner{flex-direction:column;align-items:flex-start;}
-  .cd-panel{padding:24px 0;}
+  .cd-panel{padding:20px 16px;margin:12px 8px 0;}
   .cd-tab{padding:10px 14px;font-size:12px;}
-  .cd-tabs{overflow-x:auto;flex-wrap:nowrap;}
+  .cd-tabs{overflow-x:auto;flex-wrap:nowrap;padding:0 16px;}
 }
 </style>
 
@@ -236,14 +237,14 @@
       <button class="cd-refresh-btn" id="cdRefreshBtn" onclick="refreshDashboard()">
         <span class="cd-spin">&#8635;</span> Blog-Feeds
       </button>
-      <button class="cd-refresh-btn" id="cdScrapeBtn" onclick="triggerFullUpdate()" style="background:#004C82;color:#fff;border-color:#004C82">
+      <button class="cd-refresh-btn" id="cdScrapeBtn" onclick="triggerFullUpdate()" style="background:#fff;color:#0B1A2E;border-color:rgba(255,255,255,0.3)">
         <span class="cd-spin">&#8635;</span> Alles aktualisieren
       </button>
       <span class="cd-refresh-status" id="cdRefreshStatus"></span>
     </div>
   </div>
   <!-- Token Modal -->
-  <div id="cdTokenModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:99999;justify-content:center;align-items:center">
+  <div id="cdTokenModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:99999;justify-content:center;align-items:center">
     <div style="background:#fff;border-radius:8px;padding:32px;max-width:420px;width:90%;border:1px solid #E2E8F0">
       <p style="font-weight:700;color:#1A1A2E;font-size:16px;margin-bottom:8px!important">GitHub Token eingeben</p>
       <p style="font-size:13px;color:#4A5568;font-weight:500;margin-bottom:20px!important">Erstelle einen Token unter <a href="https://github.com/settings/tokens/new" target="_blank" style="color:#004C82;font-weight:600">github.com/settings/tokens</a> mit <strong>repo</strong> + <strong>actions</strong> Berechtigung.</p>
@@ -1309,12 +1310,12 @@ function runFullUpdate() {
       if (st) st.textContent = 'Scraper gestartet. Seite in ~2 Min. neu laden.';
       if (btn) {
         btn.innerHTML = '<span class="cd-spin">&#10003;</span> Gestartet!';
-        btn.style.background = '#004C82';
+        btn.style.background = '#10B981';btn.style.color='#fff';
       }
       setTimeout(function() {
         if (btn) {
           btn.innerHTML = '<span class="cd-spin">&#8635;</span> Alles aktualisieren';
-          btn.style.background = '#004C82';
+          btn.style.background = '#fff';btn.style.color='#0B1A2E';
           btn.className = btn.className.replace(' loading', '');
         }
       }, 5000);
