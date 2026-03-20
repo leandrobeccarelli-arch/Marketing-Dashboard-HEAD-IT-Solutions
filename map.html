@@ -159,17 +159,8 @@ body>*{position:relative;z-index:1;}
 
 <h2 class="cd-section-title">Standorte Zentralschweiz</h2>
 
-<div class="cd-map-wrap" style="padding:0;overflow:hidden">
-  <!-- Google Maps Embed -->
-  <iframe src="https://www.google.com/maps/d/embed?mid=1&z=10&ll=47.15,8.4&q=Emmenbrücke" style="display:none"></iframe>
-  <div style="position:relative;width:100%;height:0;padding-bottom:50%">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m40!1m12!1m3!1d170000!2d8.35!3d47.12!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m25!3e0!4m5!1s0x478ffbe1f4fe29a1%3A0xec21c6b57164e41c!2sHEAD+IT+Solutions+AG%2C+Gerliswilstrasse+30%2C+6020+Emmenbrücke!3m2!1d47.0793!2d8.2716!4m5!1s0x47900b87a04d4b47%3A0x3b5bb6ff19e76f40!2sLeuchter+IT+Solutions+AG%2C+Winkelriedstrasse+45%2C+6003+Luzern!3m2!1d47.0502!2d8.3093!4m5!1s0x479003a93c0b6a03%3A0xa1d2a0e462df4f71!2siTrust+AG%2C+Gewerbestrasse+6%2C+6330+Cham!3m2!1d47.1823!2d8.5234!4m5!1s0x479aa7ba85aae6a7%3A0x95c8b2a37cbb7c82!2scare4IT+AG%2C+Räffelstrasse+26%2C+8045+Zürich!3m2!1d47.3514!2d8.5297!5e0!3m2!1sde!2sch!4v1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:8px" allowfullscreen loading="lazy"></iframe>
-  </div>
-
-  <!-- SVG Overlay Map (digital aesthetic) -->
-  <div style="position:relative;margin-top:24px;padding:24px">
-  <p style="font-size:12px;color:rgba(255,255,255,0.4);font-weight:500;margin-bottom:16px">Digitale Netzwerk-Ansicht</p>
-  <svg class="cd-map-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" style="opacity:0.9">
+<div class="cd-map-wrap" style="padding:32px">
+  <svg class="cd-map-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <!-- Glow filter for pins -->
       <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
@@ -385,7 +376,6 @@ body>*{position:relative;z-index:1;}
     <line x1="720" y1="406" x2="720" y2="414" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
     <text x="680" y="428" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">~30 km</text>
   </svg>
-  </div>
 
   <!-- Legend -->
   <div class="cd-map-legend">
