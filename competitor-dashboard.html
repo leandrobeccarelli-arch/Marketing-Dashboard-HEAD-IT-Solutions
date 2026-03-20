@@ -51,8 +51,8 @@
 @keyframes cdSpin{to{transform:rotate(360deg);}}
 .cd-refresh-status{font-size:12px;color:#4A5568;font-weight:500;}
 
-/* === CONTAINER === */
-.cd-container{max-width:100%;margin:0;padding:0;}
+/* === CARD LINKS === */
+.cd-card-links{margin-top:auto;padding-top:16px;display:flex;flex-wrap:wrap;gap:6px;}
 
 /* === TABS === */
 .cd-tabs{
@@ -90,6 +90,7 @@
   background:#FFFFFF;border:none;border-radius:8px;padding:24px 24px 24px 28px;
   position:relative;overflow:hidden;transition:transform 0.15s;
   box-shadow:0 1px 3px rgba(0,0,0,0.08);
+  display:flex;flex-direction:column;min-height:0;
 }
 .cd-card:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.12);}
 .cd-card-accent{position:absolute;top:0;left:0;width:4px;height:100%;border-radius:8px 0 0 8px;}
@@ -119,7 +120,7 @@
 .cd-card-stat .lbl{font-size:10px;color:#4A5568;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;margin-top:2px;}
 
 /* === TABLE === */
-.cd-table-wrap{overflow-x:auto;overflow-y:hidden;margin:16px 0;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
+.cd-table-wrap{overflow:hidden;margin:16px 0;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
 .cd-table{width:100%;border-collapse:collapse;font-size:13px;}
 .cd-table th{
   background:#F5F7FA;color:#4A5568;font-weight:700;text-align:left;
@@ -153,7 +154,7 @@
 
 /* === CONTENT GRID === */
 .cd-content-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0;}
-.cd-content-card{border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#FFFFFF;}
+.cd-content-card{border:none;border-radius:8px;padding:20px;background:#FFFFFF;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
 .cd-content-card h4{
   font-size:14px;font-weight:700;color:#1A1A2E;margin-bottom:12px;
   display:flex;align-items:center;gap:8px;
@@ -171,7 +172,7 @@
 
 /* === CUSTOMER GRID === */
 .cd-customer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0;}
-.cd-customer-card{border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#FFFFFF;}
+.cd-customer-card{border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#FFFFFF;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
 .cd-customer-card h4{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .cd-customer-card h4::before{content:'';width:3px;height:14px;border-radius:2px;flex-shrink:0;background:#E2E8F0;}
 .cd-customer-list{display:flex;flex-wrap:wrap;gap:6px;}
@@ -184,7 +185,7 @@
 
 /* === SERVICE GRID === */
 .cd-service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0;}
-.cd-service-card{border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#FFFFFF;}
+.cd-service-card{border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#FFFFFF;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
 .cd-service-card h4{font-size:14px;font-weight:700;margin-bottom:12px;}
 .cd-service-item{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:13px;color:#4A5568;font-weight:500;}
 .cd-check{color:#004C82;font-weight:700;flex-shrink:0;}
@@ -290,14 +291,14 @@
     <span class="cd-you-badge">DU</span>
     <div class="cd-card-logo">H</div>
     <h3>HEAD IT Solutions AG</h3>
-    <div class="cd-card-sub">Emmenbr&uuml;cke (LU) &middot; Gegr. 2001 &middot; ~15 MA</div>
+    <div class="cd-card-sub">Emmenbr&uuml;cke, Luzern</div>
     <div class="cd-card-stats">
       <div class="cd-card-stat"><div class="val">1'288</div><div class="lbl">LinkedIn</div></div>
       <div class="cd-card-stat"><div class="val">387</div><div class="lbl">Instagram</div></div>
       <div class="cd-card-stat"><div class="val">~15</div><div class="lbl">Mitarbeitende</div></div>
       <div class="cd-card-stat"><div class="val">2001</div><div class="lbl">Gegr&uuml;ndet</div></div>
     </div>
-    <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:4px">
+    <div class="cd-card-links">
       <a class="cd-link" href="https://www.headitsolutions.ch" target="_blank">Web</a>
       <a class="cd-link" href="https://ch.linkedin.com/company/headitsolutions" target="_blank">LI</a>
       <a class="cd-link" href="https://www.instagram.com/headitsolutions/" target="_blank">IG</a>
@@ -310,14 +311,14 @@
     <div class="cd-card-accent"></div>
     <div class="cd-card-logo">iT</div>
     <h3>iTrust AG</h3>
-    <div class="cd-card-sub">Cham (ZG) &middot; Gegr. 2003 &middot; ~53 MA</div>
+    <div class="cd-card-sub">Cham, Zug</div>
     <div class="cd-card-stats">
       <div class="cd-card-stat"><div class="val">3'197</div><div class="lbl">LinkedIn</div></div>
       <div class="cd-card-stat"><div class="val">122</div><div class="lbl">Instagram</div></div>
       <div class="cd-card-stat"><div class="val">~53</div><div class="lbl">Mitarbeitende</div></div>
       <div class="cd-card-stat"><div class="val">2003</div><div class="lbl">Gegr&uuml;ndet</div></div>
     </div>
-    <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:4px">
+    <div class="cd-card-links">
       <a class="cd-link" href="https://www.itrust.ch" target="_blank">Web</a>
       <a class="cd-link" href="https://ch.linkedin.com/company/itrust" target="_blank">LI</a>
       <a class="cd-link" href="https://www.instagram.com/itrust.ch/" target="_blank">IG</a>
@@ -329,14 +330,14 @@
     <div class="cd-card-accent"></div>
     <div class="cd-card-logo">c4</div>
     <h3>care4IT AG</h3>
-    <div class="cd-card-sub">Z&uuml;rich &middot; Gegr. 2003 &middot; 21-50 MA</div>
+    <div class="cd-card-sub">Z&uuml;rich</div>
     <div class="cd-card-stats">
       <div class="cd-card-stat"><div class="val">~1'020</div><div class="lbl">LinkedIn</div></div>
       <div class="cd-card-stat"><div class="val">166</div><div class="lbl">Instagram</div></div>
       <div class="cd-card-stat"><div class="val">21-50</div><div class="lbl">Mitarbeitende</div></div>
       <div class="cd-card-stat"><div class="val">2003</div><div class="lbl">Gegr&uuml;ndet</div></div>
     </div>
-    <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:4px">
+    <div class="cd-card-links">
       <a class="cd-link" href="https://www.care4it.ch" target="_blank">Web</a>
       <a class="cd-link" href="https://www.linkedin.com/company/care4it-ch" target="_blank">LI</a>
       <a class="cd-link" href="https://www.instagram.com/care4it/" target="_blank">IG</a>
@@ -347,14 +348,14 @@
     <div class="cd-card-accent"></div>
     <div class="cd-card-logo">L</div>
     <h3>Leuchter IT Solutions AG</h3>
-    <div class="cd-card-sub">Luzern &middot; Gegr. 1959 &middot; ~100 MA</div>
+    <div class="cd-card-sub">Luzern</div>
     <div class="cd-card-stats">
       <div class="cd-card-stat"><div class="val">1'277</div><div class="lbl">LinkedIn</div></div>
       <div class="cd-card-stat"><div class="val">379</div><div class="lbl">Instagram</div></div>
       <div class="cd-card-stat"><div class="val">~100</div><div class="lbl">Mitarbeitende</div></div>
       <div class="cd-card-stat"><div class="val">1959</div><div class="lbl">Gegr&uuml;ndet</div></div>
     </div>
-    <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:4px">
+    <div class="cd-card-links">
       <a class="cd-link" href="https://www.leuchterag.ch" target="_blank">Web</a>
       <a class="cd-link" href="https://ch.linkedin.com/company/leuchter-it-solutions" target="_blank">LI</a>
       <a class="cd-link" href="https://www.instagram.com/leuchterag.ch/" target="_blank">IG</a>
@@ -376,27 +377,6 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td class="comp-name">Standort</td>
-      <td class="cd-highlight">Emmenbr&uuml;cke (LU)</td>
-      <td>Cham (ZG)</td>
-      <td>Z&uuml;rich</td>
-      <td>Luzern</td>
-    </tr>
-    <tr>
-      <td class="comp-name">Gegr&uuml;ndet</td>
-      <td class="cd-highlight">2001</td>
-      <td>2003</td>
-      <td>2003</td>
-      <td>1959</td>
-    </tr>
-    <tr>
-      <td class="comp-name">Mitarbeitende</td>
-      <td class="cd-highlight">~15</td>
-      <td>~53</td>
-      <td>21-50</td>
-      <td>~100</td>
-    </tr>
     <tr>
       <td class="comp-name">Fokus</td>
       <td class="cd-highlight">Managed IT (simple.-Linie), M365, Security, Cloud</td>
