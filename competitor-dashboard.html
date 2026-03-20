@@ -25,32 +25,31 @@
 
 /* === HEADER === */
 .cd-header{
-  background:rgba(0,30,55,0.5);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  color:#fff;
+  background:#FFFFFF;
+  color:#1A1A2E;
   padding:40px 32px 32px;
-  border-bottom:1px solid rgba(255,255,255,0.08);
+  border-bottom:1px solid #E2E8F0;
 }
 .cd-header-inner{
   max-width:1200px;margin:0 auto;
   display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
 }
-.cd-header h1{font-size:24px;font-weight:700;letter-spacing:-0.02em;color:#fff;}
-.cd-header p{font-size:13px;font-weight:500;color:rgba(255,255,255,0.5);margin-top:2px;}
-.cd-header .cd-date{font-size:12px;font-weight:500;color:rgba(255,255,255,0.5);}
+.cd-header h1{font-size:24px;font-weight:700;letter-spacing:-0.02em;color:#1A1A2E;}
+.cd-header p{font-size:13px;font-weight:500;color:#4A5568;margin-top:2px;}
+.cd-header .cd-date{font-size:12px;font-weight:500;color:#4A5568;}
 .cd-refresh-bar{display:flex;align-items:center;gap:8px;}
 .cd-refresh-btn{
   display:inline-flex;align-items:center;gap:6px;padding:8px 16px;
-  background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:6px;
+  background:#FFFFFF;color:#004C82;border:1px solid #E2E8F0;border-radius:6px;
   font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;
   cursor:pointer;transition:all 0.15s;user-select:none;
 }
-.cd-refresh-btn:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.2);}
+.cd-refresh-btn:hover{background:#E8F0FE;border-color:#004C82;}
 .cd-refresh-btn.loading{opacity:0.5;pointer-events:none;}
 .cd-refresh-btn .cd-spin{display:inline-block;}
 .cd-refresh-btn.loading .cd-spin{animation:cdSpin 1s linear infinite;}
 @keyframes cdSpin{to{transform:rotate(360deg);}}
-.cd-refresh-status{font-size:12px;color:rgba(255,255,255,0.5);font-weight:500;}
+.cd-refresh-status{font-size:12px;color:#4A5568;font-weight:500;}
 
 /* === CONTAINER === */
 .cd-container{max-width:100%;margin:0;padding:0;}
@@ -58,33 +57,31 @@
 /* === TABS === */
 .cd-tabs{
   display:flex;gap:0;margin:0 auto;max-width:1200px;padding:0 32px;
-  background:rgba(0,30,55,0.4);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  border-bottom:1px solid rgba(255,255,255,0.08);
+  background:transparent;
+  border-bottom:1px solid rgba(255,255,255,0.12);
 }
 .cd-tab{
   padding:14px 20px;background:none;border:none;border-bottom:2px solid transparent;
-  font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,0.45);
+  font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);
   cursor:pointer;transition:all 0.15s;user-select:none;
 }
-.cd-tab:hover{color:rgba(255,255,255,0.8);}
+.cd-tab:hover{color:rgba(255,255,255,0.85);}
 .cd-tab.active{color:#fff;border-bottom-color:#fff;}
 
 /* === PANELS === */
 .cd-panel{
-  display:none;background:#FFFFFF;padding:32px;margin:16px auto 0;max-width:1200px;
-  border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  display:none;background:transparent;padding:32px;margin:16px auto 0;max-width:1200px;
 }
 .cd-panel.active{display:block;}
 
 /* === SECTION TITLE === */
 .cd-section-title{
-  font-size:16px;font-weight:700;color:#1A1A2E;margin:0 0 24px 0;
+  font-size:16px;font-weight:700;color:#FFFFFF;margin:0 0 24px 0;
   padding-bottom:0;border-bottom:none;
   display:flex;align-items:center;gap:8px;
 }
 .cd-section-title::before{
-  content:'';display:inline-block;width:3px;height:18px;background:#004C82;border-radius:2px;flex-shrink:0;
+  content:'';display:inline-block;width:3px;height:18px;background:#FFFFFF;border-radius:2px;flex-shrink:0;
 }
 
 /* === CARDS === */
@@ -122,7 +119,7 @@
 .cd-card-stat .lbl{font-size:10px;color:#4A5568;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;margin-top:2px;}
 
 /* === TABLE === */
-.cd-table-wrap{overflow-x:auto;margin:16px 0;border:1px solid #E2E8F0;border-radius:8px;}
+.cd-table-wrap{overflow-x:auto;margin:16px 0;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
 .cd-table{width:100%;border-collapse:collapse;font-size:13px;}
 .cd-table th{
   background:#F5F7FA;color:#4A5568;font-weight:700;text-align:left;
@@ -194,7 +191,7 @@
 .cd-unique{color:#4A5568;font-weight:700;flex-shrink:0;}
 
 /* === LIVE BLOG === */
-.cd-live-results{margin-top:16px;border:1px solid #E2E8F0;border-radius:8px;overflow:hidden;}
+.cd-live-results{margin-top:16px;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
 .cd-live-header{
   display:flex;align-items:center;justify-content:space-between;padding:12px 16px;
   background:#F5F7FA;font-size:13px;font-weight:600;color:#1A1A2E;
@@ -220,9 +217,11 @@
 /* === QUICK OPEN === */
 .cd-quick-open{
   display:flex;flex-wrap:wrap;gap:8px;margin:16px 0;padding:16px;
-  background:#F5F7FA;border-radius:8px;border:1px solid #E2E8F0;
+  background:rgba(255,255,255,0.08);border-radius:8px;border:1px solid rgba(255,255,255,0.1);
 }
-.cd-quick-open span{font-size:12px;font-weight:700;color:#1A1A2E;margin-right:8px;display:flex;align-items:center;}
+.cd-quick-open .cd-link{background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.15);}
+.cd-quick-open .cd-link:hover{background:rgba(255,255,255,0.2);border-color:rgba(255,255,255,0.3);}
+.cd-quick-open span{font-size:12px;font-weight:700;color:rgba(255,255,255,0.7);margin-right:8px;display:flex;align-items:center;}
 
 /* === RESPONSIVE === */
 @media(max-width:1100px){
@@ -250,7 +249,7 @@
       <button class="cd-refresh-btn" id="cdRefreshBtn" onclick="refreshDashboard()">
         <span class="cd-spin">&#8635;</span> Blog-Feeds
       </button>
-      <button class="cd-refresh-btn" id="cdScrapeBtn" onclick="triggerFullUpdate()" style="background:#fff;color:#0B1A2E;border-color:rgba(255,255,255,0.3)">
+      <button class="cd-refresh-btn" id="cdScrapeBtn" onclick="triggerFullUpdate()" style="background:#004C82;color:#fff;border-color:#004C82">
         <span class="cd-spin">&#8635;</span> Alles aktualisieren
       </button>
       <span class="cd-refresh-status" id="cdRefreshStatus"></span>
@@ -916,7 +915,7 @@
 <div class="cd-cards" style="margin:16px 0">
 
   <!-- HEAD IT -->
-  <div style="border:1px solid #004C82;border-radius:8px;padding:20px;background:#fff">
+  <div style="border-radius:8px;padding:20px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.08);border-left:3px solid #004C82">
     <h4 style="font-size:14px;font-weight:700;color:#004C82;margin-bottom:14px">HEAD IT (Du)</h4>
     <div style="display:flex;flex-direction:column;gap:8px">
       <a href="https://www.instagram.com/headitsolutions/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
@@ -945,7 +944,7 @@
   </div>
 
   <!-- iTrust -->
-  <div style="border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#fff">
+  <div style="border-radius:8px;padding:20px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.08)">
     <h4 style="font-size:14px;font-weight:700;color:#2EA3F2;margin-bottom:14px">iTrust AG</h4>
     <div style="display:flex;flex-direction:column;gap:8px">
       <a href="https://www.instagram.com/itrust.ch/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
@@ -974,7 +973,7 @@
   </div>
 
   <!-- care4IT -->
-  <div style="border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#fff">
+  <div style="border-radius:8px;padding:20px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.08)">
     <h4 style="font-size:14px;font-weight:700;color:#0170B9;margin-bottom:14px">care4IT AG</h4>
     <div style="display:flex;flex-direction:column;gap:8px">
       <a href="https://www.instagram.com/care4it/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
@@ -999,7 +998,7 @@
   </div>
 
   <!-- Leuchter -->
-  <div style="border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#fff">
+  <div style="border-radius:8px;padding:20px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.08)">
     <h4 style="font-size:14px;font-weight:700;color:#E63329;margin-bottom:14px">Leuchter IT</h4>
     <div style="display:flex;flex-direction:column;gap:8px">
       <a href="https://www.instagram.com/leuchterag.ch/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
@@ -1079,7 +1078,7 @@
 </table>
 </div>
 
-<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin-top:20px">
+<div style="background:#fff;border-radius:8px;padding:20px;margin-top:20px;box-shadow:0 1px 3px rgba(0,0,0,0.08)">
   <h4 style="font-size:14px;font-weight:700;color:#1A1A2E;margin-bottom:8px">Meta Ad Library (manuell pr&uuml;fen)</h4>
   <p style="font-size:13px;color:#4A5568;font-weight:500;margin-bottom:12px">Automatisierte Abfragen blockiert. Hier direkt pr&uuml;fen:</p>
   <div style="display:flex;flex-wrap:wrap;gap:6px">
@@ -1328,7 +1327,7 @@ function runFullUpdate() {
       setTimeout(function() {
         if (btn) {
           btn.innerHTML = '<span class="cd-spin">&#8635;</span> Alles aktualisieren';
-          btn.style.background = '#fff';btn.style.color='#0B1A2E';
+          btn.style.background = '#004C82';btn.style.color='#fff';
           btn.className = btn.className.replace(' loading', '');
         }
       }, 5000);
