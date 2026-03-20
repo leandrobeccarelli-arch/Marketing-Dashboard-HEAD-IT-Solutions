@@ -225,9 +225,24 @@
   <span class="cd-date" id="cdLastUpdate">Stand: 20. M&auml;rz 2026</span>
   <div class="cd-refresh-bar">
     <button class="cd-refresh-btn" id="cdRefreshBtn" onclick="refreshDashboard()">
-      <span class="cd-spin">&#8635;</span> Blog-Feeds aktualisieren
+      <span class="cd-spin">&#8635;</span> Blog-Feeds laden
+    </button>
+    <button class="cd-refresh-btn" id="cdScrapeBtn" onclick="triggerFullUpdate()" style="background:#E2007A;color:#fff">
+      <span class="cd-spin">&#8635;</span> Alles aktualisieren
     </button>
     <span class="cd-refresh-status" id="cdRefreshStatus"></span>
+  </div>
+  <!-- Token Modal -->
+  <div id="cdTokenModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,20,40,0.6);z-index:99999;justify-content:center;align-items:center">
+    <div style="background:#fff;border-radius:12px;padding:28px 32px;max-width:440px;width:90%;box-shadow:0 24px 48px rgba(0,0,0,0.3)">
+      <p style="font-weight:800;color:#004C82;font-size:1em;margin-bottom:8px!important">GitHub Token eingeben</p>
+      <p style="font-size:0.82em;color:#666;margin-bottom:16px!important">Erstelle einen Token unter <a href="https://github.com/settings/tokens/new" target="_blank" style="color:#E2007A;font-weight:600">github.com/settings/tokens</a> mit <strong>repo</strong> + <strong>actions</strong> Berechtigung. Wird nur lokal in deinem Browser gespeichert.</p>
+      <input id="cdTokenInput" type="password" placeholder="ghp_xxxxxxxxxxxx" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:8px;font-family:Montserrat,sans-serif;font-size:0.88em;margin-bottom:12px">
+      <div style="display:flex;gap:8px">
+        <button onclick="saveToken()" style="flex:1;padding:10px;background:#E2007A;color:#fff;border:none;border-radius:8px;font-family:Montserrat,sans-serif;font-weight:700;font-size:0.85em;cursor:pointer">Speichern &amp; Starten</button>
+        <button onclick="closeTokenModal()" style="padding:10px 16px;background:#f0f2f5;color:#666;border:none;border-radius:8px;font-family:Montserrat,sans-serif;font-weight:600;font-size:0.85em;cursor:pointer">Abbrechen</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1208,8 +1223,95 @@ function refreshDashboard() {
   var btn = document.getElementById('cdRefreshBtn');
   if (btn) btn.className += ' loading';
   var st = document.getElementById('cdRefreshStatus');
-  if (st) st.textContent = 'Lade ...';
+  if (st) st.textContent = 'Lade Blogs ...';
   fetchBlogs();
   setTimeout(function() { if (btn) btn.className = btn.className.replace(' loading',''); }, 3000);
+}
+
+/* === Full Update via GitHub Actions === */
+var GH_OWNER = 'leandrobeccarelli-arch';
+var GH_REPO = 'Marketing-Dashboard-HEAD-IT-Solutions';
+var GH_WORKFLOW = 'update-dashboard.yml';
+
+function getToken() {
+  try { return localStorage.getItem('cd_gh_token') || ''; } catch(e) { return ''; }
+}
+
+function showTokenModal() {
+  var modal = document.getElementById('cdTokenModal');
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeTokenModal() {
+  var modal = document.getElementById('cdTokenModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function saveToken() {
+  var input = document.getElementById('cdTokenInput');
+  if (!input || !input.value) return;
+  try { localStorage.setItem('cd_gh_token', input.value.trim()); } catch(e) {}
+  closeTokenModal();
+  runFullUpdate();
+}
+
+function triggerFullUpdate() {
+  var token = getToken();
+  if (!token) {
+    showTokenModal();
+    return;
+  }
+  runFullUpdate();
+}
+
+function runFullUpdate() {
+  var token = getToken();
+  var btn = document.getElementById('cdScrapeBtn');
+  var st = document.getElementById('cdRefreshStatus');
+  if (btn) btn.className += ' loading';
+  if (st) st.textContent = 'Starte GitHub Action ...';
+
+  var url = 'https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/actions/workflows/' + GH_WORKFLOW + '/dispatches';
+
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Accept': 'application/vnd.github+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ ref: 'main' })
+  }).then(function(resp) {
+    if (resp.status === 204 || resp.status === 200) {
+      if (st) st.textContent = 'Scraper gestartet. Seite in ~2 Min. neu laden.';
+      if (btn) {
+        btn.innerHTML = '<span class="cd-spin">&#10003;</span> Gestartet!';
+        btn.style.background = '#059669';
+      }
+      setTimeout(function() {
+        if (btn) {
+          btn.innerHTML = '<span class="cd-spin">&#8635;</span> Alles aktualisieren';
+          btn.style.background = '#E2007A';
+          btn.className = btn.className.replace(' loading', '');
+        }
+      }, 5000);
+    } else if (resp.status === 401 || resp.status === 403) {
+      if (st) st.textContent = 'Token ungueltig. Bitte neu eingeben.';
+      try { localStorage.removeItem('cd_gh_token'); } catch(e) {}
+      if (btn) btn.className = btn.className.replace(' loading', '');
+      showTokenModal();
+    } else {
+      resp.text().then(function(t) {
+        if (st) st.textContent = 'Fehler: ' + resp.status;
+        if (btn) btn.className = btn.className.replace(' loading', '');
+      });
+    }
+  }).catch(function(err) {
+    if (st) st.textContent = 'Netzwerkfehler';
+    if (btn) btn.className = btn.className.replace(' loading', '');
+  });
+
+  // Also fetch blogs live
+  fetchBlogs();
 }
 </script>
