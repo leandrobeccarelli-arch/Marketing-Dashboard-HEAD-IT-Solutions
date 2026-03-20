@@ -1,0 +1,514 @@
+<style>
+/* ── Typography Scale ───────────────────────────────────── */
+/* Section lead text  */ .hit-lead  { font-size:1em;    color:#555;   line-height:1.65; }
+/* Card / step title  */ .hit-label { font-size:0.92em; font-weight:700; color:#004c82; }
+/* Body / card text   */ .hit-body  { font-size:0.88em; color:#555;   line-height:1.6; }
+/* Small / meta text  */ .hit-meta  { font-size:0.80em; color:#888;   line-height:1.4; }
+/* Uppercase tag      */ .hit-tag   { font-size:0.76em; font-weight:700; letter-spacing:0.09em; text-transform:uppercase; }
+#hit-progress { position:fixed; top:0; left:0; height:4px; width:0%; background:#004C82; z-index:9999; transition:width 0.15s linear; box-shadow:0 1px 4px rgba(0,76,130,0.5); }
+/* CTA Button Hover */
+.hit-cta-btn { transition:transform 0.2s ease, box-shadow 0.2s ease; }
+.hit-cta-btn:hover { transform:translateY(-2px); box-shadow:0 10px 20px -4px rgba(0,0,0,0.18) !important; }
+/* Breathing room */
+h2 { margin-top: 48px !important; margin-bottom: 16px !important; }
+h3 { margin-top: 40px !important; margin-bottom: 12px !important; }
+p { margin-bottom: 14px !important; }
+hr { margin: 40px 0 !important; }
+/* Check items */
+.hit-check-item { cursor:pointer; user-select:none; -webkit-user-select:none; transition: all 0.2s ease; }
+.hit-check-item:hover { transform: translateX(3px); }
+/* Result hidden via CSS */
+.hit-result { display:none !important; }
+.hit-result.hit-result-show { display:block !important; }
+/* Quiz hidden until start button clicked */
+.hq-quiz-hidden { display:none !important; }
+.hq-quiz-visible { display:block !important; }
+/* Start screen hidden after click */
+.hq-start-hidden { display:none !important; }
+/* Spotlight overlay */
+#hit-spotlight { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0); z-index:998; pointer-events:none; transition:background 0.5s ease; }
+#hit-spotlight.hit-spotlight-on { background:rgba(0,0,0,0.72); pointer-events:auto; }
+/* Form section floats above overlay */
+#hit-bewerbungsformular-section { position:relative; z-index:999; }
+</style>
+
+<div id="hit-spotlight" onclick="hqCloseSpotlight()"></div>
+<div id="hit-progress"></div>
+
+<!-- HERO mit integriertem Fit-Check -->
+<div style="background: linear-gradient(135deg, #004C82 0%, #003560 100%); border-radius: 12px; padding: 48px 40px 40px 40px; margin-bottom: 40px; position: relative; z-index: 999;">
+  <div style="position:absolute;inset:0;border-radius:12px;overflow:hidden;pointer-events:none;">
+    <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.04);"></div>
+    <div style="position:absolute;bottom:-60px;right:60px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.03);"></div>
+  </div>
+  <p style="color:#b8d4ee;font-size:0.82em;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin:0 0 12px 0 !important;">Karriere bei HEAD IT Solutions AG</p>
+  <h1 style="color:#ffffff;margin:0 0 16px 0 !important;font-size:1.9em;line-height:1.25;">Bist Du unser nächster IT Platform Engineer?</h1>
+  <p style="color:#cce0f5;font-size:1em;margin:0 0 20px 0 !important;max-width:560px;">Wir wachsen – und suchen eine Person, die mitdenkt, mitpackt und mitgestaltet. Mach den Check und sieh in 2 Minuten, ob Du zu uns passt.</p>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:36px;">
+    <span style="background:rgba(255,255,255,0.12);color:#ffffff;padding:6px 14px;border-radius:50px;font-size:0.82em;font-weight:600;">📍 Emmenbrücke, Luzern</span>
+    <span style="background:rgba(255,255,255,0.12);color:#ffffff;padding:6px 14px;border-radius:50px;font-size:0.82em;font-weight:600;">🕐 Vollzeit / Teilzeit möglich</span>
+    <span style="background:rgba(255,255,255,0.12);color:#ffffff;padding:6px 14px;border-radius:50px;font-size:0.82em;font-weight:600;">🚀 Sofort oder nach Vereinbarung</span>
+  </div>
+
+  <div style="border-top:1px solid rgba(255,255,255,0.15);padding-top:32px;">
+
+    <div id="hq-start-screen" style="text-align:center;padding:16px 0 8px 0;position:relative;z-index:999;">
+      <button onclick="event.stopPropagation();document.getElementById('hq-start-screen').className='hq-start-hidden';document.getElementById('hq-quiz').className='hq-quiz-visible';" style="background:#ffffff;color:#004C82;font-weight:700;font-size:1em;padding:18px 40px;border:none;border-radius:10px;cursor:pointer;box-shadow:0 6px 20px -4px rgba(0,0,0,0.20);transition:transform 0.2s ease;">🔍 Jetzt Fit-Check starten</button>
+      <p style="color:rgba(255,255,255,0.55);font-size:0.80em;margin:12px 0 0 0 !important;">10 Fragen · ca. 2 Minuten</p>
+    </div>
+
+    <!-- QUIZ WRAPPER -->
+    <div id="hq-quiz" class="hq-quiz-hidden" style="background:rgba(255,255,255,0.10);border-radius:14px;padding:28px 28px 24px 28px;margin-bottom:8px;border:1px solid rgba(255,255,255,0.15);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:28px;">
+        <div style="flex:1;background:rgba(255,255,255,0.18);border-radius:50px;height:8px;overflow:hidden;">
+          <div id="hq-bar" style="background:#ffffff;height:100%;width:10%;border-radius:50px;transition:width 0.4s ease;"></div>
+        </div>
+        <p id="hq-counter" style="color:#cce0f5;font-size:0.82em;font-weight:700;margin:0 !important;white-space:nowrap;">Frage 1 / 10</p>
+      </div>
+      <p id="hq-cat" style="font-size:0.76em;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#b8d4ee;margin:0 0 10px 0 !important;">📚 Ausbildung & Fachkompetenz</p>
+      <p id="hq-q" style="font-size:1em;font-weight:600;color:#ffffff;margin:0 0 24px 0 !important;line-height:1.5;">Ich habe eine abgeschlossene Berufslehre als Informatiker/in (Systemtechnik) oder eine gleichwertige Ausbildung.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <button id="hq-yes" onclick="event.stopPropagation();hqAnswer(true)" style="flex:1;min-width:120px;background:#ffffff;color:#004C82;border:none;padding:14px 20px;border-radius:8px;cursor:pointer;font-size:0.92em;font-weight:700;transition:all 0.2s ease;">✅ Ja, trifft zu</button>
+        <button id="hq-no" onclick="event.stopPropagation();hqAnswer(false)" style="flex:1;min-width:120px;background:rgba(255,255,255,0.12);color:#ffffff;border:2px solid rgba(255,255,255,0.30);padding:14px 20px;border-radius:8px;cursor:pointer;font-size:0.92em;font-weight:600;transition:all 0.2s ease;">❌ Nein, eher nicht</button>
+      </div>
+    </div>
+
+    <!-- RESULT HIGH -->
+    <div id="hq-result-high" class="hit-result">
+    <div style="background:rgba(255,255,255,0.95);border-radius:12px;padding:28px 32px;text-align:center;">
+      <p style="font-size:2.2em;margin:0 0 6px 0 !important;">🎉</p>
+      <p style="color:#004c82;font-weight:700;font-size:1.25em;margin:0 0 6px 0 !important;">Du passt perfekt zu uns!</p>
+      <p style="color:#555;font-size:0.92em;margin:0 0 20px 0 !important;">Du hast <strong id="hq-score-high" style="color:#004c82;"></strong> von 10 Punkten erreicht. Füll das Formular weiter unten aus – wir melden uns innert 2 Arbeitstagen.</p>
+      <a class="hit-cta-btn" onclick="event.stopPropagation();document.getElementById('hit-bewerbungsformular-section').scrollIntoView({behavior:'smooth',block:'nearest'});return false;" href="#" style="display:inline-block;background:#004c82;color:#ffffff;font-weight:bold;font-size:0.92em;padding:12px 28px;border-radius:6px;text-decoration:none;box-shadow:0 6px 12px -4px rgba(0,76,130,0.30);">Zum Bewerbungsformular ↓</a>
+    </div>
+    <div style="text-align:center;margin-top:8px;">
+      <button onclick="event.stopPropagation();hqRestart()" style="background:transparent;border:none;color:rgba(255,255,255,0.6);font-size:0.78em;cursor:pointer;padding:4px 8px;">↩ Nochmal starten</button>
+    </div>
+    </div>
+
+    <!-- RESULT MID -->
+    <div id="hq-result-mid" class="hit-result">
+    <div style="background:rgba(255,255,255,0.95);border-radius:12px;padding:32px 36px;text-align:center;">
+      <p style="font-size:2.8em;margin:0 0 8px 0 !important;">👍</p>
+      <p style="color:#004c82;font-weight:700;font-size:1.25em;margin:0 0 10px 0 !important;">Gute Basis – melde Dich trotzdem!</p>
+      <p style="color:#555;font-size:0.92em;margin:0 0 8px 0 !important;">Du hast <strong id="hq-score-mid" style="color:#004c82;"></strong> von 10 Punkten erreicht.</p>
+      <p style="color:#555;font-size:0.92em;margin:0 0 28px 0 !important;">Du erfüllst einen grossen Teil der Anforderungen. Offene Punkte lassen sich gemeinsam entwickeln – schreib uns einfach.</p>
+      <a class="hit-cta-btn" style="display:inline-block;background:#004c82;color:#ffffff;font-weight:bold;font-size:0.92em;padding:14px 32px;border-radius:6px;text-decoration:none;margin-bottom:14px;box-shadow:0 6px 12px -4px rgba(0,76,130,0.30);" href="mailto:office@headitsolutions.ch?subject=Spontanbewerbung%20IT%20Platform%20Engineer">Trotzdem Kontakt aufnehmen →</a><br>
+      <button onclick="event.stopPropagation();hqRestart()" style="background:transparent;border:1px solid #b8d4ee;color:#004c82;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:0.82em;margin-top:4px;">↩ Nochmal starten</button>
+    </div>
+    </div>
+
+    <!-- RESULT LOW -->
+    <div id="hq-result-low" class="hit-result">
+    <div style="background:rgba(255,255,255,0.95);border-radius:12px;padding:32px 36px;text-align:center;">
+      <p style="font-size:2.8em;margin:0 0 8px 0 !important;">🤔</p>
+      <p style="color:#e8192c;font-weight:700;font-size:1.25em;margin:0 0 10px 0 !important;">Noch nicht ganz – aber vielleicht morgen.</p>
+      <p style="color:#555;font-size:0.92em;margin:0 0 8px 0 !important;">Du hast <strong id="hq-score-low" style="color:#e8192c;"></strong> von 10 Punkten erreicht.</p>
+      <p style="color:#555;font-size:0.92em;margin:0 0 28px 0 !important;">Für diese Stelle fehlen noch einige Voraussetzungen. Schau Dir unsere anderen offenen Stellen an.</p>
+      <a class="hit-cta-btn" style="display:inline-block;background:#004c82;color:#ffffff;font-weight:bold;font-size:0.92em;padding:14px 32px;border-radius:6px;text-decoration:none;margin-bottom:14px;" href="https://www.headitsolutions.ch/jobs/" target="_blank" rel="noopener">Alle offenen Stellen ansehen →</a><br>
+      <button onclick="event.stopPropagation();hqRestart()" style="background:transparent;border:1px solid #ffc8cc;color:#e8192c;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:0.82em;margin-top:4px;">↩ Nochmal starten</button>
+    </div>
+    </div>
+
+    <!-- FORMULAR direkt unterhalb Quiz-Resultat -->
+    <div id="hit-bewerbungsformular-section" class="hit-result" style="margin-top:24px;">
+      <div style="background:rgba(255,255,255,0.95);border-radius:12px;padding:28px 32px;">
+        <p style="color:#004c82;font-weight:700;font-size:1.1em;margin:0 0 4px 0 !important;">🎉 Direkt bewerben</p>
+        <p style="color:#555;font-size:0.88em;margin:0 0 20px 0 !important;">Füll das Formular aus – wir melden uns innert 2 Arbeitstagen.</p>
+        <div class="hit-gform">
+[gravityforms id="1"]
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+var hqQuestions=[
+  {cat:'📚 Ausbildung & Fachkompetenz',q:'Ich habe eine abgeschlossene Berufslehre als Informatiker/in (Systemtechnik) oder eine gleichwertige Ausbildung.'},
+  {cat:'📚 Ausbildung & Fachkompetenz',q:'Ich habe Erfahrung mit Microsoft 365, Cloud-Diensten oder Serverinfrastrukturen.'},
+  {cat:'📚 Ausbildung & Fachkompetenz',q:'Firewalls, Backups und Netzwerke sind für mich keine Fremdwörter – ich arbeite gerne damit.'},
+  {cat:'📚 Ausbildung & Fachkompetenz',q:'Ich interessiere mich für berufliche Weiterentwicklung und lerne aktiv Neues.'},
+  {cat:'🌐 Sprache & Mobilität',q:'Ich spreche ausgezeichnetes Deutsch – mündlich und schriftlich.'},
+  {cat:'🌐 Sprache & Mobilität',q:'Englisch beherrsche ich gut bis sehr gut – für technische Dokumentation kein Problem.'},
+  {cat:'🌐 Sprache & Mobilität',q:'Ich besitze einen Führerausweis Kategorie B und bin mobil in der Region Luzern / Zentralschweiz.'},
+  {cat:'🤝 Persönlichkeit & Arbeitsweise',q:'Ich bin kommunikativ und teamfähig – der Umgang mit Menschen macht mir ehrlich Freude.'},
+  {cat:'🤝 Persönlichkeit & Arbeitsweise',q:'Ich arbeite selbstständig, zielorientiert und zuverlässig – auch wenn es mal stressig wird.'},
+  {cat:'🤝 Persönlichkeit & Arbeitsweise',q:'Ich bin offen und wissbegierig – neue Technologien und Herausforderungen motivieren mich.'}
+];
+var hqCurrent=0;var hqScore=0;
+function hqRender(){
+  var q=hqQuestions[hqCurrent];
+  document.getElementById('hq-cat').textContent=q.cat;
+  document.getElementById('hq-q').textContent=q.q;
+  document.getElementById('hq-counter').textContent='Frage '+(hqCurrent+1)+' / '+hqQuestions.length;
+  document.getElementById('hq-bar').style.width=Math.round((hqCurrent/hqQuestions.length)*100)+'%';
+  var y=document.getElementById('hq-yes');var n=document.getElementById('hq-no');
+  y.style.background='#ffffff';y.style.color='#004C82';
+  n.style.background='rgba(255,255,255,0.12)';n.style.color='#ffffff';n.style.borderColor='rgba(255,255,255,0.30)';
+  y.disabled=false;n.disabled=false;
+}
+function hqAnswer(isYes){
+  if(isYes){hqScore++;document.getElementById('hq-yes').style.background='#cce0f5';}
+  else{document.getElementById('hq-no').style.background='rgba(255,255,255,0.25)';}
+  document.getElementById('hq-yes').disabled=true;document.getElementById('hq-no').disabled=true;
+  hqCurrent++;
+  if(hqCurrent<hqQuestions.length){setTimeout(hqRender,320);}
+  else{setTimeout(hqShowResult,400);}
+}
+function hqShowResult(){
+  document.getElementById('hq-quiz').style.setProperty('display','none','important');
+  var s=hqScore+' / 10';
+  document.getElementById('hq-score-high').textContent=s;
+  document.getElementById('hq-score-mid').textContent=s;
+  document.getElementById('hq-score-low').textContent=s;
+  if(hqScore>=8){
+    document.getElementById('hq-result-high').className='hit-result hit-result-show';
+    if(hqScore===10){
+      document.getElementById('hit-bewerbungsformular-section').className='hit-result hit-result-show';
+    }
+  }
+  else if(hqScore>=5){document.getElementById('hq-result-mid').className='hit-result hit-result-show';}
+  else{document.getElementById('hq-result-low').className='hit-result hit-result-show';}
+}
+var hqSpotlightLocked=false;
+function hqCloseSpotlight(){
+  if(hqSpotlightLocked) return;
+  document.getElementById('hit-spotlight').className='';
+}
+function hqRestart(){
+  hqCurrent=0;hqScore=0;
+  document.getElementById('hq-result-high').className='hit-result';
+  document.getElementById('hq-result-mid').className='hit-result';
+  document.getElementById('hq-result-low').className='hit-result';
+  document.getElementById('hit-bewerbungsformular-section').className='hit-result';
+  document.getElementById('hit-spotlight').className='';
+  document.getElementById('hq-quiz').className='hq-quiz-hidden';
+  document.getElementById('hq-start-screen').className='';
+  document.getElementById('hq-start-screen').style.cssText='text-align:center;padding:16px 0 8px 0;position:relative;z-index:999;';
+  hqRender();
+}
+hqRender();
+var bar=document.getElementById('hit-progress');
+function hitProgress(){
+  if(!bar)return;
+  var scrolled=window.pageYOffset||document.documentElement.scrollTop||document.body.scrollTop||0;
+  var docH=Math.max(document.body.scrollHeight,document.body.offsetHeight,document.documentElement.scrollHeight,document.documentElement.offsetHeight,document.documentElement.clientHeight);
+  var winH=window.innerHeight||document.documentElement.clientHeight||0;
+  var total=docH-winH;
+  bar.style.width=(total>0?Math.min(scrolled/total*100,100):0)+'%';
+}
+window.addEventListener('scroll',hitProgress,{passive:true});
+window.addEventListener('resize',hitProgress,{passive:true});
+hitProgress();
+</script>
+
+<!-- INTRO TEXT -->
+<p>HEAD IT Solutions AG ist ein Schweizer IT-Unternehmen aus Emmenbrücke mit dem Motto <strong>„Keep IT simple."</strong> Wir betreuen KMUs und Grossunternehmen in der Zentralschweiz mit Managed Services, Cloud-Lösungen, Cyber Security und persönlichem IT-Support. Und wir wachsen.</p>
+<p>Für unser Team suchen wir einen <strong>IT Platform Engineer</strong> – eine Person, die sowohl beim Kunden vor Ort als auch remote anpackt, Infrastrukturen betreut und immer einen Schritt vorausdenkt.</p>
+
+<hr style="border:none;border-top:1px solid #cce0f5;" />
+
+<!-- AUFGABEN SECTION -->
+<h2 style="color:#004c82;">Was Dich bei uns erwartet</h2>
+<p>Als IT Platform Engineer übernimmst Du vielseitige Aufgaben – kein Tag ist wie der andere. Hier siehst Du, was auf Dich zukommt:</p>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 40px 0;">
+
+<div style="background:linear-gradient(135deg,#e3eef9 0%,#f7faff 100%);border-radius:10px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;">
+<span style="font-size:1.4em;line-height:1;">🖥️</span>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 4px 0 !important;font-size:0.92em;">1st & 2nd Level Support</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;line-height:1.5;">Kunden per Fernwartung oder direkt vor Ort betreuen – Du bist die erste verlässliche Anlaufstelle.</p></div>
+</div>
+
+<div style="background:linear-gradient(135deg,#e3eef9 0%,#f7faff 100%);border-radius:10px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;">
+<span style="font-size:1.4em;line-height:1;">☁️</span>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 4px 0 !important;font-size:0.92em;">Cloud-Lösungen</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;line-height:1.5;">Cloudbasierte Lösungen bereitstellen und Microsoft 365 Umgebungen verwalten und optimieren.</p></div>
+</div>
+
+<div style="background:linear-gradient(135deg,#e3eef9 0%,#f7faff 100%);border-radius:10px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;">
+<span style="font-size:1.4em;line-height:1;">🔒</span>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 4px 0 !important;font-size:0.92em;">Firewalls & Sicherheit</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;line-height:1.5;">Firewalls warten und anpassen, Benutzer- und Berechtigungsverwaltung übernehmen.</p></div>
+</div>
+
+<div style="background:linear-gradient(135deg,#e3eef9 0%,#f7faff 100%);border-radius:10px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;">
+<span style="font-size:1.4em;line-height:1;">🏗️</span>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 4px 0 !important;font-size:0.92em;">Installationen & Infrastruktur</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;line-height:1.5;">Arbeitsstationen und Server installieren, WLAN-Umgebungen aufbauen, Backups einrichten.</p></div>
+</div>
+
+<div style="background:linear-gradient(135deg,#e3eef9 0%,#f7faff 100%);border-radius:10px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;">
+<span style="font-size:1.4em;line-height:1;">📊</span>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 4px 0 !important;font-size:0.92em;">Monitoring & Betrieb</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;line-height:1.5;">IT-Infrastrukturen unserer Kunden überwachen und im laufenden Betrieb betreuen.</p></div>
+</div>
+
+<div style="background:linear-gradient(135deg,#e3eef9 0%,#f7faff 100%);border-radius:10px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;">
+<span style="font-size:1.4em;line-height:1;">📋</span>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 4px 0 !important;font-size:0.92em;">Projekte & Administration</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;line-height:1.5;">Projektunterstützung, Angebote erstellen, Garantiefälle abwickeln – Du denkst mit.</p></div>
+</div>
+
+</div>
+
+<hr style="border:none;border-top:1px solid #cce0f5;" />
+
+<!-- BEWERBUNGSPROZESS -->
+<h2 style="color:#004c82;">So läuft Deine Bewerbung ab</h2>
+<p style="color:#555;margin:0 0 28px 0 !important;">Kein monatelanges Warten, keine HR-Bürokratie. Wir halten es einfach.</p>
+
+<div style="margin-bottom:40px;">
+
+  <!-- Step 1 -->
+  <div style="display:flex;gap:0;align-items:stretch;">
+    <div style="display:flex;flex-direction:column;align-items:center;width:52px;flex-shrink:0;">
+      <div style="width:2px;height:22px;background:transparent;"></div>
+      <div style="position:relative;z-index:1;width:44px;height:44px;background:#004C82;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1em;flex-shrink:0;box-shadow:0 4px 12px rgba(0,76,130,0.25);">📧</div>
+      <div style="width:2px;flex:1;background:#b8d4ee;min-height:20px;"></div>
+    </div>
+    <div style="flex:1;padding-bottom:20px;padding-left:16px;padding-top:11px;">
+      <div style="background:linear-gradient(135deg,#e3eef9 0%,#f7faff 100%);border-radius:10px;padding:16px 20px;">
+        <p style="font-weight:700;color:#004c82;font-size:0.92em;margin:0 0 4px 0 !important;">1. Bewerbung</p>
+        <p style="color:#555;font-size:0.88em;margin:0 !important;line-height:1.5;">Kurze Mail mit Deinem Lebenslauf an office@headitsolutions.ch – kein aufwändiges Portal.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div style="display:flex;gap:0;align-items:stretch;">
+    <div style="display:flex;flex-direction:column;align-items:center;width:52px;flex-shrink:0;">
+      <div style="width:2px;height:0px;background:#b8d4ee;"></div>
+      <div style="position:relative;z-index:1;width:44px;height:44px;background:#004C82;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1em;flex-shrink:0;box-shadow:0 4px 12px rgba(0,76,130,0.25);">📞</div>
+      <div style="width:2px;flex:1;background:#b8d4ee;min-height:20px;"></div>
+    </div>
+    <div style="flex:1;padding-bottom:20px;padding-left:16px;">
+      <div style="background:linear-gradient(135deg,#e3eef9 0%,#f7faff 100%);border-radius:10px;padding:16px 20px;">
+        <p style="font-weight:700;color:#004c82;font-size:0.92em;margin:0 0 4px 0 !important;">2. Erstkontakt</p>
+        <p style="color:#555;font-size:0.88em;margin:0 !important;line-height:1.5;">Wir melden uns innert 2 Arbeitstagen für ein kurzes Telefonat – kein langes Warten.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div style="display:flex;gap:0;align-items:stretch;">
+    <div style="display:flex;flex-direction:column;align-items:center;width:52px;flex-shrink:0;">
+      <div style="width:2px;height:0px;background:#b8d4ee;"></div>
+      <div style="position:relative;z-index:1;width:44px;height:44px;background:#004C82;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1em;flex-shrink:0;box-shadow:0 4px 12px rgba(0,76,130,0.25);">🤝</div>
+      <div style="width:2px;flex:1;background:#b8d4ee;min-height:20px;"></div>
+    </div>
+    <div style="flex:1;padding-bottom:20px;padding-left:16px;">
+      <div style="background:linear-gradient(135deg,#e3eef9 0%,#f7faff 100%);border-radius:10px;padding:16px 20px;">
+        <p style="font-weight:700;color:#004c82;font-size:0.92em;margin:0 0 4px 0 !important;">3. Persönliches Gespräch</p>
+        <p style="color:#555;font-size:0.88em;margin:0 !important;line-height:1.5;">Kennenlernen bei uns in Emmenbrücke – locker, offen, auf Augenhöhe.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4 - no line below -->
+  <div style="display:flex;gap:0;align-items:flex-start;">
+    <div style="display:flex;flex-direction:column;align-items:center;width:52px;flex-shrink:0;">
+      <div style="width:2px;height:0px;background:#b8d4ee;"></div>
+      <div style="position:relative;z-index:1;width:44px;height:44px;background:#004C82;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1em;flex-shrink:0;box-shadow:0 4px 12px rgba(0,76,130,0.25);">🚀</div>
+    </div>
+    <div style="flex:1;padding-left:16px;">
+      <div style="background:linear-gradient(135deg,#e3eef9 0%,#f7faff 100%);border-radius:10px;padding:16px 20px;">
+        <p style="font-weight:700;color:#004c82;font-size:0.92em;margin:0 0 4px 0 !important;">4. Los geht's</p>
+        <p style="color:#555;font-size:0.88em;margin:0 !important;line-height:1.5;">Vertragsunterzeichnung & Onboarding – sofort oder nach Vereinbarung.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<hr style="border:none;border-top:1px solid #cce0f5;" />
+
+<!-- MITARBEITENDEN-SLIDER -->
+<h2 style="color:#004c82;">Was das Team sagt</h2>
+<div style="position:relative;border-radius:12px;margin-bottom:8px;background:linear-gradient(135deg,#004C82 0%,#003560 100%);">
+
+  <!-- Slide 0 -->
+  <div id="hq-slide-0" style="padding:36px 48px;height:260px;box-sizing:border-box;overflow:hidden;">
+    <div style="text-align:center;margin-bottom:20px;">
+      <div style="width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.18);border:2px solid rgba(255,255,255,0.35);display:flex;align-items:center;justify-content:center;font-size:1.8em;margin:0 auto 12px auto;">👨‍💻</div>
+      <p style="color:#ffffff;font-weight:700;font-size:1em;margin:0 0 2px 0 !important;">Luca M.</p>
+      <p style="color:#b8d4ee;font-size:0.82em;margin:0 !important;">System Engineer</p>
+    </div>
+    <p style="color:#cce0f5;font-size:0.92em;font-style:italic;line-height:1.75;margin:0 !important;text-align:center;">„Bei HEAD IT bin ich nicht eine Nummer – ich bin Teil eines Teams, das wirklich aufeinander schaut. Man gibt mir Verantwortung und das Vertrauen, Dinge selbst anzugehen."</p>
+  </div>
+
+  <!-- Slide 1 -->
+  <div id="hq-slide-1" style="display:none;padding:36px 48px;height:260px;box-sizing:border-box;overflow:hidden;">
+    <div style="text-align:center;margin-bottom:20px;">
+      <div style="width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.18);border:2px solid rgba(255,255,255,0.35);display:flex;align-items:center;justify-content:center;font-size:1.8em;margin:0 auto 12px auto;">👩‍💻</div>
+      <p style="color:#ffffff;font-weight:700;font-size:1em;margin:0 0 2px 0 !important;">Sara K.</p>
+      <p style="color:#b8d4ee;font-size:0.82em;margin:0 !important;">IT-Spezialistin</p>
+    </div>
+    <p style="color:#cce0f5;font-size:0.92em;font-style:italic;line-height:1.75;margin:0 !important;text-align:center;">„Ich lerne hier jeden Tag etwas Neues. Die Kunden sind abwechslungsreich, das Team ist top – und die Chefs haben immer ein offenes Ohr."</p>
+  </div>
+
+  <!-- Slide 2 -->
+  <div id="hq-slide-2" style="display:none;padding:36px 48px;height:260px;box-sizing:border-box;overflow:hidden;">
+    <div style="text-align:center;margin-bottom:20px;">
+      <div style="width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.18);border:2px solid rgba(255,255,255,0.35);display:flex;align-items:center;justify-content:center;font-size:1.8em;margin:0 auto 12px auto;">👨‍🎓</div>
+      <p style="color:#ffffff;font-weight:700;font-size:1em;margin:0 0 2px 0 !important;">Finn T.</p>
+      <p style="color:#b8d4ee;font-size:0.82em;margin:0 !important;">Lernender Informatiker</p>
+    </div>
+    <p style="color:#cce0f5;font-size:0.92em;font-style:italic;line-height:1.75;margin:0 !important;text-align:center;">„Als Lernender werde ich vollwertig integriert. Ich mache echte Kundenprojekte – nicht nur Kaffee kochen und zuschauen."</p>
+  </div>
+
+  <!-- Nav buttons -->
+  <button onclick="hqSlide((hqSlideIdx+2)%3)" style="position:absolute;top:50%;left:10px;transform:translateY(-50%);background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:1em;color:#004c82;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.12);">‹</button>
+  <button onclick="hqSlide((hqSlideIdx+1)%3)" style="position:absolute;top:50%;right:10px;transform:translateY(-50%);background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:1em;color:#004c82;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.12);">›</button>
+</div>
+
+<div style="display:flex;justify-content:center;gap:8px;margin-bottom:40px;">
+  <button id="hq-dot-0" onclick="hqSlide(0)" style="width:10px;height:10px;border-radius:50%;border:none;background:#004C82;cursor:pointer;padding:0;"></button>
+  <button id="hq-dot-1" onclick="hqSlide(1)" style="width:10px;height:10px;border-radius:50%;border:none;background:#cce0f5;cursor:pointer;padding:0;"></button>
+  <button id="hq-dot-2" onclick="hqSlide(2)" style="width:10px;height:10px;border-radius:50%;border:none;background:#cce0f5;cursor:pointer;padding:0;"></button>
+</div>
+
+<script>
+var hqSlideIdx=0;
+function hqSlide(i){
+  document.getElementById('hq-slide-'+hqSlideIdx).style.setProperty('display','none','important');
+  hqSlideIdx=i;
+  document.getElementById('hq-slide-'+i).style.setProperty('display','block','important');
+  for(var j=0;j<3;j++){
+    document.getElementById('hq-dot-'+j).style.background=(j===i)?'#004C82':'#cce0f5';
+  }
+}
+var hqAutoSlide=setInterval(function(){hqSlide((hqSlideIdx+1)%3);},5000);
+</script>
+
+<hr style="border:none;border-top:1px solid #cce0f5;" />
+
+<!-- FAQ -->
+<h2 style="color:#004c82;">FAQ – Arbeiten bei HEAD IT Solutions</h2>
+<p style="color:#555;max-width:480px;margin:0 0 28px 0 !important;">Die Fragen, die Du Dir wahrscheinlich gerade stellst – ehrlich beantwortet.</p>
+
+<style>
+  .hq-faq-ans { padding:0 16px; max-height:0; overflow:hidden; transition:max-height 0.35s ease, padding 0.25s ease; }
+  .hq-faq-open .hq-faq-ans { max-height:200px; padding:12px 16px; }
+  .hq-faq-open .faq-arr { transform: rotate(90deg); }
+  .faq-arr { transition: transform 0.25s ease; display:block; flex-shrink:0; }
+</style>
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:8px;">
+
+<div style="border:1.5px solid #cce0f5;border-radius:10px;overflow:hidden;">
+<div class="hit-faq-row" onclick="hqFaq(0)" style="padding:14px 16px;cursor:pointer;background:#f7faff;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+<p style="margin:0 !important;color:#004c82;font-weight:600;font-size:0.88em;line-height:1.4;">Warum sollte ich mich bei HEAD IT bewerben?</p>
+<span class="faq-arr" style="color:#004c82;font-size:1.1em;">›</span>
+</div>
+<div class="hq-faq-ans"><p style="color:#555;font-size:0.88em;line-height:1.6;margin:0 !important;">Weil Du bei uns nicht nur eine Stellenbeschreibung erfüllst. Du übernimmst Verantwortung, entwickelst Dich weiter und arbeitest in einem Team, das aufeinander schaut.</p></div>
+</div>
+
+<div style="border:1.5px solid #cce0f5;border-radius:10px;overflow:hidden;">
+<div class="hit-faq-row" onclick="hqFaq(1)" style="padding:14px 16px;cursor:pointer;background:#f7faff;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+<p style="margin:0 !important;color:#004c82;font-weight:600;font-size:0.88em;line-height:1.4;">Ist Home-Office möglich?</p>
+<span class="faq-arr" style="color:#004c82;font-size:1.1em;">›</span>
+</div>
+<div class="hq-faq-ans"><p style="color:#555;font-size:0.88em;line-height:1.6;margin:0 !important;">Partiell ja – da viele Aufgaben beim Kunden vor Ort stattfinden, brauchst Du Mobilität. Aber wir finden gemeinsam eine gute Balance.</p></div>
+</div>
+
+<div style="border:1.5px solid #cce0f5;border-radius:10px;overflow:hidden;">
+<div class="hit-faq-row" onclick="hqFaq(2)" style="padding:14px 16px;cursor:pointer;background:#f7faff;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+<p style="margin:0 !important;color:#004c82;font-weight:600;font-size:0.88em;line-height:1.4;">Wie sieht die Weiterbildung aus?</p>
+<span class="faq-arr" style="color:#004c82;font-size:1.1em;">›</span>
+</div>
+<div class="hq-faq-ans"><p style="color:#555;font-size:0.88em;line-height:1.6;margin:0 !important;">Zertifizierungen, Kurse, neue Technologien – wir fördern aktiv. Wer vorankommen will, bekommt bei HEAD IT die Mittel dazu.</p></div>
+</div>
+
+<div style="border:1.5px solid #cce0f5;border-radius:10px;overflow:hidden;">
+<div class="hit-faq-row" onclick="hqFaq(3)" style="padding:14px 16px;cursor:pointer;background:#f7faff;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+<p style="margin:0 !important;color:#004c82;font-weight:600;font-size:0.88em;line-height:1.4;">Wie gross ist das Team?</p>
+<span class="faq-arr" style="color:#004c82;font-size:1.1em;">›</span>
+</div>
+<div class="hq-faq-ans"><p style="color:#555;font-size:0.88em;line-height:1.6;margin:0 !important;">Wir sind ein überschaubares, gut eingespieltes Team – gross genug für vielseitige Projekte, klein genug, dass Du wirklich zählst.</p></div>
+</div>
+
+<div style="border:1.5px solid #cce0f5;border-radius:10px;overflow:hidden;">
+<div class="hit-faq-row" onclick="hqFaq(4)" style="padding:14px 16px;cursor:pointer;background:#f7faff;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+<p style="margin:0 !important;color:#004c82;font-weight:600;font-size:0.88em;line-height:1.4;">Wann kann ich starten?</p>
+<span class="faq-arr" style="color:#004c82;font-size:1.1em;">›</span>
+</div>
+<div class="hq-faq-ans"><p style="color:#555;font-size:0.88em;line-height:1.6;margin:0 !important;">Sofort oder nach Vereinbarung – wir sind flexibel. Sag uns einfach, wann Du könntest.</p></div>
+</div>
+
+<div style="border:1.5px solid #cce0f5;border-radius:10px;overflow:hidden;">
+<div class="hit-faq-row" onclick="hqFaq(5)" style="padding:14px 16px;cursor:pointer;background:#f7faff;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+<p style="margin:0 !important;color:#004c82;font-weight:600;font-size:0.88em;line-height:1.4;">Wird Teilzeit angeboten?</p>
+<span class="faq-arr" style="color:#004c82;font-size:1.1em;">›</span>
+</div>
+<div class="hq-faq-ans"><p style="color:#555;font-size:0.88em;line-height:1.6;margin:0 !important;">Ja, Teilzeit ist möglich. Wir besprechen das individuell – eine gute Work-Life-Balance ist uns wichtig.</p></div>
+</div>
+
+</div>
+
+<script>
+var hqFaqOpen=-1;
+function hqFaq(i){
+  var rows=document.querySelectorAll('.hit-faq-row');
+  if(hqFaqOpen===i){
+    rows[i].parentNode.className=rows[i].parentNode.className.replace(' hq-faq-open','');
+    hqFaqOpen=-1;
+  } else {
+    if(hqFaqOpen>=0 && rows[hqFaqOpen]){
+      rows[hqFaqOpen].parentNode.className=rows[hqFaqOpen].parentNode.className.replace(' hq-faq-open','');
+    }
+    rows[i].parentNode.className=rows[i].parentNode.className+' hq-faq-open';
+    hqFaqOpen=i;
+  }
+}
+</script>
+
+<hr style="border:none;border-top:1px solid #cce0f5;" />
+
+<!-- WARUM HEAD IT -->
+<h2 style="color:#004c82;">Warum HEAD IT Solutions?</h2>
+<p>Wir sind ein bodenständiges Schweizer KMU – kein Konzern, kein Grossraumbüro-Anonymat. Bei uns kennst Du Deine Kollegen beim Namen, arbeitest mit echten Kunden und siehst sofort, was Deine Arbeit bringt.</p>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;">
+
+<div style="background:linear-gradient(135deg,#e3eef9 0%,#f7faff 100%);border-radius:10px;padding:20px 22px;">
+<p style="font-size:1.5em;margin:0 0 8px 0 !important;">🏆</p>
+<p style="font-weight:700;color:#004c82;margin:0 0 6px 0 !important;">ISO-zertifiziert & Sophos Platinum</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;line-height:1.5;">Du arbeitest mit etablierten Partnern und klaren Qualitätsstandards.</p>
+</div>
+
+<div style="background:linear-gradient(135deg,#e3eef9 0%,#f7faff 100%);border-radius:10px;padding:20px 22px;">
+<p style="font-size:1.5em;margin:0 0 8px 0 !important;">📈</p>
+<p style="font-weight:700;color:#004c82;margin:0 0 6px 0 !important;">Wachsendes Unternehmen</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;line-height:1.5;">Wir wachsen – und mit uns wächst Dein Spielraum für Entwicklung und Verantwortung.</p>
+</div>
+
+<div style="background:linear-gradient(135deg,#e3eef9 0%,#f7faff 100%);border-radius:10px;padding:20px 22px;">
+<p style="font-size:1.5em;margin:0 0 8px 0 !important;">🤝</p>
+<p style="font-weight:700;color:#004c82;margin:0 0 6px 0 !important;">Flache Hierarchien</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;line-height:1.5;">Vom Lehrling bis zur Geschäftsleitung – alle per Du, alle auf Augenhöhe.</p>
+</div>
+
+<div style="background:linear-gradient(135deg,#e3eef9 0%,#f7faff 100%);border-radius:10px;padding:20px 22px;">
+<p style="font-size:1.5em;margin:0 0 8px 0 !important;">📍</p>
+<p style="font-weight:700;color:#004c82;margin:0 0 6px 0 !important;">Zentralschweiz pur</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;line-height:1.5;">Emmenbrücke, direkt bei Luzern – gut erreichbar, lokale Kunden, kurze Wege.</p>
+</div>
+
+</div>
+
+<hr style="border:none;border-top:1px solid #cce0f5;" />
+
+<!-- BEWERBUNGSFORMULAR (nur bei 10/10 sichtbar) -->
+<hr style="border:none;border-top:1px solid #cce0f5;" />
+
+<!-- CTA BOX -->
+<div style="background:linear-gradient(135deg,#004C82 0%,#003560 100%);border-radius:12px;padding:36px 40px;text-align:center;box-shadow:0 8px 24px -6px rgba(0,76,130,0.35);">
+<p style="color:#b8d4ee;font-size:0.76em;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;margin:0 0 12px 0 !important;">Bereit für den nächsten Schritt?</p>
+<h2 style="color:#ffffff;margin:0 0 16px 0 !important;font-size:1.5em;">Jetzt bewerben – wir freuen uns auf Dich.</h2>
+<p style="color:#cce0f5;font-size:0.92em;margin:0 0 28px 0 !important;max-width:480px;margin-left:auto !important;margin-right:auto !important;">Kein langer Prozess. Eine kurze Mail mit Deinem Lebenslauf reicht – wir melden uns innert 2 Arbeitstagen.</p>
+<a class="hit-cta-btn" onclick="document.getElementById('hq-start-screen').scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){hqSpotlightLocked=true;document.getElementById('hit-spotlight').className='hit-spotlight-on';setTimeout(function(){hqSpotlightLocked=false;},1200);},400);return false;" href="#" style="display:inline-block;background:#ffffff;color:#004C82;font-weight:bold;font-size:1em;padding:16px 36px;border-radius:8px;text-decoration:none;margin-bottom:20px;box-shadow:0 6px 16px -4px rgba(0,0,0,0.18);">✉ Jetzt bewerben</a>
+<p style="color:#b8d4ee;font-size:0.88em;margin:0 !important;"><a style="color:#ffffff;" href="tel:+41415100230">+41 41 510 02 30</a> &nbsp;|&nbsp; <a style="color:#cce0f5;" href="mailto:office@headitsolutions.ch">office@headitsolutions.ch</a></p>
+</div>

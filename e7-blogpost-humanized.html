@@ -1,0 +1,578 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+/* === FONT SYSTEM === */
+h2,h3,h4,p,a,li,span,summary,div,.hit-badge,.hit-callout-label,.tt{font-family:'Montserrat',sans-serif!important;}
+/* === PROGRESS BAR === */
+#hit-progress{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#004C82 0%,#0074c2 50%,#004C82 100%);z-index:9999;transition:width 0.15s linear;box-shadow:0 0 12px rgba(0,76,130,0.6);}
+/* === TOOLTIP === */
+.tt{border-bottom:2px solid #004C82;color:#004C82;font-weight:700;cursor:pointer;transition:color 0.2s ease;}
+.tt:hover{color:#0074c2;}
+/* === TOC === */
+.hit-toc-active{font-weight:700!important;color:#004C82!important;border-left:3px solid #004C82!important;padding-left:10px!important;background:none!important;}
+/* === CTA BUTTON === */
+.hit-cta-btn{transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.25s ease;}
+.hit-cta-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 28px -6px rgba(0,0,0,0.22)!important;}
+/* === FAQ (native details/summary) === */
+.hit-faq-item{background:#ffffff;border:1px solid #e0e8f0;border-radius:8px;overflow:hidden;transition:border-color 0.2s ease;}
+.hit-faq-item[open]{border-color:#004C82;}
+.hit-faq-item summary{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;gap:16px;cursor:pointer;user-select:none;-webkit-user-select:none;list-style:none;transition:background 0.2s ease;}
+.hit-faq-item summary::-webkit-details-marker{display:none;}
+.hit-faq-item summary::marker{display:none;content:'';}
+.hit-faq-item summary:hover{background:rgba(0,76,130,0.04);}
+.hit-faq-item summary p{margin:0!important;font-weight:700;color:#004c82;font-size:0.95em;user-select:none;-webkit-user-select:none;}
+.hit-faq-item .faq-arr{color:#004c82;font-size:0.7em;flex-shrink:0;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);}
+.hit-faq-item[open] .faq-arr{transform:rotate(180deg);}
+.hit-faq-item .faq-answer{padding:4px 24px 18px 24px;}
+/* === SCROLL REVEAL === */
+.hit-reveal-ready{opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1);}
+.hit-visible{opacity:1!important;transform:translateY(0)!important;}
+/* === CARD HOVER === */
+.hit-card{transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s ease,border-color 0.3s ease;}
+.hit-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px -8px rgba(0,76,130,0.18)!important;border-color:#004C82!important;}
+/* === NUMBERED BADGE === */
+.hit-badge{min-width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:0.75em;font-weight:700;letter-spacing:0.05em;flex-shrink:0;color:#004C82;border:2px solid #004C82;border-radius:8px;background:rgba(0,76,130,0.06);}
+/* === SECTION DIVIDER === */
+.hit-divider{border:none;height:2px;background:linear-gradient(90deg,transparent 0%,#004C82 20%,#004C82 80%,transparent 100%);opacity:0.15;margin:48px 0!important;}
+/* === TYPOGRAPHY OVERRIDES === */
+h2{margin-top:56px!important;margin-bottom:16px!important;letter-spacing:-0.02em!important;}
+h3{margin-top:40px!important;margin-bottom:14px!important;}
+h4{margin-top:36px!important;margin-bottom:10px!important;letter-spacing:-0.01em!important;}
+.hit-badge+h4{margin-top:0!important;margin-bottom:0!important;font-size:0.95em!important;color:#004c82!important;font-weight:600!important;}
+p{margin-bottom:14px!important;line-height:1.7!important;}
+/* === BADGE ROW SPACING === */
+.hit-badge-row{display:flex;align-items:center;gap:18px;margin-top:28px;margin-bottom:14px;}
+/* === STAT CARD HOVER === */
+.hit-stat{transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s ease;}
+.hit-stat:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 20px 40px -8px rgba(0,76,130,0.45)!important;}
+/* === DARK CALLOUT === */
+.hit-callout-dark{position:relative;overflow:hidden;}
+.hit-callout-dark::before{content:'';position:absolute;top:-50%;right:-50%;width:100%;height:100%;background:radial-gradient(circle,rgba(0,116,194,0.15) 0%,transparent 70%);pointer-events:none;}
+/* === FAQ OPEN STATE === */
+/* === CALLOUT LABEL === */
+.hit-callout-label{display:inline-flex;align-items:center;gap:6px;font-size:0.7em;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border-radius:4px;margin-bottom:10px;}
+/* === CTA POPUP === */
+#hit-popup-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,20,40,0.55);z-index:99998;opacity:0;transition:opacity 0.3s ease;}
+#hit-popup-overlay.hit-popup-show{opacity:1;}
+#hit-popup{display:none;position:fixed;bottom:24px;right:24px;z-index:99999;background:linear-gradient(135deg,#004C82 0%,#0068b5 100%);border-radius:14px;box-shadow:0 24px 64px -12px rgba(0,76,130,0.5),0 0 0 1px rgba(0,76,130,0.15);max-width:380px;width:calc(100% - 48px);overflow:hidden;transform:translateY(30px) scale(0.95);opacity:0;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),opacity 0.3s ease;}
+#hit-popup.hit-popup-show{transform:translateY(0) scale(1);opacity:1;}
+#hit-popup-close{position:absolute;top:12px;right:14px;width:32px;height:32px;border:none;background:rgba(255,255,255,0.15);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1em;color:#ffffff;transition:background 0.2s ease,transform 0.2s ease;z-index:1;line-height:1;}
+#hit-popup-close:hover{background:rgba(255,255,255,0.25);transform:scale(1.1);}
+/* === MOBILE RESPONSIVE === */
+@media(max-width:680px){
+.hit-stat-grid{grid-template-columns:1fr!important;}
+.hit-card-grid{grid-template-columns:1fr!important;}
+.hit-stat p:first-child{font-size:1.8em!important;}
+.hit-cta-box{padding:32px 24px!important;}
+.hit-cta-box p:first-of-type{font-size:1.1em!important;}
+h3{font-size:1.3em!important;}
+#hit-popup{bottom:0;right:0;max-width:100%;width:100%;border-radius:14px 14px 0 0;}
+.hit-e7-cards{flex-direction:column!important;align-items:center!important;}
+.hit-e7-plus{transform:rotate(90deg);margin:4px 0!important;}
+}
+</style>
+
+<div id="hit-progress"></div>
+
+<!-- READING TIME + LABEL -->
+<div class="hit-reveal" style="display:flex;align-items:center;gap:12px;margin-bottom:28px;">
+<p style="display:inline-block;background:#004C82;color:#ffffff;font-size:0.75em;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:4px;margin:0!important;">8 Min. Lesezeit</p>
+<div style="flex:1;height:1px;background:linear-gradient(90deg,#004C82 0%,transparent 100%);opacity:0.2;"></div>
+</div>
+
+<!-- HERO HEADLINE -->
+<h3 class="hit-reveal" style="color:#004c82;font-size:1.6em;line-height:1.25;font-weight:800;margin-bottom:20px!important;">Microsoft packt Copilot, Agent-Governance und Entra Suite in ein einziges Abo. Lohnt sich das?</h3>
+
+<p class="hit-reveal">Am 9. März 2026 hat Microsoft eine neue Lizenzstufe oberhalb der E5 angekündigt: die <strong>Frontier Suite</strong>. Verfügbar ab dem 1. Mai 2026. Was drinsteckt, was sie kostet und ob sich ein Upgrade für Schweizer Unternehmen lohnt, klären wir hier.</p>
+
+<!-- STATISTIK-KACHELN -->
+<div class="hit-reveal hit-stat-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:44px 0;">
+<div class="hit-stat" style="background:linear-gradient(135deg,#004C82 0%,#0068b5 100%);border-radius:10px;padding:28px 20px;text-align:center;box-shadow:0 8px 24px -6px rgba(0,76,130,0.4);position:relative;overflow:hidden;">
+<!-- Abstract: circuit nodes -->
+<div style="position:absolute;top:-20px;right:-20px;width:90px;height:90px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
+<div style="position:absolute;bottom:-30px;left:-15px;width:70px;height:70px;border:2px solid rgba(255,255,255,0.06);border-radius:50%;"></div>
+<div style="position:absolute;top:12px;left:10px;width:6px;height:6px;background:rgba(255,255,255,0.12);border-radius:50%;"></div>
+<div style="position:absolute;top:12px;left:10px;width:1px;height:40px;background:rgba(255,255,255,0.06);transform:rotate(30deg);transform-origin:top;"></div>
+<div style="position:absolute;top:50px;left:8px;width:4px;height:4px;background:rgba(255,255,255,0.08);border-radius:50%;"></div>
+<div style="position:absolute;bottom:14px;right:12px;width:5px;height:5px;background:rgba(255,255,255,0.1);border-radius:50%;"></div>
+<div style="position:absolute;bottom:14px;right:12px;width:1px;height:30px;background:rgba(255,255,255,0.05);transform:rotate(-20deg);transform-origin:bottom;"></div>
+<p id="stat-1" style="color:#ffffff;font-size:2.4em;font-weight:800;margin:0 0 6px 0!important;letter-spacing:-0.03em;line-height:1!important;position:relative;z-index:1;">0</p>
+<p style="color:rgba(255,255,255,0.75);font-size:0.8em;margin:0!important;line-height:1.4!important;position:relative;z-index:1;">Preis pro Nutzer / Monat</p>
+</div>
+<div class="hit-stat" style="background:linear-gradient(135deg,#004C82 0%,#0068b5 100%);border-radius:10px;padding:28px 20px;text-align:center;box-shadow:0 8px 24px -6px rgba(0,76,130,0.4);position:relative;overflow:hidden;">
+<!-- Abstract: grid crosshair -->
+<div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(255,255,255,0.04);"></div>
+<div style="position:absolute;top:50%;left:0;width:100%;height:1px;background:rgba(255,255,255,0.04);"></div>
+<div style="position:absolute;top:-25px;left:-25px;width:60px;height:60px;border:2px solid rgba(255,255,255,0.05);border-radius:50%;"></div>
+<div style="position:absolute;bottom:-15px;right:-10px;width:50px;height:50px;background:rgba(255,255,255,0.03);border-radius:8px;transform:rotate(25deg);"></div>
+<div style="position:absolute;top:10px;right:14px;width:5px;height:5px;background:rgba(255,255,255,0.1);border-radius:50%;"></div>
+<div style="position:absolute;top:10px;right:16px;width:1px;height:25px;background:rgba(255,255,255,0.06);"></div>
+<div style="position:absolute;bottom:10px;left:14px;width:4px;height:4px;background:rgba(255,255,255,0.08);border-radius:50%;"></div>
+<p id="stat-2" style="color:#ffffff;font-size:2.4em;font-weight:800;margin:0 0 6px 0!important;letter-spacing:-0.03em;line-height:1!important;position:relative;z-index:1;">0</p>
+<p style="color:rgba(255,255,255,0.75);font-size:0.8em;margin:0!important;line-height:1.4!important;position:relative;z-index:1;">Start der Microsoft 365 E7</p>
+</div>
+<div class="hit-stat" style="background:linear-gradient(135deg,#004C82 0%,#0068b5 100%);border-radius:10px;padding:28px 20px;text-align:center;box-shadow:0 8px 24px -6px rgba(0,76,130,0.4);position:relative;overflow:hidden;">
+<!-- Abstract: concentric rings -->
+<div style="position:absolute;top:-35px;right:-35px;width:100px;height:100px;border:2px solid rgba(255,255,255,0.05);border-radius:50%;"></div>
+<div style="position:absolute;top:-20px;right:-20px;width:70px;height:70px;border:1px solid rgba(255,255,255,0.04);border-radius:50%;"></div>
+<div style="position:absolute;top:-8px;right:-8px;width:44px;height:44px;background:rgba(255,255,255,0.03);border-radius:50%;"></div>
+<div style="position:absolute;bottom:-20px;left:-10px;width:55px;height:55px;border:1px solid rgba(255,255,255,0.05);border-radius:50%;"></div>
+<div style="position:absolute;top:8px;left:12px;width:5px;height:5px;background:rgba(255,255,255,0.1);border-radius:50%;"></div>
+<div style="position:absolute;top:8px;left:14px;width:1px;height:35px;background:rgba(255,255,255,0.05);transform:rotate(15deg);transform-origin:top;"></div>
+<div style="position:absolute;bottom:12px;right:10px;width:4px;height:4px;background:rgba(255,255,255,0.09);border-radius:50%;"></div>
+<div style="position:absolute;bottom:8px;left:40%;width:20%;height:1px;background:rgba(255,255,255,0.06);"></div>
+<p id="stat-3" style="color:#ffffff;font-size:2.4em;font-weight:800;margin:0 0 6px 0!important;letter-spacing:-0.03em;line-height:1!important;position:relative;z-index:1;">0</p>
+<p style="color:rgba(255,255,255,0.75);font-size:0.8em;margin:0!important;line-height:1.4!important;position:relative;z-index:1;">Bundle-Rabatt laut Gartner</p>
+</div>
+</div>
+
+<script>
+(function(){
+var stats=[
+  {id:'stat-1',from:0,to:87,suffix:'',prefix:'CHF ',special:null},
+  {id:'stat-2',from:0,to:null,suffix:'',prefix:'',special:'Mai 2026'},
+  {id:'stat-3',from:0,to:13,suffix:'%',prefix:'',special:null}
+];
+var animated=false;
+function animateStat(cfg){
+  if(cfg.special){document.getElementById(cfg.id).textContent=cfg.special;return;}
+  var el=document.getElementById(cfg.id);var start=null;var duration=1800;
+  function step(ts){
+    if(!start)start=ts;
+    var progress=Math.min((ts-start)/duration,1);
+    var ease=1-Math.pow(1-progress,3);
+    var val=Math.round(cfg.from+(cfg.to-cfg.from)*ease);
+    el.textContent=cfg.prefix+val+cfg.suffix;
+    if(progress<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+function checkAndAnimate(){
+  if(animated)return;
+  var el=document.getElementById('stat-1');
+  if(!el)return;
+  var rect=el.getBoundingClientRect();
+  if(rect.top<window.innerHeight-50){
+    animated=true;
+    stats.forEach(function(s){animateStat(s);});
+  }
+}
+window.addEventListener('scroll',checkAndAnimate,{passive:true});
+checkAndAnimate();
+})();
+</script>
+
+<!-- INHALTSVERZEICHNIS -->
+<div class="hit-reveal" style="border-left:3px solid #004C82;padding:24px 28px;margin:36px 0;background:rgba(0,76,130,0.03);border-radius:0 8px 8px 0;">
+<p style="font-weight:800!important;font-size:0.85em;margin:0 0 14px 0!important;color:#004c82;text-transform:uppercase;letter-spacing:0.08em;">Inhaltsverzeichnis</p>
+<ol style="margin:0;padding-left:20px;line-height:2.2;">
+ 	<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#was-ist-e7">Was steckt konkret drin?</a></li>
+ 	<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#agent365">Agent 365: KI-Agenten zentral steuern</a></li>
+ 	<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#copilot">Copilot Wave 3: was ist neu?</a></li>
+ 	<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#sicherheit">Sicherheit &amp; Governance in der E7-Suite</a></li>
+ 	<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#kosten">Was kostet die E7 und lohnt sie sich?</a></li>
+ 	<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#head-it">Was das für Schweizer Unternehmen bedeutet</a></li>
+ 	<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#faq">Häufig gestellte Fragen</a></li>
+ 	<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#fazit">Fazit</a></li>
+</ol>
+</div>
+
+<!-- WAS IST E7 -->
+<h2 id="was-ist-e7" class="hit-reveal" style="color:#004c82;">Was steckt konkret drin?</h2>
+
+<p class="hit-reveal">Die E7 ist kein neues Produkt, sondern bündelt bestehende Bausteine, die bisher separat lizenziert werden mussten. Drei Hauptkomponenten bilden das Paket:</p>
+
+<!-- E7 SUITE DIAGRAM -->
+<div class="hit-reveal" style="margin:36px 0;padding:0;">
+<!-- Component cards container -->
+<div style="border:2px solid #d8e2ee;border-radius:18px;padding:40px 32px;background:#ffffff;box-shadow:0 6px 28px -8px rgba(0,76,130,0.12);">
+<!-- Three cards row -->
+<div class="hit-e7-cards" style="display:flex;align-items:stretch;justify-content:center;gap:0;flex-wrap:wrap;">
+<!-- Card 1: E5 + Entra -->
+<div style="flex:1;min-width:200px;max-width:320px;text-align:center;padding:24px 20px 28px 20px;">
+<!-- Icon: M365 grid -->
+<div style="margin:0 auto 20px auto;width:64px;height:64px;display:grid;grid-template-columns:1fr 1fr;gap:5px;">
+<div style="background:#f25022;border-radius:4px;"></div>
+<div style="background:#7fba00;border-radius:4px;"></div>
+<div style="background:#00a4ef;border-radius:4px;"></div>
+<div style="background:#ffb900;border-radius:4px;"></div>
+</div>
+<p style="margin:0 0 4px 0!important;font-weight:800;font-size:1.15em;color:#004c82;">Microsoft 365 E5</p>
+<p style="margin:0 0 14px 0!important;font-weight:600;font-size:0.9em;color:#004c82;">+ Entra Suite</p>
+<p style="margin:0!important;font-size:0.85em;color:#6b7a8d;line-height:1.5!important;">Sicherheit, Compliance &amp; Produktivität</p>
+</div>
+<!-- Plus sign -->
+<div class="hit-e7-plus" style="display:flex;align-items:center;padding:0 8px;flex-shrink:0;">
+<div style="width:34px;height:34px;border-radius:50%;background:#f0f4f8;border:1px solid #d8e2ee;display:flex;align-items:center;justify-content:center;font-size:1.05em;font-weight:700;color:#004c82;">+</div>
+</div>
+<!-- Card 2: Copilot -->
+<div style="flex:1;min-width:200px;max-width:320px;text-align:center;padding:24px 20px 28px 20px;">
+<!-- Icon: Copilot spark -->
+<div style="margin:0 auto 20px auto;width:64px;height:64px;position:relative;">
+<div style="position:absolute;top:6px;left:12px;width:40px;height:40px;background:linear-gradient(135deg,#6264a7 0%,#00a4ef 50%,#7fba00 100%);border-radius:50%;"></div>
+<div style="position:absolute;top:0;right:5px;width:17px;height:17px;background:linear-gradient(135deg,#00a4ef,#6264a7);border-radius:50% 50% 50% 0;transform:rotate(-45deg);"></div>
+<div style="position:absolute;bottom:5px;left:16px;width:13px;height:13px;background:linear-gradient(135deg,#7fba00,#00a4ef);border-radius:0 50% 50% 50%;transform:rotate(-45deg);"></div>
+</div>
+<p style="margin:0 0 4px 0!important;font-weight:800;font-size:1.15em;color:#004c82;">Microsoft 365</p>
+<p style="margin:0 0 14px 0!important;font-weight:800;font-size:1.15em;color:#004c82;">Copilot</p>
+<p style="margin:0!important;font-size:0.85em;color:#6b7a8d;line-height:1.5!important;">KI-Assistenz für den Arbeitsplatz</p>
+</div>
+<!-- Plus sign -->
+<div class="hit-e7-plus" style="display:flex;align-items:center;padding:0 8px;flex-shrink:0;">
+<div style="width:34px;height:34px;border-radius:50%;background:#f0f4f8;border:1px solid #d8e2ee;display:flex;align-items:center;justify-content:center;font-size:1.05em;font-weight:700;color:#004c82;">+</div>
+</div>
+<!-- Card 3: Agent 365 -->
+<div style="flex:1;min-width:200px;max-width:320px;text-align:center;padding:24px 20px 28px 20px;">
+<!-- Icon: Agent shield -->
+<div style="margin:0 auto 20px auto;width:64px;height:64px;position:relative;">
+<div style="width:56px;height:64px;margin:0 auto;background:linear-gradient(180deg,#004C82 0%,#0068b5 100%);clip-path:polygon(50% 0%,100% 18%,100% 65%,50% 100%,0% 65%,0% 18%);"></div>
+<div style="position:absolute;top:22px;left:50%;transform:translateX(-50%);width:16px;height:16px;border:2.5px solid #ffffff;border-radius:50%;"></div>
+</div>
+<p style="margin:0 0 4px 0!important;font-weight:800;font-size:1.15em;color:#004c82;">Microsoft</p>
+<p style="margin:0 0 14px 0!important;font-weight:800;font-size:1.15em;color:#004c82;">Agent 365</p>
+<p style="margin:0!important;font-size:0.85em;color:#6b7a8d;line-height:1.5!important;">Steuerungsebene für KI-Agenten</p>
+</div>
+</div>
+</div>
+</div>
+
+<hr class="hit-divider">
+
+<!-- AGENT 365 -->
+<h3 id="agent365" class="hit-reveal" style="color:#004c82;">Agent 365: KI-Agenten zentral steuern</h3>
+
+<p class="hit-reveal">Die wichtigste Neuerung in der Suite ist <strong>Agent 365</strong>. Es ist die zentrale Steuer- und Überwachungsplattform für alle KI-Agenten im Unternehmen. Warum das wichtig ist: Microsoft verwaltet im eigenen Netzwerk bereits über 500'000 aktive KI-Agenten.</p>
+
+<p class="hit-reveal">Ohne Kontrolle entsteht sogenannter <span class="tt" data-tip="Unkontrollierte KI-Tools, die ohne Genehmigung und Sicherheitskontrollen im Unternehmen eingesetzt werden.">„Agent Sprawl"</span>, also eine unkontrollierte Ausbreitung von KI-Tools ohne klare Zuständigkeiten, Zugriffsrechte oder Sicherheitsrichtlinien. Agent 365 setzt genau hier an.</p>
+
+<div id="agent365-detail" class="hit-reveal hit-badge-row">
+<div class="hit-badge">01</div>
+<h4 style="margin:0!important;line-height:1.3;">Agent ID: jeder KI-Agent bekommt eine eigene Identität</h4>
+</div>
+<p class="hit-reveal">Jeder KI-Agent erhält eine eindeutige Identität in <strong><span class="tt" data-tip="Microsofts zentrale Identitäts- und Zugriffsverwaltung, ehemals Azure Active Directory. Verwaltet Benutzerkonten, Zugriffsrechte und Sicherheitsrichtlinien.">Microsoft Entra</span></strong>, ähnlich wie ein menschlicher Mitarbeiter. IT-Administratoren können damit Zugriffsrichtlinien zentral anwenden. Ein Agent darf nur das, was er explizit darf.</p>
+
+<div class="hit-reveal hit-badge-row">
+<div class="hit-badge">02</div>
+<h4 style="margin:0!important;line-height:1.3;">Monitoring &amp; Registry: volle Übersicht über alle aktiven Agenten</h4>
+</div>
+<p class="hit-reveal">Agent 365 ist gleichzeitig zentrales Register und Monitoring-Hub. IT-Teams sehen auf einen Blick: Welche Agenten sind aktiv? Was dürfen sie? Wo verhalten sie sich auffällig? Verdächtige Aktionen wie ungewöhnliche Datenzugriffe oder <span class="tt" data-tip="Gezielte Eingaben an KI-Systeme, um Sicherheitsregeln zu umgehen oder unerwünschte Antworten zu erzwingen. Auch bekannt als Prompt Injection.">Prompt-Manipulation</span> lassen sich direkt blockieren.</p>
+
+<div class="hit-reveal" style="border-left:4px solid #004C82;padding:20px 24px;margin:28px 0;background:linear-gradient(135deg,#e8f0f8 0%,#f0f6fc 100%);border-radius:0 8px 8px 0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.1);">
+<div class="hit-callout-label" style="background:rgba(0,76,130,0.1);color:#004C82;">&#9881; Praxis-Tipp</div>
+<p style="margin:0!important;font-size:0.9em;"> Agent 365 ist auch als Einzelprodukt für ca. CHF 13 pro Nutzer und Monat erhältlich. Wer <span class="tt" data-tip="Regeln, Prozesse und Kontrollmechanismen für den sicheren und verantwortungsvollen Einsatz von KI im Unternehmen.">KI-Governance</span> einführen will, muss also nicht gleich auf E7 umsteigen.</p>
+</div>
+
+<hr class="hit-divider">
+
+<!-- COPILOT WAVE 3 -->
+<h3 id="copilot" class="hit-reveal" style="color:#004c82;">Copilot Wave 3: was ist neu?</h3>
+
+<p class="hit-reveal">Bis jetzt war Copilot ein Assistent: Du gibst einen Befehl, er antwortet. Wave 3 ändert das. Copilot bekommt <strong><span class="tt" data-tip="KI-Funktionen, die eigenständig Aufgaben ausführen können, anstatt nur auf einzelne Befehle zu reagieren. Sie planen, koordinieren und handeln autonom.">agentenbasierte Funktionen</span></strong> und kann jetzt auch ohne expliziten Auftrag im Hintergrund arbeiten.</p>
+
+<div class="hit-reveal hit-badge-row">
+<div class="hit-badge">01</div>
+<h4 style="margin:0!important;line-height:1.3;">Geteilte KI-Agenten in Microsoft Teams</h4>
+</div>
+<p class="hit-reveal">Ab Q2 2026 können Nutzer eigene KI-Agenten direkt in <strong>Teams-Kanälen teilen</strong>. Das gesamte Team kann den Assistenten dann gemeinsam für Gruppenprojekte nutzen. Teammitglieder werden automatisch benachrichtigt, sobald ein neuer Agent verfügbar ist.</p>
+
+<div class="hit-reveal hit-badge-row">
+<div class="hit-badge">02</div>
+<h4 style="margin:0!important;line-height:1.3;">Copilot Cowork: KI plant und koordiniert eigenständig</h4>
+</div>
+<p class="hit-reveal">Das konkreteste Beispiel dafür: <strong>Copilot Cowork</strong>. Du sagst „Bereite das Quartalmeeting vor" und Cowork erstellt den Arbeitsplan, sammelt Dateien aus SharePoint, schlägt Agenda-Punkte vor und bucht den Termin. Technisch nutzt Cowork übrigens Anthropics Claude-Modell als Reasoning-Engine.</p>
+
+<div class="hit-reveal" style="border-left:4px solid #004C82;padding:20px 24px;margin:28px 0;background:linear-gradient(135deg,#e8f0f8 0%,#f0f6fc 100%);border-radius:0 8px 8px 0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.1);">
+<div class="hit-callout-label" style="background:rgba(0,76,130,0.1);color:#004C82;">&#9881; Praxis-Tipp</div>
+<p style="margin:0!important;font-size:0.9em;"> In Windows Insider-Builds öffnet Copilot Webinhalte bereits in einer Seitenleiste neben dem Chat. So bleibt der Arbeitskontext erhalten, während die KI recherchiert.</p>
+</div>
+
+<hr class="hit-divider">
+
+<!-- SICHERHEIT -->
+<h3 id="sicherheit" class="hit-reveal" style="color:#004c82;">Sicherheit &amp; Governance in der E7-Suite</h3>
+
+<p class="hit-reveal">KI im Unternehmen bringt Risiken mit. Microsoft reagiert darauf mit konkreten Sicherheitsfunktionen, die direkt in die E7-Suite eingebaut sind.</p>
+
+<div class="hit-reveal hit-badge-row">
+<div class="hit-badge">01</div>
+<h4 style="margin:0!important;line-height:1.3;">Purview DLP auch für lokale Dateien</h4>
+</div>
+<p class="hit-reveal">Copilot und benutzerdefinierte KI-Agenten werden in das <strong><span class="tt" data-tip="Microsofts Lösung zur Verhinderung von Datenverlust. Erkennt und blockiert automatisch die unberechtigte Weitergabe sensibler Informationen wie Kundendaten, Finanzzahlen oder Geschäftsgeheimnisse.">Purview Data Loss Prevention (DLP)</span></strong>-Framework eingebunden. Neu: Der Schutz gilt nicht mehr nur für Cloud-Dateien in OneDrive oder SharePoint, sondern erstmals auch für <strong>lokale Dateien auf den Geräten der Mitarbeiter</strong>. Hintergrund: Im Februar 2026 verarbeitete Copilot vertrauliche E-Mails, obwohl diese als sensibel markiert waren. Diese Lücke soll DLP für lokale Dateien schliessen.</p>
+
+<div class="hit-reveal hit-badge-row">
+<div class="hit-badge">02</div>
+<h4 style="margin:0!important;line-height:1.3;">Schutz vor Shadow AI und Double Agents</h4>
+</div>
+<p class="hit-reveal">Defender, Entra und Purview liefern laufend <span class="tt" data-tip="Automatisch generierte Warnsignale, die auf potenzielle Sicherheitsbedrohungen hinweisen, z.B. ungewöhnliche Anmeldungen oder verdächtige Datenzugriffe.">Risikosignale</span> über das Verhalten von Agenten. Im Gegensatz zum Monitoring in Agent 365 (das zeigt, was ein Agent tut) geht es hier um die Frage: <strong>Wird ein Agent gerade missbraucht?</strong> Zum Beispiel durch kompromittierte Zugangsdaten, manipulierte Prompts oder unerlaubten Zugriff auf klassifizierte Dokumente.</p>
+
+<!-- DARK CALLOUT -->
+<div class="hit-reveal hit-callout-dark" style="background:linear-gradient(135deg,#004C82 0%,#0068b5 100%);border-radius:10px;box-shadow:0 12px 32px -8px rgba(0,76,130,0.4);padding:28px 32px;margin:32px 0;">
+<p style="margin:0 0 6px 0!important;font-weight:700;color:#ffffff;font-size:1.05em;">Das grössere Bild</p>
+<p style="margin:0!important;color:rgba(255,255,255,0.8);font-size:0.9em;">Agent 365 kontrolliert, was Agenten dürfen. Die Security-Ebene aus Defender, Entra und Purview überwacht, ob sie sich auch daran halten. Beide Schichten zusammen ergeben erst das vollständige Sicherheitsnetz. Genau diese Kombination macht die E7-Lizenz aus.</p>
+</div>
+
+<hr class="hit-divider">
+
+<!-- KOSTEN -->
+<h2 id="kosten" class="hit-reveal" style="color:#004c82;">Was kostet die E7 und lohnt sie sich?</h2>
+
+<p class="hit-reveal">Ein Blick auf die Zahlen: Der Preissprung ist deutlich. Die E7-Suite kostet <strong>rund CHF 87 pro Nutzer und Monat</strong>. Zum Vergleich:</p>
+
+<div class="hit-reveal" style="display:flex;flex-direction:column;gap:10px;margin:28px 0;">
+<details class="hit-faq-item">
+<summary><p>Microsoft 365 E5: ~CHF 50/Monat pro Nutzer</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer">
+<p style="margin:0!important;padding-bottom:2px;">Die bisherige höchste Enterprise-Stufe. Ab Juli 2026 steigt der Preis auf ca. CHF 53. Enthält E3-Funktionen plus erweiterte Sicherheit, Compliance und Analytics.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Microsoft 365 Copilot Add-on: ~CHF 26/Monat pro Nutzer</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer">
+<p style="margin:0!important;padding-bottom:2px;">Das bisherige Copilot-Add-on für KI-Assistenz in Office-Apps. In der E7-Suite bereits enthalten.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Agent 365: ~CHF 13/Monat pro Nutzer</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer">
+<p style="margin:0!important;padding-bottom:2px;">Die neue KI-Governance-Ebene. Auch einzeln buchbar. In der E7-Suite inklusive.</p></div>
+</details>
+</div>
+
+<p class="hit-reveal" style="font-size:0.8em;color:#6b7a8d;margin-top:4px!important;">Alle Preise sind Richtwerte in CHF, basierend auf den <a style="color:#004c82;text-decoration:underline;font-size:1em;" href="https://microsoftpartners.microsoft.com/abs/Blog/?title=Introducing%20Microsoft%20365%20E7:%20The%20Frontier%20Suite" target="_blank" rel="noopener">offiziellen USD-Listenpreisen von Microsoft</a>. Lokale Preise können abweichen.</p>
+
+<p class="hit-reveal">Microsoft argumentiert, das Bundle sei günstiger als der separate Kauf aller Komponenten. <span class="tt" data-tip="Weltweit führendes IT-Forschungs- und Beratungsunternehmen. Ihre Analysen gelten als Branchenstandard für Technologie-Bewertungen.">Gartner</span>-Analysten rechnen allerdings vor: Der Rabatt beträgt nur rund <strong>13,2 Prozent</strong>. Ihre Einschätzung: Für normale Wissensarbeiter bietet die E7-Suite keinen zwingenden Mehrwert. Ein sofortiges Upgrade empfehlen sie <strong>nicht</strong>.</p>
+
+<div class="hit-reveal" style="border-left:4px solid #004C82;padding:20px 24px;margin:28px 0;background:linear-gradient(135deg,#e8f0f8 0%,#f0f6fc 100%);border-radius:0 8px 8px 0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.1);">
+<div class="hit-callout-label" style="background:rgba(0,76,130,0.1);color:#004C82;">&#10003; Empfehlung</div>
+<p style="margin:0!important;font-size:0.9em;"> Prüfe zuerst, ob Dein Unternehmen die Governance-Anforderungen hat, die Agent 365 adressiert. Wer KI bereits breit einsetzt oder das plant, ist ein besserer Kandidat für E7 als jemand, der Copilot bisher kaum nutzt.</p>
+</div>
+
+<!-- MID-ARTICLE CTA -->
+<div class="hit-reveal" style="background:rgba(0,76,130,0.04);border:1px solid rgba(0,76,130,0.12);border-radius:10px;padding:28px 32px;margin:36px 0;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+<div style="flex:1;min-width:240px;">
+<p style="margin:0 0 4px 0!important;font-weight:700;color:#004c82;font-size:0.95em;">Unsicher, ob E7 das Richtige ist?</p>
+<p style="margin:0!important;font-size:0.85em;color:#4a5568;">Wir vergleichen Deine aktuelle Lizenz mit E7 und sagen Dir, was sich wirklich lohnt.</p>
+</div>
+<a class="hit-cta-btn" style="display:inline-block;background:#004C82;color:#ffffff;font-weight:700;font-size:0.85em;padding:12px 24px;border-radius:6px;text-decoration:none;white-space:nowrap;box-shadow:0 4px 12px -3px rgba(0,76,130,0.3);" href="mailto:office@headitsolutions.ch?subject=Anfrage%20Microsoft%20365%20Lizenzberatung&amp;body=Sehr%20geehrtes%20Team%20der%20HEAD%20IT%20Solutions%0A%0AIch%20interessiere%20mich%20f%C3%BCr%20eine%20Beratung%20zu%20Microsoft%20365%20E7%20und%20m%C3%B6chte%20meine%20aktuelle%20Lizenzstruktur%20%C3%BCberpr%C3%BCfen%20lassen.%0A%0AMit%20freundlichen%20Gr%C3%BCssen">Kostenlos beraten lassen</a>
+</div>
+
+<hr class="hit-divider">
+
+<!-- HEAD IT -->
+<h2 id="head-it" class="hit-reveal" style="color:#004c82;">Was das für Schweizer Unternehmen bedeutet</h2>
+
+<p class="hit-reveal">Die E7 stellt IT-Verantwortliche in der Schweiz vor eine konkrete Entscheidung: Welche Lizenzstufe brauche ich, jetzt und in den nächsten zwei Jahren? Als <a style="color:#004c82;font-weight:600;text-decoration:underline;" href="https://www.headitsolutions.ch/about/zertifikate/" target="_blank" rel="noopener">Microsoft-Partner</a> helfen wir genau bei dieser Frage.</p>
+
+<div class="hit-reveal hit-card-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0;">
+<div class="hit-card" style="background:#ffffff;border:1px solid #e0e8f0;border-top:3px solid #004C82;border-radius:8px;padding:22px 22px 18px 22px;box-shadow:0 2px 8px -2px rgba(0,0,0,0.06);">
+<p style="margin:0 0 8px 0!important;font-weight:700;color:#004c82;font-size:0.95em;">Lizenzberatung</p>
+<p style="margin:0!important;font-size:0.9em;color:#4a5568;">Wir schauen uns Deine aktuelle Lizenzstruktur an und sagen Dir, ob und wann ein Upgrade auf E7 Sinn ergibt.</p>
+</div>
+<div class="hit-card" style="background:#ffffff;border:1px solid #e0e8f0;border-top:3px solid #004C82;border-radius:8px;padding:22px 22px 18px 22px;box-shadow:0 2px 8px -2px rgba(0,0,0,0.06);">
+<p style="margin:0 0 8px 0!important;font-weight:700;color:#004c82;font-size:0.95em;">KI-Governance Setup</p>
+<p style="margin:0!important;font-size:0.9em;color:#4a5568;">Wir richten Agent 365 und Purview DLP bei Dir ein, damit KI sicher und compliant läuft.</p>
+</div>
+<div class="hit-card" style="background:#ffffff;border:1px solid #e0e8f0;border-top:3px solid #004C82;border-radius:8px;padding:22px 22px 18px 22px;box-shadow:0 2px 8px -2px rgba(0,0,0,0.06);">
+<p style="margin:0 0 8px 0!important;font-weight:700;color:#004c82;font-size:0.95em;">Copilot Einführung</p>
+<p style="margin:0!important;font-size:0.9em;color:#4a5568;">Von der Pilotphase bis zum Rollout: Wir sorgen dafür, dass Copilot bei Dir wirklich genutzt wird.</p>
+</div>
+<div class="hit-card" style="background:#ffffff;border:1px solid #e0e8f0;border-top:3px solid #004C82;border-radius:8px;padding:22px 22px 18px 22px;box-shadow:0 2px 8px -2px rgba(0,0,0,0.06);">
+<p style="margin:0 0 8px 0!important;font-weight:700;color:#004c82;font-size:0.95em;">Managed Services</p>
+<p style="margin:0!important;font-size:0.9em;color:#4a5568;">Laufender Betrieb und Überwachung Deiner Microsoft 365-Umgebung, damit Du Dich auf Dein Business konzentrieren kannst.</p>
+</div>
+</div>
+
+<div class="hit-reveal hit-callout-dark" style="background:linear-gradient(135deg,#004C82 0%,#0068b5 100%);border-radius:10px;box-shadow:0 12px 32px -8px rgba(0,76,130,0.4);padding:28px 32px;margin:32px 0;">
+<p style="margin:0 0 6px 0!important;font-weight:700;color:#ffffff;font-size:1.05em;">So arbeiten wir</p>
+<p style="margin:0!important;color:rgba(255,255,255,0.8);font-size:0.9em;">Bei uns landest Du nicht in einer Warteschlange. Du hast einen festen Ansprechpartner, der Deine Umgebung kennt und direkt erreichbar ist.</p>
+</div>
+
+<hr class="hit-divider">
+
+<!-- FAQ -->
+<h2 id="faq" class="hit-reveal" style="color:#004c82;">Häufig gestellte Fragen zu Microsoft 365 E7</h2>
+
+<div class="hit-reveal" style="display:flex;flex-direction:column;gap:10px;margin:28px 0;">
+<details class="hit-faq-item">
+<summary><p>Was ist der Unterschied zwischen E5 und E7?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer">
+<p style="margin:0!important;padding-bottom:2px;">E7 baut auf E5 auf und fügt drei Komponenten hinzu: Microsoft 365 Copilot (Wave 3), Agent 365 und die Microsoft Entra Suite. E7 kostet rund CHF 87/Monat, E5 ca. CHF 50/Monat. Das Upgrade lohnt sich vor allem für Unternehmen, die KI bereits aktiv einsetzen und Governance-Anforderungen haben.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Wann ist Microsoft 365 E7 verfügbar?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer">
+<p style="margin:0!important;padding-bottom:2px;">Die Frontier Suite startet am 1. Mai 2026. Agent 365 wird ebenfalls ab diesem Datum allgemein verfügbar sein. Die neuen Copilot-Funktionen (Wave 3) rollen im Laufe des Q2 2026 aus.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Was ist Agent 365 und brauche ich es?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer">
+<p style="margin:0!important;padding-bottom:2px;">Agent 365 ist die Steuerplattform für KI-Agenten im Unternehmen. Du brauchst es, wenn Du mehrere KI-Tools einsetzt und sicherstellen willst, dass diese kontrolliert und compliant laufen. Für kleine Unternehmen mit wenig KI-Einsatz ist es noch nicht zwingend nötig.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Lohnt sich das Upgrade auf E7 für KMU?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer">
+<p style="margin:0!important;padding-bottom:2px;">Das hängt davon ab, wie weit Du mit KI bist. Wenn Du Copilot bereits aktiv nutzt, mehrere KI-Tools einsetzt und klare Governance-Anforderungen hast, kann E7 sinnvoll sein. Wenn KI bei Dir bisher kaum eine Rolle spielt, empfiehlt sich zunächst ein schrittweiser Einstieg über Copilot und Agent 365 als Einzelprodukte.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Was ist Shadow AI und warum ist es gefährlich?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer">
+<p style="margin:0!important;padding-bottom:2px;">Shadow AI sind KI-Tools, die Mitarbeitende ohne Wissen oder Genehmigung der IT einsetzen. Sie unterliegen keinen Sicherheitsrichtlinien, können sensible Firmendaten nach aussen leiten und sind ein ernstes Compliance-Risiko. Agent 365 soll genau das verhindern.</p></div>
+</details>
+</div>
+
+<hr class="hit-divider">
+
+<!-- FAZIT -->
+<h2 id="fazit" class="hit-reveal" style="color:#004c82;">Fazit: KI-Agenten brauchen Regeln, genau wie Mitarbeiter</h2>
+
+<p class="hit-reveal">Die E7 ist Microsofts Antwort auf eine Frage, die viele IT-Abteilungen gerade beschäftigt: Wie kontrolliere ich KI, die eigenständig handelt? Die Bausteine dafür (Copilot, Agent 365, Entra, Purview) existieren bereits. Die E7 bündelt sie, mit einem Rabatt von gut 13 Prozent.</p>
+
+<p class="hit-reveal">Ob das reicht, um den Aufpreis zu rechtfertigen, hängt vom eigenen KI-Reifegrad ab. Gartner sagt: für die meisten Wissensarbeiter heute noch nicht. Aber wer bereits mehrere KI-Tools im Einsatz hat und die Kontrolle darüber verliert, findet in der E7 den passenden Rahmen.</p>
+
+<p class="hit-reveal">Unser Tipp: Nicht blind upgraden, sondern zuerst prüfen, welche Bausteine Du tatsächlich brauchst.</p>
+
+<!-- CTA POPUP -->
+<div id="hit-popup-overlay"></div>
+<div id="hit-popup">
+<button id="hit-popup-close" aria-label="Schliessen">&#10005;</button>
+<div style="background:linear-gradient(135deg,#004C82 0%,#0068b5 100%);padding:28px 28px 32px 28px;">
+<p style="margin:0 0 6px 0!important;color:#ffffff;font-weight:800;font-size:1.05em;line-height:1.3!important;">Unsicher, ob E7 das Richtige ist?</p>
+<p style="margin:0 0 20px 0!important;color:rgba(255,255,255,0.75);font-size:0.85em;line-height:1.5!important;">Wir vergleichen Deine aktuelle Lizenz mit E7 und sagen Dir, was sich wirklich lohnt.</p>
+<a class="hit-cta-btn" style="display:block;text-align:center;background:#ffffff;color:#004c82;font-weight:700;font-size:0.85em;padding:14px 24px;border-radius:8px;text-decoration:none;box-shadow:0 4px 16px -4px rgba(0,0,0,0.2);" href="mailto:office@headitsolutions.ch?subject=Anfrage%20Microsoft%20365%20Lizenzberatung&amp;body=Sehr%20geehrtes%20Team%20der%20HEAD%20IT%20Solutions%0A%0AIch%20interessiere%20mich%20f%C3%BCr%20eine%20Beratung%20zu%20Microsoft%20365%20E7%20und%20m%C3%B6chte%20meine%20aktuelle%20Lizenzstruktur%20%C3%BCberpr%C3%BCfen%20lassen.%0A%0AMit%20freundlichen%20Gr%C3%BCssen">Kostenlos beraten lassen</a>
+<p style="margin:10px 0 0 0!important;text-align:center;font-size:0.75em;color:rgba(255,255,255,0.5);">Keine Verkaufsgespräche. Einfach eine klare Empfehlung.</p>
+</div>
+</div>
+
+<!-- CTA-BOX -->
+<div class="hit-reveal hit-callout-dark hit-cta-box" style="background:linear-gradient(135deg,#004C82 0%,#0068b5 100%);border-radius:12px;padding:44px 40px;margin:48px 0;text-align:center;box-shadow:0 16px 48px -12px rgba(0,76,130,0.5);position:relative;overflow:hidden;">
+<div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);"></div>
+<p style="color:#ffffff;font-size:1.35em;font-weight:800;margin:0 0 10px 0!important;letter-spacing:-0.02em;">Welche Microsoft 365-Lizenz passt zu Dir?</p>
+<p style="color:rgba(255,255,255,0.7);font-size:0.95em;margin:0 0 28px 0!important;max-width:520px;display:inline-block;">Wir schauen uns Deine Lizenzstruktur an und sagen Dir, ob ein Upgrade Sinn ergibt. Keine Buzzwords, kein Verkaufsdruck. Einfach eine klare Empfehlung.</p>
+<br>
+<a class="hit-cta-btn" style="display:inline-block;background:#ffffff;color:#004c82;font-weight:800;font-size:0.95em;padding:16px 36px;border-radius:8px;text-decoration:none;margin-bottom:24px;box-shadow:0 8px 24px -6px rgba(0,0,0,0.2);letter-spacing:0.01em;" href="mailto:office@headitsolutions.ch?subject=Anfrage%20Microsoft%20365%20Lizenzberatung&amp;body=Sehr%20geehrtes%20Team%20der%20HEAD%20IT%20Solutions%0A%0AIch%20interessiere%20mich%20f%C3%BCr%20eine%20Beratung%20zu%20Microsoft%20365%20E7%20und%20m%C3%B6chte%20meine%20aktuelle%20Lizenzstruktur%20%C3%BCberpr%C3%BCfen%20lassen.%0A%0AMit%20freundlichen%20Gr%C3%BCssen">Jetzt Lizenzberatung anfragen</a>
+<p style="color:rgba(255,255,255,0.5);font-size:0.85em;margin:0!important;"><a style="color:rgba(255,255,255,0.8);text-decoration:none;font-weight:600;" href="tel:+41415100230">+41 41 510 02 30</a> &nbsp;&middot;&nbsp; <a style="color:rgba(255,255,255,0.6);text-decoration:none;" href="mailto:office@headitsolutions.ch">office@headitsolutions.ch</a></p>
+</div>
+
+<script>
+try{
+var hitTTBox=document.createElement('div');
+hitTTBox.id='hit-tt-box';
+hitTTBox.style.cssText='display:none;position:fixed;background:#0a1a2e;color:#fff;font-size:0.8em;line-height:1.5;padding:10px 14px;border-radius:8px;max-width:240px;box-shadow:0 8px 24px rgba(0,0,0,0.25);z-index:999999;pointer-events:none;white-space:normal;word-break:break-word;border:1px solid rgba(255,255,255,0.08);';
+(document.body||document.documentElement).appendChild(hitTTBox);
+document.addEventListener('mouseover',function(e){
+  var t=e.target;
+  while(t){
+    if(t.nodeType!==1)break;
+    if(t.className&&typeof t.className==='string'&&t.className.indexOf('tt')!==-1){
+      var tip=t.getAttribute('data-tip');
+      if(tip){hitTTBox.textContent=tip;hitTTBox.style.display='block';return;}
+    }
+    t=t.parentNode;
+    if(!t)break;
+    if(t===document.body)break;
+  }
+  hitTTBox.style.display='none';
+});
+document.addEventListener('mousemove',function(e){
+  if(hitTTBox.style.display==='none')return;
+  var x=e.clientX+14,y=e.clientY-60;
+  if(x+254>window.innerWidth)x=e.clientX-254;
+  if(y<8)y=e.clientY+20;
+  hitTTBox.style.left=x+'px';hitTTBox.style.top=y+'px';
+});
+}catch(e){}
+var hitBar=document.getElementById('hit-progress');
+function hitProgress(){
+  if(!hitBar)return;
+  var scrolled=window.pageYOffset||document.documentElement.scrollTop||document.body.scrollTop||0;
+  var docH=Math.max(document.body.scrollHeight||0,document.documentElement.scrollHeight||0,document.documentElement.offsetHeight||0);
+  var winH=window.innerHeight||document.documentElement.clientHeight||0;
+  var total=docH-winH;
+  hitBar.style.width=(total>0?Math.min(scrolled/total*100,100):0)+'%';
+}
+window.addEventListener('scroll',hitProgress,{passive:true});
+window.addEventListener('resize',hitProgress,{passive:true});
+hitProgress();
+var hitTocS=['was-ist-e7','agent365','copilot','sicherheit','kosten','head-it','faq','fazit'];
+window.addEventListener('scroll',function(){
+  var cur='';
+  for(var i=0;i<hitTocS.length;i++){
+    var el=document.getElementById(hitTocS[i]);
+    if(el){
+      if(el.getBoundingClientRect().top<=120)cur=hitTocS[i];
+    }
+  }
+  var links=document.querySelectorAll('.hit-toc-link');
+  for(var j=0;j<links.length;j++){
+    var a=links[j];
+    if(a.getAttribute('href')==='#'+cur){
+      if(a.className.indexOf('hit-toc-active')===-1)a.className+=' hit-toc-active';
+    }else{
+      a.className=a.className.replace(' hit-toc-active','').replace('hit-toc-active','');
+    }
+  }
+},{passive:true});
+document.addEventListener('click',function(e){
+  var a=e.target;
+  if(a.tagName!=='A')return;
+  var href=a.getAttribute('href');
+  if(!href||href.charAt(0)!=='#')return;
+  if(a.className.indexOf('hit-toc-link')===-1)return;
+  var target=document.getElementById(href.substring(1));
+  if(!target)return;
+  e.preventDefault();
+  var top=target.getBoundingClientRect().top+window.pageYOffset-80;
+  window.scrollTo({top:top,behavior:'smooth'});
+});
+(function(){
+  var reveals=document.querySelectorAll('.hit-reveal');
+  if(!reveals.length)return;
+  if('IntersectionObserver' in window){
+    for(var i=0;i<reveals.length;i++){
+      if(reveals[i].className.indexOf('hit-reveal-ready')===-1)reveals[i].className+=' hit-reveal-ready';
+    }
+    var observer=new IntersectionObserver(function(entries){
+      for(var j=0;j<entries.length;j++){
+        if(entries[j].isIntersecting){
+          var el=entries[j].target;
+          if(el.className.indexOf('hit-visible')===-1)el.className+=' hit-visible';
+          observer.unobserve(el);
+        }
+      }
+    },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+    for(var k=0;k<reveals.length;k++){observer.observe(reveals[k]);}
+  }
+})();
+/* === CTA POPUP === */
+try{
+(function(){
+  var popupShown=false;
+  var popup=document.getElementById('hit-popup');
+  var overlay=document.getElementById('hit-popup-overlay');
+  var closeBtn=document.getElementById('hit-popup-close');
+  if(!popup||!overlay||!closeBtn)return;
+  function showPopup(){
+    if(popupShown)return;
+    popupShown=true;
+    popup.style.display='block';
+    overlay.style.display='block';
+    setTimeout(function(){
+      if(popup.className.indexOf('hit-popup-show')===-1)popup.className+=' hit-popup-show';
+      if(overlay.className.indexOf('hit-popup-show')===-1)overlay.className+=' hit-popup-show';
+    },30);
+  }
+  function hidePopup(){
+    popup.className=popup.className.replace(' hit-popup-show','').replace('hit-popup-show','');
+    overlay.className=overlay.className.replace(' hit-popup-show','').replace('hit-popup-show','');
+    setTimeout(function(){popup.style.display='none';overlay.style.display='none';},350);
+  }
+  closeBtn.addEventListener('click',function(e){e.preventDefault();hidePopup();});
+  overlay.addEventListener('click',hidePopup);
+  window.addEventListener('scroll',function(){
+    if(popupShown)return;
+    var scrolled=window.pageYOffset||document.documentElement.scrollTop||0;
+    var docH=Math.max(document.body.scrollHeight||0,document.documentElement.scrollHeight||0);
+    var winH=window.innerHeight||document.documentElement.clientHeight||0;
+    var total=docH-winH;
+    if(total>0&&(scrolled/total)>0.55){showPopup();}
+  },{passive:true});
+})();
+}catch(e){}
+</script>

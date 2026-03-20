@@ -1,0 +1,563 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+/* === FONT SYSTEM === */
+h2,h3,h4,p,a,li,span,summary,div,.hit-badge,.hit-callout-label,.tt{font-family:'Montserrat',sans-serif!important;}
+/* === PROGRESS BAR === */
+#hit-progress{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#004C82 0%,#0074c2 50%,#004C82 100%);z-index:9999;transition:width 0.15s linear;box-shadow:0 0 12px rgba(0,76,130,0.6);}
+/* === TOOLTIP === */
+.tt{border-bottom:2px solid #004C82;color:#004C82;font-weight:700;cursor:pointer;transition:color 0.2s ease;}
+.tt:hover{color:#0074c2;}
+/* === TOC === */
+.hit-toc-active{font-weight:700!important;color:#004C82!important;border-left:3px solid #004C82!important;padding-left:10px!important;background:none!important;}
+/* === CTA BUTTON === */
+.hit-cta-btn{transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.25s ease;}
+.hit-cta-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 28px -6px rgba(0,0,0,0.22)!important;}
+/* === FAQ (native details/summary) === */
+.hit-faq-item{background:#ffffff;border:1px solid #e0e8f0;border-radius:8px;overflow:hidden;transition:border-color 0.2s ease;}
+.hit-faq-item[open]{border-color:#004C82;}
+.hit-faq-item summary{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;gap:16px;cursor:pointer;user-select:none;-webkit-user-select:none;list-style:none;transition:background 0.2s ease;}
+.hit-faq-item summary::-webkit-details-marker{display:none;}
+.hit-faq-item summary::marker{display:none;content:'';}
+.hit-faq-item summary:hover{background:rgba(0,76,130,0.04);}
+.hit-faq-item summary p{margin:0!important;font-weight:700;color:#004c82;font-size:0.95em;user-select:none;-webkit-user-select:none;}
+.hit-faq-item .faq-arr{color:#004c82;font-size:0.7em;flex-shrink:0;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);}
+.hit-faq-item[open] .faq-arr{transform:rotate(180deg);}
+.hit-faq-item .faq-answer{padding:4px 24px 18px 24px;}
+/* === SCROLL REVEAL === */
+.hit-reveal-ready{opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1);}
+.hit-visible{opacity:1!important;transform:translateY(0)!important;}
+/* === CARD HOVER === */
+.hit-card{transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s ease,border-color 0.3s ease;}
+.hit-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px -8px rgba(0,76,130,0.18)!important;border-color:#004C82!important;}
+/* === SECTION DIVIDER === */
+.hit-divider{border:none;height:2px;background:linear-gradient(90deg,transparent 0%,#004C82 20%,#004C82 80%,transparent 100%);opacity:0.15;margin:48px 0!important;}
+/* === TYPOGRAPHY OVERRIDES === */
+h2{margin-top:56px!important;margin-bottom:16px!important;letter-spacing:-0.02em!important;}
+h3{margin-top:40px!important;margin-bottom:14px!important;}
+h4{margin-top:36px!important;margin-bottom:10px!important;letter-spacing:-0.01em!important;}
+p{margin-bottom:14px!important;line-height:1.7!important;}
+/* === BADGE ROW === */
+.hit-badge-row{display:flex;align-items:center;gap:18px;margin-top:28px;margin-bottom:14px;}
+.hit-badge-row h4{margin:0!important;font-size:0.95em!important;color:#004c82!important;font-weight:600!important;}
+/* === STAT CARD HOVER === */
+.hit-stat{transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s ease;}
+.hit-stat:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 20px 40px -8px rgba(232,25,44,0.45)!important;}
+/* === DARK CALLOUT === */
+.hit-callout-dark{position:relative;overflow:hidden;}
+.hit-callout-dark::before{content:'';position:absolute;top:-50%;right:-50%;width:100%;height:100%;background:radial-gradient(circle,rgba(0,116,194,0.15) 0%,transparent 70%);pointer-events:none;}
+/* === DANGER CARD === */
+.hit-danger{transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s ease;}
+.hit-danger:hover{transform:translateY(-2px);box-shadow:0 12px 24px -6px rgba(232,25,44,0.35)!important;}
+/* === CTA POPUP === */
+#hit-popup-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,20,40,0.55);z-index:99998;opacity:0;transition:opacity 0.3s ease;}
+#hit-popup-overlay.hit-popup-show{opacity:1;}
+#hit-popup{display:none;position:fixed;bottom:24px;right:24px;z-index:99999;background:#ffffff;border-radius:14px;box-shadow:0 24px 64px -12px rgba(0,76,130,0.35),0 0 0 1px rgba(0,76,130,0.08);max-width:380px;width:calc(100% - 48px);overflow:hidden;transform:translateY(30px) scale(0.95);opacity:0;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),opacity 0.3s ease;}
+#hit-popup.hit-popup-show{transform:translateY(0) scale(1);opacity:1;}
+#hit-popup-close{position:absolute;top:12px;right:14px;width:32px;height:32px;border:none;background:rgba(255,255,255,0.15);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1em;color:#ffffff;transition:background 0.2s ease,transform 0.2s ease;z-index:1;line-height:1;}
+#hit-popup-close:hover{background:rgba(255,255,255,0.25);transform:scale(1.1);}
+/* === MOBILE RESPONSIVE === */
+@media(max-width:680px){
+.hit-stat-grid{grid-template-columns:1fr!important;}
+.hit-card-grid{grid-template-columns:1fr!important;}
+.hit-stat p:first-child{font-size:1.8em!important;}
+.hit-cta-box{padding:32px 24px!important;}
+.hit-cta-box p:first-of-type{font-size:1.1em!important;}
+h3{font-size:1.3em!important;}
+#hit-popup{bottom:0;right:0;max-width:100%;width:100%;border-radius:14px 14px 0 0;}
+}
+</style>
+
+<div id="hit-progress"></div>
+
+<!-- READING TIME + LABEL -->
+<div class="hit-reveal" style="display:flex;align-items:center;gap:12px;margin-bottom:28px;">
+<p style="display:inline-block;background:#004C82;color:#ffffff;font-size:0.75em;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:4px;margin:0!important;">8 Minuten Lesezeit</p>
+<div style="flex:1;height:1px;background:linear-gradient(90deg,#004C82 0%,transparent 100%);opacity:0.2;"></div>
+</div>
+
+<!-- HERO HEADLINE -->
+<h3 class="hit-reveal" style="color:#004c82;font-size:1.6em;line-height:1.25;font-weight:800;margin-bottom:20px!important;">Wenn Du es merkst, ist es meistens schon zu spät.</h3>
+
+<p class="hit-reveal">Stell Dir vor, ein Hacker sitzt seit Wochen unbemerkt in Deinem Netzwerk. Er liest Deine E Mails, kennt Deine Kundendaten und beobachtet Deine Systeme. Kein lauter Angriff, sondern ein leises, systematisches Vorgehen im Hintergrund.</p>
+
+<p class="hit-reveal">Und irgendwann, wenn alles vorbereitet ist, schlägt er zu. Daten werden verschlüsselt, Systeme blockiert und plötzlich steht eine Lösegeldforderung im Raum.</p>
+
+<!-- STATISTIK-KACHELN -->
+<div class="hit-reveal hit-stat-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:44px 0;">
+<div class="hit-stat" style="background:linear-gradient(135deg,#c41425 0%,#e8192c 100%);border-radius:10px;padding:28px 20px;text-align:center;box-shadow:0 8px 24px -6px rgba(232,25,44,0.4);position:relative;overflow:hidden;">
+<div style="position:absolute;top:-20px;right:-20px;width:90px;height:90px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
+<div style="position:absolute;bottom:-30px;left:-15px;width:70px;height:70px;border:2px solid rgba(255,255,255,0.06);border-radius:50%;"></div>
+<div style="position:absolute;top:12px;left:10px;width:6px;height:6px;background:rgba(255,255,255,0.12);border-radius:50%;"></div>
+<div style="position:absolute;top:12px;left:10px;width:1px;height:40px;background:rgba(255,255,255,0.06);transform:rotate(30deg);transform-origin:top;"></div>
+<div style="position:absolute;bottom:14px;right:12px;width:5px;height:5px;background:rgba(255,255,255,0.1);border-radius:50%;"></div>
+<p id="stat-1" style="color:#ffffff;font-size:2.4em;font-weight:800;margin:0 0 6px 0!important;letter-spacing:-0.03em;line-height:1!important;position:relative;z-index:1;">0</p>
+<p style="color:rgba(255,255,255,0.80);font-size:0.8em;margin:0!important;line-height:1.4!important;position:relative;z-index:1;">Tage bleiben Angreifer durchschnittlich unbemerkt</p>
+</div>
+<div class="hit-stat" style="background:linear-gradient(135deg,#c41425 0%,#e8192c 100%);border-radius:10px;padding:28px 20px;text-align:center;box-shadow:0 8px 24px -6px rgba(232,25,44,0.4);position:relative;overflow:hidden;">
+<div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(255,255,255,0.04);"></div>
+<div style="position:absolute;top:50%;left:0;width:100%;height:1px;background:rgba(255,255,255,0.04);"></div>
+<div style="position:absolute;top:-25px;left:-25px;width:60px;height:60px;border:2px solid rgba(255,255,255,0.05);border-radius:50%;"></div>
+<div style="position:absolute;bottom:-15px;right:-10px;width:50px;height:50px;background:rgba(255,255,255,0.03);border-radius:8px;transform:rotate(25deg);"></div>
+<div style="position:absolute;top:10px;right:14px;width:5px;height:5px;background:rgba(255,255,255,0.1);border-radius:50%;"></div>
+<p id="stat-2" style="color:#ffffff;font-size:2.4em;font-weight:800;margin:0 0 6px 0!important;letter-spacing:-0.03em;line-height:1!important;position:relative;z-index:1;">0</p>
+<p style="color:rgba(255,255,255,0.80);font-size:0.8em;margin:0!important;line-height:1.4!important;position:relative;z-index:1;">Schweizer KMU wurde bereits Opfer eines Cyberangriffs</p>
+</div>
+<div class="hit-stat" style="background:linear-gradient(135deg,#c41425 0%,#e8192c 100%);border-radius:10px;padding:28px 20px;text-align:center;box-shadow:0 8px 24px -6px rgba(232,25,44,0.4);position:relative;overflow:hidden;">
+<div style="position:absolute;top:-35px;right:-35px;width:100px;height:100px;border:2px solid rgba(255,255,255,0.05);border-radius:50%;"></div>
+<div style="position:absolute;top:-20px;right:-20px;width:70px;height:70px;border:1px solid rgba(255,255,255,0.04);border-radius:50%;"></div>
+<div style="position:absolute;top:-8px;right:-8px;width:44px;height:44px;background:rgba(255,255,255,0.03);border-radius:50%;"></div>
+<div style="position:absolute;bottom:-20px;left:-10px;width:55px;height:55px;border:1px solid rgba(255,255,255,0.05);border-radius:50%;"></div>
+<div style="position:absolute;top:8px;left:12px;width:5px;height:5px;background:rgba(255,255,255,0.1);border-radius:50%;"></div>
+<p id="stat-3" style="color:#ffffff;font-size:2.4em;font-weight:800;margin:0 0 6px 0!important;letter-spacing:-0.03em;line-height:1!important;position:relative;z-index:1;">0</p>
+<p style="color:rgba(255,255,255,0.80);font-size:0.8em;margin:0!important;line-height:1.4!important;position:relative;z-index:1;">Durchschnittlicher Schaden pro Angriff auf ein KMU</p>
+</div>
+</div>
+
+<script>
+(function(){
+var stats=[
+  {id:'stat-1',from:0,to:200,suffix:'',prefix:'',special:null},
+  {id:'stat-2',from:0,to:null,suffix:'',prefix:'',special:'1 von 3'},
+  {id:'stat-3',from:0,to:50000,suffix:'+',prefix:'CHF ',special:null}
+];
+var animated=false;
+function animateStat(cfg){
+  if(cfg.special){document.getElementById(cfg.id).textContent=cfg.special;return;}
+  var el=document.getElementById(cfg.id);
+  var start=null;
+  var duration=1800;
+  function step(ts){
+    if(!start)start=ts;
+    var progress=Math.min((ts-start)/duration,1);
+    var ease=1-Math.pow(1-progress,3);
+    var val=Math.round(cfg.from+(cfg.to-cfg.from)*ease);
+    el.textContent=cfg.prefix+val.toLocaleString('de-CH')+cfg.suffix;
+    if(progress<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+function checkAndAnimate(){
+  if(animated)return;
+  var el=document.getElementById('stat-1');
+  if(!el)return;
+  var rect=el.getBoundingClientRect();
+  if(rect.top<window.innerHeight-50){
+    animated=true;
+    stats.forEach(function(s){animateStat(s);});
+  }
+}
+window.addEventListener('scroll',checkAndAnimate,{passive:true});
+checkAndAnimate();
+})();
+</script>
+
+<!-- INHALTSVERZEICHNIS -->
+<div class="hit-reveal" style="border-left:3px solid #004C82;padding:24px 28px;margin:36px 0;background:rgba(0,76,130,0.03);border-radius:0 8px 8px 0;">
+<p style="font-weight:800!important;font-size:0.85em;margin:0 0 14px 0!important;color:#004c82;text-transform:uppercase;letter-spacing:0.08em;">Inhaltsverzeichnis</p>
+<ol style="margin:0;padding-left:20px;line-height:2.2;">
+<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#warum-kmu">Warum KMU in der Schweiz so häufig im Visier von Hackern sind</a></li>
+<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#warnsignale">Die 5 Warnsignale, die Du kennen musst</a>
+<ol style="margin:4px 0 4px 0;padding-left:20px;line-height:1.9;">
+<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#warnsignal-1">Unerklärlich langsames Netzwerk</a></li>
+<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#warnsignal-2">Windows-Backups wurden gelöscht</a></li>
+<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#warnsignal-3">Ein Passwort funktioniert plötzlich nicht mehr</a></li>
+<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#warnsignal-4">E-Mails, die Du nie gesendet hast</a></li>
+<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#warnsignal-5">Login-Warnungen von unbekannten Geräten</a></li>
+</ol>
+</li>
+<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#fehler">Was viele KMU im Ernstfall falsch machen</a></li>
+<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#head-it">So reagiert HEAD IT Solutions im Ernstfall</a></li>
+<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#faq">Häufig gestellte Fragen</a></li>
+<li><a class="hit-toc-link" style="color:#1a1a1a;text-decoration:none;transition:all 0.2s ease;border-left:3px solid transparent;padding-left:8px;" href="#fazit">Fazit</a></li>
+</ol>
+</div>
+
+<!-- WARUM KMU -->
+<h2 id="warum-kmu" class="hit-reveal" style="color:#004c82;">Warum KMU in der Schweiz so häufig im Visier von Hackern sind</h2>
+
+<p class="hit-reveal">„Wir sind doch viel zu klein für Hacker." Diesen Satz hören wir bei der HEAD IT Solutions regelmässig. Leider entspricht er nicht der Realität. Gerade KMU geraten häufig ins Visier von Cyberangriffen, weil ihre IT-Infrastruktur oft weniger stark abgesichert ist als bei Grossunternehmen, gleichzeitig aber wertvolle Informationen enthält, etwa Kundendaten, Bankverbindungen, Verträge oder Zugangsdaten.</p>
+
+<p class="hit-reveal">Hinzu kommt, dass viele Angriffe heute vollständig automatisiert ablaufen. Programme durchsuchen rund um die Uhr das Internet nach verwundbaren Systemen. Dabei spielt es keine Rolle, ob ein Unternehmen gross oder klein ist.</p>
+
+<p class="hit-reveal">Die entscheidende Frage ist daher nicht, ob ein Angriff erfolgt, sondern wann. Wer die typischen Warnsignale kennt und richtig einordnet, gewinnt im Ernstfall wertvolle Zeit. Und genau diese Zeit kann entscheidend sein.</p>
+
+<div class="hit-reveal" style="border-left:4px solid #004C82;padding:20px 24px;margin:28px 0;background:linear-gradient(135deg,#e8f0f8 0%,#f0f6fc 100%);border-radius:0 8px 8px 0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.1);">
+<p style="margin:0;font-size:0.9em;"><span style="font-weight:600;">Praxis-Tipp:</span> Führe einmal im Jahr einen <a style="color:#004c82;" href="https://www.headitsolutions.ch/service/dienstleistungen/it-health-check/">IT-Healthcheck für Dein KMU</a> durch. Er zeigt Dir blinde Flecken in Deiner IT-Infrastruktur, bevor Angreifer sie finden.</p>
+</div>
+
+<hr class="hit-divider">
+
+<h2 id="warnsignale" class="hit-reveal" style="color:#004c82;">Die 5 Warnsignale, die Du kennen musst</h2>
+
+<p class="hit-reveal">Diese Anzeichen tauchen oft unscheinbar auf. Einzeln klingen sie harmlos. Im Zusammenhang mit einem Angriff sind sie aber eindeutige Hinweise, dass etwas nicht stimmt. Hier sind die fünf häufigsten Signale, die wir bei betroffenen KMU immer wieder sehen.</p>
+
+<hr class="hit-divider">
+
+<!-- WARNSIGNAL #1 -->
+<div id="warnsignal-1" class="hit-reveal hit-badge-row">
+<div style="min-width:38px;height:38px;background:#004C82;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.85em;font-weight:400;flex-shrink:0;">#1</div>
+<h4 style="margin:0!important;line-height:1.3;">Deine Internetverbindung ist unerklärlich langsam</h4>
+</div>
+
+<p class="hit-reveal">Das Internet läuft auf einmal zäh wie Honig, obwohl Du nichts Besonderes machst? Das kann tatsächlich an vielem liegen. Aber wenn Du gleichzeitig im Router merkst, dass ungewöhnlich viele Daten <span style="font-weight:600;">nach aussen</span> fliessen, dann ist das kein technisches Zucken, dann solltest Du jetzt genau hinschauen.</p>
+
+<p class="hit-reveal"><span style="font-weight:600;">Was dahinterstecken kann:</span>
+Wenn Angreifer bereits in Deinem System sind, kopieren sie als erstes alles, was wertvoll ist: Kundendaten, Verträge, Zugangsdaten. Das passiert still im Hintergrund, während Du normal arbeitest. Den Datenabfluss sieht man oft nur an diesem erhöhten Traffic.</p>
+
+<p class="hit-reveal"><span style="font-weight:600;">Was Du tun solltest:</span>
+Schau in Deinem Router nach, was gerade nach aussen geht. Kannst Du den Traffic nicht erklären, ruf sofort Deinen IT-Partner an. Warte nicht bis morgen. Im Ernstfall zählt jede Stunde.</p>
+
+<div class="hit-reveal" style="border-left:4px solid #004C82;padding:20px 24px;margin:28px 0;background:linear-gradient(135deg,#e8f0f8 0%,#f0f6fc 100%);border-radius:0 8px 8px 0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.1);">
+<p style="margin:0;font-size:0.9em;"><span style="font-weight:600;">Beispiel:</span> Ein Treuhandbüro aus der Zentralschweiz bemerkte nachts einen massiven Datentransfer ins Ausland. Der IT-Partner wurde sofort alarmiert und konnte den finalen Ransomware-Angriff in letzter Minute verhindern.</p>
+</div>
+
+<hr class="hit-divider">
+
+<!-- WARNSIGNAL #2 -->
+<div id="warnsignal-2" class="hit-reveal hit-badge-row">
+<div style="min-width:38px;height:38px;background:#004C82;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.85em;font-weight:400;flex-shrink:0;">#2</div>
+<h4 style="margin:0!important;line-height:1.3;">Windows-Backups wurden automatisch gelöscht</h4>
+</div>
+
+<p class="hit-reveal">Windows erstellt automatisch sogenannte Schattenkopien, also stille Sicherungspunkte Deines Systems. Wenn diese plötzlich weg sind, ist das kein Fehler von Windows. Das ist in den meisten Fällen <span style="font-weight:600;">kein Zufall</span>.</p>
+
+<p class="hit-reveal"><span style="font-weight:600;">Was dahinterstecken kann:</span>
+Bevor Angreifer die <span class="tt" data-tip="Schadsoftware die Deine Daten verschlüsselt und Lösegeld fordert, bevor Du wieder Zugriff bekommst.">Ransomware</span> aktivieren, räumen sie Deine Backups weg. Denn wenn Du Deine Daten aus einem Backup wiederherstellen kannst, brauchst Du kein Lösegeld zu zahlen. Das wissen sie natürlich auch.</p>
+
+<p class="hit-reveal"><span style="font-weight:600;">Was Du tun solltest:</span>
+Prüfe regelmässig, ob Deine Backups noch da und vollständig sind. Und ganz wichtig: Mindestens eine Kopie sollte <span style="font-weight:600;">offline und vom Netzwerk getrennt</span> sein. Nur dann ist sie wirklich sicher.</p>
+
+<div class="hit-reveal" style="border-left:4px solid #004C82;padding:20px 24px;margin:28px 0;background:linear-gradient(135deg,#e8f0f8 0%,#f0f6fc 100%);border-radius:0 8px 8px 0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.1);">
+<p style="margin:0;font-size:0.9em;"><span style="font-weight:600;">Praxis-Tipp:</span> Das 3-2-1-Backup-Prinzip schützt Dich am besten: 3 Kopien, auf 2 verschiedenen Medien, davon 1 offline. Klingt komplex? <a style="color:#004c82;" href="https://www.headitsolutions.ch/services/managed-services/">Managed Services</a> können das vollständig für Dich übernehmen.</p>
+</div>
+
+<hr class="hit-divider">
+
+<!-- WARNSIGNAL #3 -->
+<div id="warnsignal-3" class="hit-reveal hit-badge-row">
+<div style="min-width:38px;height:38px;background:#004C82;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.85em;font-weight:400;flex-shrink:0;">#3</div>
+<h4 style="margin:0!important;line-height:1.3;">Ein Passwort funktioniert plötzlich nicht mehr</h4>
+</div>
+
+<p class="hit-reveal">Du gibst Dein Passwort ein, wie immer. Und es funktioniert nicht. Du versuchst es nochmal. Nichts. Das kann natürlich viele harmlose Gründe haben. Aber wenn das bei einem <span style="font-weight:600;">Admin-Konto</span> passiert, ist das ein ernstes Signal das sofortige Reaktion erfordert.</p>
+
+<p class="hit-reveal"><span style="font-weight:600;">Was dahinterstecken kann:</span>
+Wer bereits im System ist, ändert Passwörter, um sich dauerhaft einzunisten und Dich gleichzeitig auszusperren. Das ist ein klassischer Schachzug, kurz bevor der eigentliche Angriff losgeht.</p>
+
+<p class="hit-reveal"><span style="font-weight:600;">Was Du tun solltest:</span>
+Ruf sofort Deinen IT-Partner an. Ändere alle Passwörter, aber unbedingt von einem <span style="font-weight:600;">anderen, nicht betroffenen Gerät</span> aus. Und aktiviere danach 2FA überall dort, wo es noch fehlt.</p>
+
+<div class="hit-reveal" style="border-left:4px solid #004C82;padding:20px 24px;margin:28px 0;background:linear-gradient(135deg,#e8f0f8 0%,#f0f6fc 100%);border-radius:0 8px 8px 0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.1);">
+<p style="margin:0;font-size:0.9em;"><span style="font-weight:600;">Beispiel:</span> Beim <a style="color:#004c82;" href="https://news.sophos.com/en-us/2024/03/12/2024-sophos-threat-report/" target="_blank" rel="noopener">Sophos Threat Report 2024</a> war „gestohlene Zugangsdaten" die häufigste Einstiegsmethode bei Ransomware-Angriffen auf KMU, weit vor Phishing-Mails.</p>
+</div>
+
+<hr class="hit-divider">
+
+<!-- WARNSIGNAL #4 -->
+<div id="warnsignal-4" class="hit-reveal hit-badge-row">
+<div style="min-width:38px;height:38px;background:#004C82;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.85em;font-weight:400;flex-shrink:0;">#4</div>
+<h4 style="margin:0!important;line-height:1.3;">Du erhältst Antworten auf E-Mails, die Du nie gesendet hast</h4>
+</div>
+
+<p class="hit-reveal">Ein Kunde meldet sich und bedankt sich für eine Mail, die Du nie geschickt hast. Oder jemand antwortet auf ein Angebot, das Du gar nicht gemacht hast. Das klingt seltsam, aber genau das passiert, wenn jemand Deinen <span style="font-weight:600;">E-Mail-Account übernommen</span> hat.</p>
+
+<p class="hit-reveal"><span style="font-weight:600;">Was dahinterstecken kann:</span>
+Mit Deiner Identität lassen sich Rechnungen umleiten, Schadsoftware verbreiten oder Deine Kunden direkt täuschen. Das Schlimme daran: Die Empfänger vertrauen der Mail, weil sie ja von Dir zu kommen scheint.</p>
+
+<p class="hit-reveal"><span style="font-weight:600;">Was Du tun solltest:</span>
+Schau sofort in den gesendeten Ordner und prüfe die Anmeldehistorie Deines Accounts. Passwort ändern, <span class="tt" data-tip="Zwei-Faktor-Authentifizierung: Login-Schutz der neben dem Passwort einen zweiten Code z.B. per SMS verlangt.">2FA</span> aktivieren, betroffene Kontakte informieren. Transparenz schützt hier auch Deinen Ruf.</p>
+
+<div class="hit-reveal" style="border-left:4px solid #004C82;padding:20px 24px;margin:28px 0;background:linear-gradient(135deg,#e8f0f8 0%,#f0f6fc 100%);border-radius:0 8px 8px 0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.1);">
+<p style="margin:0;font-size:0.9em;"><span style="font-weight:600;">Praxis-Tipp:</span> Microsoft 365 und Google Workspace bieten detaillierte Anmeldeprotokolle. Wer diese regelmässig prüft, erkennt Angriffe oft Tage früher als andere.</p>
+</div>
+
+<hr class="hit-divider">
+
+<!-- WARNSIGNAL #5 -->
+<div id="warnsignal-5" class="hit-reveal hit-badge-row">
+<div style="min-width:38px;height:38px;background:#004C82;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.85em;font-weight:400;flex-shrink:0;">#5</div>
+<h4 style="margin:0!important;line-height:1.3;">Login-Warnungen von unbekannten Geräten</h4>
+</div>
+
+<p class="hit-reveal">Du bekommst eine Push-Meldung: „Neues Gerät hat sich angemeldet" oder „Login aus einem unbekannten Standort." Viele tippen kurz weg und denken sich nichts dabei. Das ist ein Fehler, den man nur einmal machen sollte.</p>
+
+<p class="hit-reveal"><span style="font-weight:600;">Was dahinterstecken kann:</span>
+Wenn Du dieses Login nicht erklären kannst, hat jemand anderes Deine Zugangsdaten und ist bereits drin.</p>
+
+<p class="hit-reveal"><span style="font-weight:600;">Was Du tun solltest:</span>
+Nimm jede dieser Meldungen ernst. Passwort sofort ändern, alle aktiven Sitzungen prüfen, unbekannte Geräte abmelden. Danach direkt Deinen IT-Partner anrufen.</p>
+
+<div class="hit-reveal" style="border-left:4px solid #004C82;padding:20px 24px;margin:28px 0;background:linear-gradient(135deg,#e8f0f8 0%,#f0f6fc 100%);border-radius:0 8px 8px 0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.1);">
+<p style="margin:0;font-size:0.9em;"><span style="font-weight:600;">Beispiel:</span> Ein Login aus Rumänien um 3 Uhr morgens ist kein Einzelfall. Wer 2FA aktiviert hat, stoppt den Angreifer trotz gestohlenem Passwort automatisch.</p>
+</div>
+
+<hr class="hit-divider">
+
+<!-- WAS VIELE KMU FALSCH MACHEN -->
+<h2 id="fehler" class="hit-reveal" style="color:#004c82;">Was viele KMU im Ernstfall falsch machen</h2>
+
+<p class="hit-reveal">Wenn der Verdacht aufkommt, dass etwas nicht stimmt, läuft man schnell in typische Fallen. Der Instinkt sagt eine Sache, aber das Richtige ist oft das Gegenteil davon.</p>
+
+<div class="hit-reveal hit-danger" style="background:linear-gradient(135deg,#c41425 0%,#e8192c 100%);border-radius:8px;box-shadow:0 6px 16px -4px rgba(232,25,44,0.30);padding:18px 22px;margin:16px 0;">
+<p style="margin:0 0 4px 0;font-weight:600;color:#ffffff;">Den Rechner sofort ausschalten</p>
+<p style="margin:0;color:#ffffff;font-size:0.9em;">Klingt logisch, ist aber falsch. Im Arbeitsspeicher befinden sich wichtige Spuren für die Forensik. Einfach ausschalten zerstört diese Beweise unwiederbringlich.</p>
+</div>
+
+<div class="hit-reveal hit-danger" style="background:linear-gradient(135deg,#c41425 0%,#e8192c 100%);border-radius:8px;box-shadow:0 6px 16px -4px rgba(232,25,44,0.30);padding:18px 22px;margin:16px 0;">
+<p style="margin:0 0 4px 0;font-weight:600;color:#ffffff;">Eigenständig „bereinigen" versuchen</p>
+<p style="margin:0;color:#ffffff;font-size:0.9em;">Ohne Fachkenntnisse riskierst Du, wichtige Daten zu überschreiben oder Schadsoftware unbeabsichtigt weiter zu verbreiten.</p>
+</div>
+
+<div class="hit-reveal hit-danger" style="background:linear-gradient(135deg,#c41425 0%,#e8192c 100%);border-radius:8px;box-shadow:0 6px 16px -4px rgba(232,25,44,0.30);padding:18px 22px;margin:16px 0;">
+<p style="margin:0 0 4px 0;font-weight:600;color:#ffffff;">Den Angriff vertuschen</p>
+<p style="margin:0;color:#ffffff;font-size:0.9em;">Die Schweiz macht Ernst: Ab dem 1. April 2025 gilt für Betreiber kritischer Infrastrukturen eine gesetzlich verankerte <a style="color:#ffffff;text-decoration:underline;" href="https://www.headitsolutions.ch/news/meldepflicht-fuer-cyberangriffe-was-auf-kritische-infrastrukturen-ab-april-2025-zukommt/" target="_blank" rel="noopener">Meldepflicht</a> bei Cyberangriffen. Wer schweigt, riskiert empfindliche Bussen.</p>
+</div>
+
+<div class="hit-reveal hit-danger" style="background:linear-gradient(135deg,#c41425 0%,#e8192c 100%);border-radius:8px;box-shadow:0 6px 16px -4px rgba(232,25,44,0.30);padding:18px 22px;margin:16px 0;">
+<p style="margin:0 0 4px 0;font-weight:600;color:#ffffff;">Das Lösegeld einfach bezahlen</p>
+<p style="margin:0;color:#ffffff;font-size:0.9em;">Eine Zahlung garantiert nicht, dass Du Deine Daten zurückbekommst. Ausserdem finanzierst Du damit direkt weitere Angriffe auf andere Unternehmen.</p>
+</div>
+
+<div class="hit-reveal" style="border-left:4px solid #004C82;padding:20px 24px;margin:28px 0;background:linear-gradient(135deg,#e8f0f8 0%,#f0f6fc 100%);border-radius:0 8px 8px 0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.1);">
+<p style="margin:0;font-size:0.9em;"><span style="font-weight:600;">Praxis-Tipp:</span> Erstelle jetzt, bevor es soweit kommt, einen einfachen Notfallplan. Wen rufst Du an? Welche Systeme trennt ihr zuerst? Wer ist intern zuständig? Ein klar definierter Plan hilft im Ernstfall, schneller und strukturierter zu reagieren.</p>
+</div>
+
+<!-- MID-ARTICLE CTA -->
+<div class="hit-reveal" style="background:rgba(0,76,130,0.04);border:1px solid rgba(0,76,130,0.12);border-radius:10px;padding:28px 32px;margin:36px 0;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+<div style="flex:1;min-width:240px;">
+<p style="margin:0 0 4px 0!important;font-weight:700;color:#004c82;font-size:0.95em;">Wie sicher ist Deine IT wirklich?</p>
+<p style="margin:0!important;font-size:0.85em;color:#4a5568;">Wir schauen uns Deine IT-Infrastruktur an und sagen Dir ehrlich, wo die grössten Risiken liegen.</p>
+</div>
+<a class="hit-cta-btn" style="display:inline-block;background:#004C82;color:#ffffff;font-weight:700;font-size:0.85em;padding:12px 24px;border-radius:6px;text-decoration:none;white-space:nowrap;box-shadow:0 4px 12px -3px rgba(0,76,130,0.3);" href="mailto:office@headitsolutions.ch?subject=Anfrage%20IT-Healthcheck&body=Sehr%20geehrtes%20Team%20der%20HEAD%20IT%20Solutions%0A%0AIch%20interessiere%20mich%20f%C3%BCr%20einen%20IT-Healthcheck%20f%C3%BCr%20unser%20Unternehmen%20und%20w%C3%BCrde%20mich%20%C3%BCber%20eine%20R%C3%BCckmeldung%20freuen.%0A%0AMit%20freundlichen%20Gr%C3%BCssen">Jetzt IT-Healthcheck anfragen</a>
+</div>
+
+<hr class="hit-divider">
+
+<!-- HEAD IT -->
+<h2 id="head-it" class="hit-reveal" style="color:#004c82;">So geht die HEAD IT Solutions im Ernstfall vor</h2>
+
+<p class="hit-reveal">Wenn Du uns anrufst und sagst „ich glaube wir haben ein Problem", dann rennen wir nicht erst los und suchen die Anleitung. Wir wissen, was zu tun ist. Als <span class="tt" data-tip="Höchste Partnerstufe bei Sophos, einem der führenden Cybersecurity-Anbieter weltweit.">Sophos Platinum Partner</span> und dreifach <a style="color:#004c82;font-weight:600;text-decoration:underline;" href="https://www.headitsolutions.ch/about/zertifikate/" target="_blank" rel="noopener">ISO-zertifiziertes Unternehmen</a> haben wir die Werkzeuge und das Know-how, um wirklich zu helfen:</p>
+
+<div class="hit-reveal hit-card-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0;">
+<div class="hit-card" style="background:#ffffff;border:1px solid #e0e8f0;border-top:3px solid #004C82;border-radius:8px;padding:22px 22px 18px 22px;box-shadow:0 2px 8px -2px rgba(0,0,0,0.06);">
+<p style="margin:0 0 8px 0!important;font-weight:700;color:#004c82;font-size:0.95em;">24/7 Monitoring</p>
+<p style="margin:0!important;font-size:0.9em;color:#4a5568;">Deine IT wird rund um die Uhr überwacht. Auffälligkeiten werden automatisch erkannt und sofort eskaliert.</p>
+</div>
+<div class="hit-card" style="background:#ffffff;border:1px solid #e0e8f0;border-top:3px solid #004C82;border-radius:8px;padding:22px 22px 18px 22px;box-shadow:0 2px 8px -2px rgba(0,0,0,0.06);">
+<p style="margin:0 0 8px 0!important;font-weight:700;color:#004c82;font-size:0.95em;">Incident Response</p>
+<p style="margin:0!important;font-size:0.9em;color:#4a5568;">Im Ernstfall weiss unser Team genau, was zu tun ist. Kein Weitervermitteln, kein Warten auf ein Ticket.</p>
+</div>
+<div class="hit-card" style="background:#ffffff;border:1px solid #e0e8f0;border-top:3px solid #004C82;border-radius:8px;padding:22px 22px 18px 22px;box-shadow:0 2px 8px -2px rgba(0,0,0,0.06);">
+<p style="margin:0 0 8px 0!important;font-weight:700;color:#004c82;font-size:0.95em;">IT-Healthcheck</p>
+<p style="margin:0!important;font-size:0.9em;color:#4a5568;">Wir analysieren Deine Infrastruktur und zeigen Dir die blinden Flecken, bevor Angreifer sie finden.</p>
+</div>
+<div class="hit-card" style="background:#ffffff;border:1px solid #e0e8f0;border-top:3px solid #004C82;border-radius:8px;padding:22px 22px 18px 22px;box-shadow:0 2px 8px -2px rgba(0,0,0,0.06);">
+<p style="margin:0 0 8px 0!important;font-weight:700;color:#004c82;font-size:0.95em;">Managed Services</p>
+<p style="margin:0!important;font-size:0.9em;color:#4a5568;">Laufender Schutz ohne eigene IT-Abteilung. Du konzentrierst Dich auf Dein Business.</p>
+</div>
+</div>
+
+<div class="hit-reveal hit-callout-dark" style="background:linear-gradient(135deg,#004C82 0%,#0068b5 100%);border-radius:10px;box-shadow:0 12px 32px -8px rgba(0,76,130,0.4);padding:28px 32px;margin:32px 0;">
+<p style="margin:0 0 4px 0!important;font-weight:700;color:#ffffff;font-size:1.05em;">Was uns ausmacht</p>
+<p style="margin:0!important;color:rgba(255,255,255,0.8);font-size:0.9em;">Bei uns hast Du einen festen Ansprechpartner, der Dich und Deine IT-Landschaft kennt. Du landest nicht in einer anonymen Warteschleife oder wirst mehrfach weitergeleitet, sondern erreichst direkt jemanden, der mit Deiner Umgebung vertraut ist und Dir schnell weiterhelfen kann.</p>
+</div>
+
+<hr class="hit-divider">
+
+<!-- FAQ -->
+<h2 id="faq" class="hit-reveal" style="color:#004c82;">Häufig gestellte Fragen zu Cyberangriffen auf KMU</h2>
+
+<div class="hit-reveal" style="display:flex;flex-direction:column;gap:10px;margin:28px 0;">
+<details class="hit-faq-item">
+<summary><p>Sind kleine Unternehmen wirklich ein Ziel für Hacker?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer">
+<p style="margin:0!important;padding-bottom:2px;">Ja, kleine Unternehmen sind ein bevorzugtes Ziel, weil sie oft weniger geschützt sind als Grosskonzerne, aber genauso wertvolle Daten besitzen. Die meisten Angriffe laufen vollautomatisch und scannen das Internet gezielt nach schwach gesicherten Systemen, unabhängig von der Unternehmensgrösse.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Was ist ein Cyberangriff und wie funktioniert er bei KMU?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer">
+<p style="margin:0!important;padding-bottom:2px;">Ein Cyberangriff ist ein gezielter digitaler Eingriff in IT-Systeme mit dem Ziel, Daten zu stehlen, Systeme lahmzulegen oder Lösegeld zu erpressen. Bei KMU beginnt ein Angriff häufig mit einer <span class="tt" data-tip="Gefälschte E-Mails oder Webseiten die darauf abzielen, Passwörter oder persönliche Daten zu stehlen.">Phishing</span>-Mail oder einem schwachen Passwort. Danach bewegt sich der Angreifer wochenlang unbemerkt durch das Netzwerk, bevor er zuschlägt.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Was kostet ein Cyberangriff ein KMU wirklich?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer">
+<p style="margin:0!important;padding-bottom:2px;">Ein Cyberangriff kostet ein KMU im Durchschnitt einen fünf- bis sechsstelligen Betrag. Dabei entstehen nicht nur direkte Kosten durch Datenverlust oder Lösegeld, sondern auch versteckte Folgekosten wie Systemwiederherstellung, Ausfallzeit, Reputationsverlust und mögliche Bussen bei Datenschutzverletzungen.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Wie lange bleiben Hacker unbemerkt in einem Firmennetzwerk?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer">
+<p style="margin:0!important;padding-bottom:2px;">Hacker bleiben im Durchschnitt über 200 Tage unbemerkt in einem Firmennetzwerk. Diese Zeit nutzen sie, um sich in der gesamten Infrastruktur auszubreiten, Zugangsdaten zu sammeln und sensible Daten zu stehlen, bevor sie den eigentlichen Angriff starten.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Was soll ich sofort tun, wenn ich einen Cyberangriff vermute?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer">
+<p style="margin:0!important;padding-bottom:2px;">Trenne das betroffene Gerät sofort vom Netzwerk, aber schalte es nicht aus. Im Arbeitsspeicher können wichtige Spuren gespeichert sein. Lösche nichts und ziehe umgehend einen IT-Fachmann bei. Je schneller Du reagierst, desto grösser ist die Chance, den Schaden zu begrenzen.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Soll ich bei einem Ransomware-Angriff das Lösegeld bezahlen?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer">
+<p style="margin:0!important;padding-bottom:2px;">Nein. Eine Zahlung garantiert nicht, dass Du Deine Daten zurückbekommst. Prüfe zuerst, ob eine Wiederherstellung aus einem Backup möglich ist, und ziehe IT-Fachleute sowie die Polizei bei. Das <a style="color:#004c82;" href="https://www.ncsc.admin.ch" target="_blank" rel="noopener">NCSC (Nationales Zentrum für Cybersicherheit)</a> empfiehlt in der Schweiz, keine Lösegelder zu bezahlen.</p></div>
+</details>
+</div>
+
+<hr class="hit-divider">
+
+<!-- FAZIT -->
+<h2 id="fazit" class="hit-reveal" style="color:#004c82;">Fazit: Wer früh reagiert, gewinnt</h2>
+
+<p class="hit-reveal">Cyberangriffe beginnen selten spektakulär. Meist starten sie leise, geduldig und lange unbemerkt im Hintergrund. Wer jedoch die typischen Warnsignale kennt und weiss, wie im Ernstfall zu reagieren ist, verschafft sich einen entscheidenden Vorteil.</p>
+
+<p class="hit-reveal">Dafür musst Du kein IT-Experte sein. Wichtig ist vor allem zu wissen, wann Handlungsbedarf besteht und an wen Du Dich wenden solltest.</p>
+
+<p class="hit-reveal">Warte nicht, bis etwas passiert. Der beste Zeitpunkt, Deine IT-Infrastruktur zu überprüfen und mögliche Schwachstellen zu erkennen, ist jetzt.</p>
+
+<!-- CTA POPUP -->
+<div id="hit-popup-overlay"></div>
+<div id="hit-popup">
+<button id="hit-popup-close" aria-label="Schliessen">&#10005;</button>
+<div style="background:linear-gradient(135deg,#004C82 0%,#0068b5 100%);padding:24px 28px 20px 28px;">
+<p style="margin:0 0 4px 0!important;color:#ffffff;font-weight:800;font-size:1.05em;line-height:1.3!important;">Wie sicher ist Deine IT wirklich?</p>
+<p style="margin:0!important;color:rgba(255,255,255,0.75);font-size:0.85em;line-height:1.5!important;">Wir schauen uns Deine IT-Infrastruktur an und sagen Dir ehrlich, wo die grössten Risiken liegen.</p>
+</div>
+<div style="padding:20px 28px 24px 28px;">
+<a class="hit-cta-btn" style="display:block;text-align:center;background:#004C82;color:#ffffff;font-weight:700;font-size:0.85em;padding:14px 24px;border-radius:8px;text-decoration:none;box-shadow:0 4px 16px -4px rgba(0,76,130,0.35);" href="mailto:office@headitsolutions.ch?subject=Anfrage%20IT-Healthcheck&body=Sehr%20geehrtes%20Team%20der%20HEAD%20IT%20Solutions%0A%0AIch%20interessiere%20mich%20f%C3%BCr%20einen%20IT-Healthcheck%20f%C3%BCr%20unser%20Unternehmen%20und%20w%C3%BCrde%20mich%20%C3%BCber%20eine%20R%C3%BCckmeldung%20freuen.%0A%0AMit%20freundlichen%20Gr%C3%BCssen">Jetzt IT-Healthcheck anfragen</a>
+<p style="margin:8px 0 0 0!important;text-align:center;font-size:0.75em;color:#8896a6;">Kein Fachchinesisch, kein Verkaufsdruck.</p>
+</div>
+</div>
+
+<!-- CTA-BOX -->
+<div class="hit-reveal hit-callout-dark hit-cta-box" style="background:linear-gradient(135deg,#004C82 0%,#0068b5 100%);border-radius:12px;padding:44px 40px;margin:48px 0;text-align:center;box-shadow:0 16px 48px -12px rgba(0,76,130,0.5);position:relative;overflow:hidden;">
+<div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);"></div>
+<p style="color:#ffffff;font-size:1.35em;font-weight:800;margin:0 0 10px 0!important;letter-spacing:-0.02em;">Wie sicher ist Deine IT wirklich?</p>
+<p style="color:rgba(255,255,255,0.7);font-size:0.95em;margin:0 0 28px 0!important;max-width:520px;display:inline-block;">Wir schauen uns Deine IT-Infrastruktur an und sagen Dir ehrlich, wo die grössten Risiken liegen. Kein Fachchinesisch, kein Verkaufsdruck. Einfach ein klares Bild davon, wo Du gerade stehst.</p>
+<br>
+<a class="hit-cta-btn" style="display:inline-block;background:#ffffff;color:#004c82;font-weight:800;font-size:0.95em;padding:16px 36px;border-radius:8px;text-decoration:none;margin-bottom:24px;box-shadow:0 8px 24px -6px rgba(0,0,0,0.2);letter-spacing:0.01em;" href="mailto:office@headitsolutions.ch?subject=Anfrage%20IT-Healthcheck&body=Sehr%20geehrtes%20Team%20der%20HEAD%20IT%20Solutions%0A%0AIch%20interessiere%20mich%20f%C3%BCr%20einen%20IT-Healthcheck%20f%C3%BCr%20unser%20Unternehmen%20und%20w%C3%BCrde%20mich%20%C3%BCber%20eine%20R%C3%BCckmeldung%20freuen.%0A%0AMit%20freundlichen%20Gr%C3%BCssen">Jetzt IT-Healthcheck anfragen</a>
+<p style="color:rgba(255,255,255,0.5);font-size:0.85em;margin:0!important;"><a style="color:rgba(255,255,255,0.8);text-decoration:none;font-weight:600;" href="tel:+41415100230">+41 41 510 02 30</a> &nbsp;&middot;&nbsp; <a style="color:rgba(255,255,255,0.6);text-decoration:none;" href="mailto:office@headitsolutions.ch">office@headitsolutions.ch</a></p>
+</div>
+
+<script>
+try{
+var hitTTBox=document.createElement('div');
+hitTTBox.id='hit-tt-box';
+hitTTBox.style.cssText='display:none;position:fixed;background:#0a1a2e;color:#fff;font-size:0.8em;line-height:1.5;padding:10px 14px;border-radius:8px;max-width:240px;box-shadow:0 8px 24px rgba(0,0,0,0.25);z-index:999999;pointer-events:none;white-space:normal;word-break:break-word;border:1px solid rgba(255,255,255,0.08);';
+(document.body||document.documentElement).appendChild(hitTTBox);
+document.addEventListener('mouseover',function(e){
+  var t=e.target;
+  while(t){
+    if(t.nodeType!==1)break;
+    if(t.className&&typeof t.className==='string'&&t.className.indexOf('tt')!==-1){
+      var tip=t.getAttribute('data-tip');
+      if(tip){hitTTBox.textContent=tip;hitTTBox.style.display='block';return;}
+    }
+    t=t.parentNode;
+    if(!t)break;
+    if(t===document.body)break;
+  }
+  hitTTBox.style.display='none';
+});
+document.addEventListener('mousemove',function(e){
+  if(hitTTBox.style.display==='none')return;
+  var x=e.clientX+14,y=e.clientY-60;
+  if(x+254>window.innerWidth)x=e.clientX-254;
+  if(y<8)y=e.clientY+20;
+  hitTTBox.style.left=x+'px';hitTTBox.style.top=y+'px';
+});
+}catch(e){}
+var hitBar=document.getElementById('hit-progress');
+function hitProgress(){
+  if(!hitBar)return;
+  var scrolled=window.pageYOffset||document.documentElement.scrollTop||document.body.scrollTop||0;
+  var docH=Math.max(document.body.scrollHeight||0,document.documentElement.scrollHeight||0,document.documentElement.offsetHeight||0);
+  var winH=window.innerHeight||document.documentElement.clientHeight||0;
+  var total=docH-winH;
+  hitBar.style.width=(total>0?Math.min(scrolled/total*100,100):0)+'%';
+}
+window.addEventListener('scroll',hitProgress,{passive:true});
+window.addEventListener('resize',hitProgress,{passive:true});
+hitProgress();
+var hitTocS=['warum-kmu','warnsignale','warnsignal-1','warnsignal-2','warnsignal-3','warnsignal-4','warnsignal-5','fehler','head-it','faq','fazit'];
+window.addEventListener('scroll',function(){
+  var cur='';
+  for(var i=0;i<hitTocS.length;i++){
+    var el=document.getElementById(hitTocS[i]);
+    if(el){
+      if(el.getBoundingClientRect().top<=120)cur=hitTocS[i];
+    }
+  }
+  var links=document.querySelectorAll('.hit-toc-link');
+  for(var j=0;j<links.length;j++){
+    var a=links[j];
+    if(a.getAttribute('href')==='#'+cur){
+      if(a.className.indexOf('hit-toc-active')===-1)a.className+=' hit-toc-active';
+    }else{
+      a.className=a.className.replace(' hit-toc-active','').replace('hit-toc-active','');
+    }
+  }
+},{passive:true});
+document.addEventListener('click',function(e){
+  var a=e.target;
+  if(a.tagName!=='A')return;
+  var href=a.getAttribute('href');
+  if(!href||href.charAt(0)!=='#')return;
+  if(a.className.indexOf('hit-toc-link')===-1)return;
+  var target=document.getElementById(href.substring(1));
+  if(!target)return;
+  e.preventDefault();
+  var top=target.getBoundingClientRect().top+window.pageYOffset-80;
+  window.scrollTo({top:top,behavior:'smooth'});
+});
+(function(){
+  var reveals=document.querySelectorAll('.hit-reveal');
+  if(!reveals.length)return;
+  if('IntersectionObserver' in window){
+    for(var i=0;i<reveals.length;i++){
+      if(reveals[i].className.indexOf('hit-reveal-ready')===-1)reveals[i].className+=' hit-reveal-ready';
+    }
+    var observer=new IntersectionObserver(function(entries){
+      for(var j=0;j<entries.length;j++){
+        if(entries[j].isIntersecting){
+          var el=entries[j].target;
+          if(el.className.indexOf('hit-visible')===-1)el.className+=' hit-visible';
+          observer.unobserve(el);
+        }
+      }
+    },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+    for(var k=0;k<reveals.length;k++){observer.observe(reveals[k]);}
+  }
+})();
+/* === CTA POPUP === */
+try{
+(function(){
+  var popupShown=false;
+  var popup=document.getElementById('hit-popup');
+  var overlay=document.getElementById('hit-popup-overlay');
+  var closeBtn=document.getElementById('hit-popup-close');
+  if(!popup||!overlay||!closeBtn)return;
+  function showPopup(){
+    if(popupShown)return;
+    popupShown=true;
+    popup.style.display='block';
+    overlay.style.display='block';
+    setTimeout(function(){
+      if(popup.className.indexOf('hit-popup-show')===-1)popup.className+=' hit-popup-show';
+      if(overlay.className.indexOf('hit-popup-show')===-1)overlay.className+=' hit-popup-show';
+    },30);
+  }
+  function hidePopup(){
+    popup.className=popup.className.replace(' hit-popup-show','').replace('hit-popup-show','');
+    overlay.className=overlay.className.replace(' hit-popup-show','').replace('hit-popup-show','');
+    setTimeout(function(){popup.style.display='none';overlay.style.display='none';},350);
+  }
+  closeBtn.addEventListener('click',function(e){e.preventDefault();hidePopup();});
+  overlay.addEventListener('click',hidePopup);
+  window.addEventListener('scroll',function(){
+    if(popupShown)return;
+    var scrolled=window.pageYOffset||document.documentElement.scrollTop||0;
+    var docH=Math.max(document.body.scrollHeight||0,document.documentElement.scrollHeight||0);
+    var winH=window.innerHeight||document.documentElement.clientHeight||0;
+    var total=docH-winH;
+    if(total>0&&(scrolled/total)>0.55){showPopup();}
+  },{passive:true});
+})();
+}catch(e){}
+</script>

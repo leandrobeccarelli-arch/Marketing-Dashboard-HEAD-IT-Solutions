@@ -1,0 +1,272 @@
+<p><style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');h2,h3,h4,p,a,li,span,summary,div,.hit-badge,.hit-callout-label,.tt{font-family:'Montserrat',sans-serif!important;}#hit-progress{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#004C82 0%,#0074c2 50%,#004C82 100%);z-index:9999;transition:width 0.15s linear;box-shadow:0 0 12px rgba(0,76,130,0.6);}.tt{border-bottom:2px solid #004C82;color:#004C82;font-weight:700;cursor:pointer;transition:color 0.2s ease;}.tt:hover{color:#0074c2;}.hit-toc-active{font-weight:700!important;color:#004C82!important;border-left:3px solid #004C82!important;padding-left:10px!important;background:none!important;}.hit-cta-btn{transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.25s ease;}.hit-cta-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 28px -6px rgba(0,0,0,0.22)!important;}.hit-faq-item{background:#ffffff;border:1px solid #e0e8f0;border-radius:8px;overflow:hidden;transition:border-color 0.2s ease;}.hit-faq-item[open]{border-color:#004C82;}.hit-faq-item summary{display:flex;flex-direction:row-reverse;justify-content:flex-end;align-items:center;padding:18px 24px;gap:16px;cursor:pointer;user-select:none;-webkit-user-select:none;list-style:none;transition:background 0.2s ease;}.hit-faq-item summary::-webkit-details-marker{display:none;}.hit-faq-item summary::marker{display:none;content:'';}.hit-faq-item summary:hover{background:rgba(0,76,130,0.04);}.hit-faq-item summary p{margin:0!important;font-weight:700;color:#004c82;font-size:0.95em;user-select:none;-webkit-user-select:none;}.hit-faq-item .faq-arr{flex-shrink:0;width:10px;height:10px;border-right:2px solid #004c82;border-bottom:2px solid #004c82;transform:rotate(45deg);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);margin-top:-3px;}.hit-faq-item[open] .faq-arr{transform:rotate(-135deg);margin-top:3px;}.hit-faq-item .faq-answer{padding:4px 24px 18px 24px;}.hit-reveal-ready{opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1);}.hit-visible{opacity:1!important;transform:translateY(0)!important;}.hit-card{background:#ffffff;border:1px solid #e0e8f0;box-shadow:0 2px 8px -2px rgba(0,0,0,0.06);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s ease,border-color 0.3s ease;}.hit-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px -8px rgba(0,76,130,0.18)!important;border-color:#004C82!important;}.hit-divider{border:none;height:2px;background:linear-gradient(90deg,transparent 0%,#004C82 20%,#004C82 80%,transparent 100%);opacity:0.15;margin:48px 0!important;}h2{margin-top:56px!important;margin-bottom:16px!important;letter-spacing:-0.02em!important;}h3{margin-top:40px!important;margin-bottom:14px!important;}h4{margin-top:36px!important;margin-bottom:10px!important;letter-spacing:-0.01em!important;}p{margin-bottom:14px!important;line-height:1.7!important;}.hit-stat{transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s ease;}.hit-stat:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 20px 40px -8px rgba(0,76,130,0.45)!important;}.hit-callout-dark{position:relative;overflow:hidden;}.hit-callout-dark::before{content:'';position:absolute;top:-50%;right:-50%;width:100%;height:100%;background:radial-gradient(circle,rgba(0,116,194,0.15) 0%,transparent 70%);pointer-events:none;}.hit-callout-label{display:inline-flex;align-items:center;gap:6px;font-size:0.7em;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border-radius:4px;margin-bottom:10px;}#hit-popup-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,20,40,0.55);z-index:99998;opacity:0;transition:opacity 0.3s ease;}#hit-popup-overlay.hit-popup-show{opacity:1;}#hit-popup{display:none;position:fixed;bottom:24px;right:24px;z-index:99999;background:linear-gradient(135deg,#004C82 0%,#0068b5 100%);border-radius:14px;box-shadow:0 24px 64px -12px rgba(0,76,130,0.5),0 0 0 1px rgba(0,76,130,0.15);max-width:380px;width:calc(100% - 48px);overflow:hidden;transform:translateY(30px) scale(0.95);opacity:0;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),opacity 0.3s ease;}#hit-popup.hit-popup-show{transform:translateY(0) scale(1);opacity:1;}#hit-popup-close{position:absolute;top:12px;right:14px;width:32px;height:32px;border:none;background:rgba(255,255,255,0.15);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1em;color:#ffffff;transition:background 0.2s ease,transform 0.2s ease;z-index:1;line-height:1;}#hit-popup-close:hover{background:rgba(255,255,255,0.25);transform:scale(1.1);}.hit-sla-grid{display:flex;gap:12px;margin:24px 0;}.hit-sla-card{flex:1 1 0;min-width:0;background:#fff;border:1px solid #e0e8f0;border-radius:10px;overflow:hidden;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s ease;}.hit-sla-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px -8px rgba(0,76,130,0.2);}.hit-sla-head{padding:14px 16px;text-align:center;color:#fff;font-weight:800;font-size:0.95em;letter-spacing:0.03em;font-family:'Montserrat',sans-serif!important;}.hit-sla-body{padding:16px 14px 18px 14px;}.hit-sla-feat{margin-bottom:9px;font-size:0.82em;line-height:1.5;color:#004c82;padding-left:16px;position:relative;font-family:'Montserrat',sans-serif!important;}.hit-sla-feat::before{content:'';position:absolute;left:0;top:6px;width:6px;height:6px;border-radius:50%;background:var(--dot,#004c82);}.hit-sla-no{color:#b0bec5;}.hit-sla-no::before{background:#d0d8e0;}@media(max-width:900px){.hit-sla-grid{flex-wrap:wrap!important;}.hit-sla-card{flex:1 1 calc(50% - 6px)!important;min-width:calc(50% - 6px)!important;}}@media(max-width:680px){.hit-sla-grid{flex-direction:column!important;}.hit-sla-card{flex:1 1 100%!important;min-width:100%!important;}}.hit-sit{background:#fff;border:1px solid #e0e8f0;border-left:4px solid #004C82;border-radius:4px 10px 10px 4px;overflow:hidden;transition:border-color 0.3s ease,box-shadow 0.3s ease;}.hit-sit[open]{border-left-color:#0068b5;box-shadow:0 8px 24px -8px rgba(0,76,130,0.12);}.hit-sit summary{display:flex;align-items:center;gap:14px;padding:16px 20px;cursor:pointer;user-select:none;-webkit-user-select:none;list-style:none;transition:background 0.2s ease;}.hit-sit summary::-webkit-details-marker{display:none;}.hit-sit summary::marker{display:none;content:'';}.hit-sit summary:hover{background:rgba(0,76,130,0.03);}.hit-sit-num{min-width:32px;height:32px;background:linear-gradient(135deg,#004C82,#0068b5);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.75em;font-weight:700;flex-shrink:0;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);}.hit-sit[open] .hit-sit-num{transform:scale(1.1);}.hit-sit-title{flex:1;font-weight:700;color:#004c82;font-size:0.92em;margin:0!important;}.hit-sit-arr{flex-shrink:0;width:8px;height:8px;border-right:2px solid #004c82;border-bottom:2px solid #004c82;transform:rotate(45deg);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);opacity:0.5;}.hit-sit[open] .hit-sit-arr{transform:rotate(-135deg);opacity:1;}.hit-sit-body{padding:0 20px 18px 66px;}.hit-sit-body p{font-size:0.88em!important;color:#334155!important;}.hit-sit-callout{margin:12px 0 0 0;padding:12px 16px;background:linear-gradient(135deg,#e8f0f8 0%,#f0f6fc 100%);border-radius:8px;font-size:0.84em!important;color:#004C82!important;line-height:1.5!important;}@media(max-width:680px){.hit-stat-grid{grid-template-columns:1fr!important;}.hit-card-grid{grid-template-columns:1fr!important;}.hit-stat p:first-child{font-size:1.8em!important;}.hit-cta-box{padding:32px 24px!important;}.hit-cta-box p:first-of-type{font-size:1.1em!important;}h3{font-size:1.3em!important;}.hit-sit-body{padding:0 16px 16px 16px!important;}.hit-sit summary{padding:14px 16px!important;gap:10px!important;}#hit-popup{bottom:0;right:0;max-width:100%;width:100%;border-radius:14px 14px 0 0;}.hit-callout-dark{padding:24px 20px!important;}}</style></p>
+<div id="hit-progress"> </div>
+<p><!-- READING TIME + LABEL --></p>
+<div class="hit-reveal" style="display: flex; align-items: center; gap: 12px; margin-bottom: 28px;">
+<p style="display: inline-block; background: #004C82; color: #ffffff; font-size: 0.75em; font-weight: bold; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 16px; border-radius: 4px; margin: 0!important;">7 Min. Lesezeit</p>
+<div style="flex: 1; height: 1px; background: linear-gradient(90deg,#004C82 0%,transparent 100%); opacity: 0.2;"> </div>
+</div>
+<p><!-- HERO HEADLINE --></p>
+<h3 class="hit-reveal" style="color: #004c82; font-size: 1.9em; line-height: 1.25; font-weight: 800; margin-bottom: 20px!important;">IT-Support in Luzern: Was passiert, wenn Dein IT-Partner nicht erreichbar ist</h3>
+<p class="hit-reveal">Stell Dir vor: Donnerstagnachmittag, 14 Uhr. Dein Buchhaltungsteam kommt nicht mehr ins <span class="tt" data-tip="Enterprise Resource Planning: Software zur zentralen Steuerung von Geschäftsprozessen wie Buchhaltung, Lagerhaltung, Einkauf und Personalwesen. Beispiele: SAP, Abacus, Microsoft Dynamics.">ERP</span>. Drei Leute sitzen rum, ein Kunde wartet auf eine Rechnung, und Du wählst die Nummer Deines IT-Dienstleisters. Besetzt. Nochmal. Mailbox. Du schreibst eine Mail. Keine Antwort bis 17 Uhr.</p>
+<p class="hit-reveal">Das klingt übertrieben? Wir hören solche Geschichten regelmässig von Unternehmen in der Zentralschweiz, die zu uns wechseln. Viele KMU in der Region haben keinen eigenen IT-Verantwortlichen und sind komplett auf ihren externen Dienstleister angewiesen. Wenn der nicht erreichbar ist, steht alles still. Hier erfährst Du, warum die Lösungszeit wichtiger ist als eine schnelle Erstreaktion, und woran Du merkst, ob Dein IT-Support wirklich funktioniert.</p>
+<p><!-- INHALTSVERZEICHNIS --></p>
+<div class="hit-reveal" style="border-left: 3px solid #004C82; padding: 24px 28px; margin: 36px 0; background: rgba(0,76,130,0.03); border-radius: 0 8px 8px 0;">
+<p style="font-weight: 800!important; font-size: 0.85em; margin: 0 0 14px 0!important; color: #004c82; text-transform: uppercase; letter-spacing: 0.08em;">Inhaltsverzeichnis</p>
+<ol style="margin: 0; padding-left: 20px; line-height: 2.2;">
+<li><a class="hit-toc-link" style="color: #004c82; text-decoration: none; transition: all 0.2s ease; border-left: 3px solid transparent; padding-left: 8px;" href="#reaktionszeit-vs-loesungszeit">Reaktionszeit vs. Lösungszeit</a></li>
+<li><a class="hit-toc-link" style="color: #004c82; text-decoration: none; transition: all 0.2s ease; border-left: 3px solid transparent; padding-left: 8px;" href="#situationen">5 Situationen, in denen jede Minute zählt</a></li>
+<li><a class="hit-toc-link" style="color: #004c82; text-decoration: none; transition: all 0.2s ease; border-left: 3px solid transparent; padding-left: 8px;" href="#worauf-achten">Worauf Du bei einem IT-Dienstleister achten solltest</a></li>
+<li><a class="hit-toc-link" style="color: #004c82; text-decoration: none; transition: all 0.2s ease; border-left: 3px solid transparent; padding-left: 8px;" href="#head-it">So läuft IT-Support bei HEAD IT</a></li>
+<li><a class="hit-toc-link" style="color: #004c82; text-decoration: none; transition: all 0.2s ease; border-left: 3px solid transparent; padding-left: 8px;" href="#faq">Häufig gestellte Fragen</a></li>
+<li><a class="hit-toc-link" style="color: #004c82; text-decoration: none; transition: all 0.2s ease; border-left: 3px solid transparent; padding-left: 8px;" href="#fazit">Fazit</a></li>
+</ol>
+</div>
+<p><!-- REAKTIONSZEIT VS. LOESUNGSZEIT --></p>
+<h2 id="reaktionszeit-vs-loesungszeit" class="hit-reveal" style="color: #004c82;">Reaktionszeit vs. Lösungszeit</h2>
+<p class="hit-reveal">Viele IT-Dienstleister werben mit schnellen Reaktionszeiten. "Wir melden uns innerhalb von 30 Minuten." Klingt gut. Aber was bringt Dir eine schnelle Rückmeldung, wenn das Problem danach noch drei Stunden offen bleibt? Reaktionszeit und Lösungszeit sind zwei verschiedene Dinge.</p>
+<div class="hit-reveal hit-card-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0;">
+<div class="hit-card" style="border-top: 3px solid #004C82; border-radius: 8px; padding: 22px 22px 18px 22px;">
+<p style="margin: 0 0 8px 0!important; font-weight: bold; color: #004c82; font-size: 0.95em;">Reaktionszeit</p>
+<p style="margin: 0!important; font-size: 0.9em; color: #4a5568;">Von Deiner Meldung bis zur ersten qualifizierten Rückmeldung. Dein IT-Partner hat das Problem verstanden und sagt Dir, was als Nächstes passiert.</p>
+</div>
+<div class="hit-card" style="border-top: 3px solid #004C82; border-radius: 8px; padding: 22px 22px 18px 22px;">
+<p style="margin: 0 0 8px 0!important; font-weight: bold; color: #004c82; font-size: 0.95em;">Lösungszeit</p>
+<p style="margin: 0!important; font-size: 0.9em; color: #4a5568;">Von Deiner Meldung bis das Problem komplett behoben ist. Kann je nach Komplexität Minuten oder Stunden dauern.</p>
+</div>
+</div>
+<p class="hit-reveal">Konkretes Beispiel: Outlook geht nicht mehr. Dein IT-Partner meldet sich nach 20 Minuten: "Wir sehen das Problem, es ist ein <span class="tt" data-tip="Domain Name System: Ein Verzeichnisdienst, der Domainnamen (z.B. firma.ch) in IP-Adressen übersetzt. Wenn ein DNS-Eintrag falsch konfiguriert ist, können E-Mail, Webseiten oder Cloud-Dienste nicht mehr erreichbar sein.">DNS-Eintrag</span>." Das ist die Reaktionszeit. Gut, Du weisst Bescheid. Aber Dein Team kann immer noch nicht arbeiten. Erst wenn der DNS-Eintrag korrigiert ist und Outlook wieder läuft, zählt es. Das ist die Lösungszeit.</p>
+<p class="hit-reveal">Und nur die Lösungszeit zählt wirklich. Rechne es selbst:</p>
+<p><!-- STATISTIK-KACHELN --></p>
+<div class="hit-reveal hit-stat-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 44px 0;">
+<div class="hit-stat" style="background: linear-gradient(135deg,#004C82 0%,#0068b5 100%); border-radius: 10px; padding: 28px 20px; text-align: center; box-shadow: 0 8px 24px -6px rgba(0,76,130,0.4); position: relative; overflow: hidden;">
+<div style="position: absolute; top: -20px; right: -20px; width: 90px; height: 90px; background: rgba(255,255,255,0.04); border-radius: 50%;"> </div>
+<div style="position: absolute; bottom: -30px; left: -15px; width: 70px; height: 70px; border: 2px solid rgba(255,255,255,0.06); border-radius: 50%;"> </div>
+<div style="position: absolute; top: 12px; left: 10px; width: 6px; height: 6px; background: rgba(255,255,255,0.12); border-radius: 50%;"> </div>
+<div style="position: absolute; top: 12px; left: 10px; width: 1px; height: 40px; background: rgba(255,255,255,0.06); transform: rotate(30deg); transform-origin: top;"> </div>
+<div style="position: absolute; top: 50px; left: 8px; width: 4px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 50%;"> </div>
+<div style="position: absolute; bottom: 14px; right: 12px; width: 5px; height: 5px; background: rgba(255,255,255,0.1); border-radius: 50%;"> </div>
+<div style="position: absolute; bottom: 14px; right: 12px; width: 1px; height: 30px; background: rgba(255,255,255,0.05); transform: rotate(-20deg); transform-origin: bottom;"> </div>
+<p id="stat-1" style="color: #ffffff; font-size: 2.4em; font-weight: 800; margin: 0 0 6px 0!important; letter-spacing: -0.03em; line-height: 1!important; position: relative; z-index: 1;">0</p>
+<p style="color: rgba(255,255,255,0.75); font-size: 0.8em; margin: 0!important; line-height: 1.4!important; position: relative; z-index: 1;">Kosten pro Stunde IT-Ausfall</p>
+</div>
+<div class="hit-stat" style="background: linear-gradient(135deg,#004C82 0%,#0068b5 100%); border-radius: 10px; padding: 28px 20px; text-align: center; box-shadow: 0 8px 24px -6px rgba(0,76,130,0.4); position: relative; overflow: hidden;">
+<div style="position: absolute; top: 0; left: 50%; width: 1px; height: 100%; background: rgba(255,255,255,0.04);"> </div>
+<div style="position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: rgba(255,255,255,0.04);"> </div>
+<div style="position: absolute; top: -25px; left: -25px; width: 60px; height: 60px; border: 2px solid rgba(255,255,255,0.05); border-radius: 50%;"> </div>
+<div style="position: absolute; bottom: -15px; right: -10px; width: 50px; height: 50px; background: rgba(255,255,255,0.03); border-radius: 8px; transform: rotate(25deg);"> </div>
+<div style="position: absolute; top: 10px; right: 14px; width: 5px; height: 5px; background: rgba(255,255,255,0.1); border-radius: 50%;"> </div>
+<div style="position: absolute; top: 10px; right: 16px; width: 1px; height: 25px; background: rgba(255,255,255,0.06);"> </div>
+<div style="position: absolute; bottom: 10px; left: 14px; width: 4px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 50%;"> </div>
+<p id="stat-2" style="color: #ffffff; font-size: 2.4em; font-weight: 800; margin: 0 0 6px 0!important; letter-spacing: -0.03em; line-height: 1!important; position: relative; z-index: 1;">0</p>
+<p style="color: rgba(255,255,255,0.75); font-size: 0.8em; margin: 0!important; line-height: 1.4!important; position: relative; z-index: 1;">der Probleme per Fernzugriff gelöst</p>
+</div>
+<div class="hit-stat" style="background: linear-gradient(135deg,#004C82 0%,#0068b5 100%); border-radius: 10px; padding: 28px 20px; text-align: center; box-shadow: 0 8px 24px -6px rgba(0,76,130,0.4); position: relative; overflow: hidden;">
+<div style="position: absolute; top: -35px; right: -35px; width: 100px; height: 100px; border: 2px solid rgba(255,255,255,0.05); border-radius: 50%;"> </div>
+<div style="position: absolute; top: -20px; right: -20px; width: 70px; height: 70px; border: 1px solid rgba(255,255,255,0.04); border-radius: 50%;"> </div>
+<div style="position: absolute; top: -8px; right: -8px; width: 44px; height: 44px; background: rgba(255,255,255,0.03); border-radius: 50%;"> </div>
+<div style="position: absolute; bottom: -20px; left: -10px; width: 55px; height: 55px; border: 1px solid rgba(255,255,255,0.05); border-radius: 50%;"> </div>
+<div style="position: absolute; top: 8px; left: 12px; width: 5px; height: 5px; background: rgba(255,255,255,0.1); border-radius: 50%;"> </div>
+<div style="position: absolute; top: 8px; left: 14px; width: 1px; height: 35px; background: rgba(255,255,255,0.05); transform: rotate(15deg); transform-origin: top;"> </div>
+<div style="position: absolute; bottom: 12px; right: 10px; width: 4px; height: 4px; background: rgba(255,255,255,0.09); border-radius: 50%;"> </div>
+<div style="position: absolute; bottom: 8px; left: 40%; width: 20%; height: 1px; background: rgba(255,255,255,0.06);"> </div>
+<p id="stat-3" style="color: #ffffff; font-size: 2.4em; font-weight: 800; margin: 0 0 6px 0!important; letter-spacing: -0.03em; line-height: 1!important; position: relative; z-index: 1;">0</p>
+<p style="color: rgba(255,255,255,0.75); font-size: 0.8em; margin: 0!important; line-height: 1.4!important; position: relative; z-index: 1;">KMU ohne IT-Sicherheitskonzept</p>
+</div>
+</div>
+<p class="hit-reveal" style="font-size: 0.8em; color: #6b7a8d; text-align: center; margin-top: 4px!important;">Quellen: Eigene Berechnung (10 MA x CHF 80/h) | <a style="color: #6b7a8d; text-decoration: underline;" href="https://www.digitalswitzerland.com/de/studie/cyberstudie-2024/" target="_blank" rel="noopener noreferrer">digitalswitzerland Cyberstudie 2024</a></p>
+<p><script>(function(){var stats=[{id:'stat-1',from:0,to:800,suffix:'',prefix:'CHF ',special:null},{id:'stat-2',from:0,to:80,suffix:'%',prefix:'',special:null},{id:'stat-3',from:0,to:70,suffix:'%',prefix:'',special:null}];var animated=false;function animateStat(cfg){if(cfg.special){document.getElementById(cfg.id).textContent=cfg.special;return;}var el=document.getElementById(cfg.id);var start=null;var duration=1800;function step(ts){if(!start)start=ts;var progress=Math.min((ts-start)/duration,1);var ease=1-Math.pow(1-progress,3);var val=Math.round(cfg.from+(cfg.to-cfg.from)*ease);el.textContent=cfg.prefix+val.toLocaleString('de-CH')+cfg.suffix;if(progress<1)requestAnimationFrame(step);}requestAnimationFrame(step);}function checkAndAnimate(){if(animated)return;var el=document.getElementById('stat-1');if(!el)return;var rect=el.getBoundingClientRect();if(rect.top<window.innerHeight-50){animated=true;stats.forEach(function(s){animateStat(s);});}}window.addEventListener('scroll',checkAndAnimate,{passive:true});checkAndAnimate();})();</script></p>
+<p class="hit-reveal">Laut dem <a style="color: #004c82; font-weight: 600; text-decoration: underline;" href="https://itic-corp.com/itic-2024-hourly-cost-of-downtime-survey-results/" target="_blank" rel="noopener noreferrer">ITIC Hourly Cost of Downtime Report 2024</a> liegen die Ausfallkosten für kleine Unternehmen international sogar bei USD 8'000 bis 25'000 pro Stunde. Jede Minute zwischen "wir haben Dein Ticket erhalten" und "es läuft wieder" kostet Dich Geld. Ein IT-Partner, der schnell reagiert aber langsam löst, hilft Dir nicht weiter. Was Du brauchst, ist jemand, der beides kann: sich schnell melden und das Problem zügig beheben.</p>
+<p class="hit-reveal">Jetzt kommt das Aber: Kein seriöser Dienstleister kann Dir eine feste Lösungszeit versprechen. Einen defekten Switch tauscht man in 20 Minuten. Ein korruptes Backup wiederherstellen kann einen ganzen Tag dauern. Trotzdem hängen Reaktionszeit und Lösungszeit direkt zusammen. Wer drei Stunden wartet, bis sich jemand das Problem anschaut, verliert drei Stunden Lösungszeit. Je schneller jemand dran ist, desto früher läuft es wieder. Die Reaktionszeit ist also der Hebel, auf den Du Einfluss hast.</p>
+<div class="hit-reveal" style="border-left: 4px solid #004C82; padding: 20px 24px; margin: 28px 0; background: linear-gradient(135deg,#e8f0f8 0%,#f0f6fc 100%); border-radius: 0 8px 8px 0; box-shadow: 0 2px 8px -2px rgba(0,76,130,0.1);">
+<div class="hit-callout-label" style="background: rgba(0,76,130,0.1); color: #004c82;">Wichtig</div>
+<p style="margin: 0!important; font-size: 0.9em;">Schau Dir Dein <span class="tt" data-tip="Service Level Agreement: ein Vertrag zwischen Dir und Deinem IT-Partner, der feste Reaktionszeiten und Verfügbarkeiten garantiert. Bei HEAD IT gibt es vier Stufen: Bronze, Silber, Gold und Platin.">SLA</span> an: Steht da eine verbindliche Reaktionszeit drin? Und was passiert bei einem kritischen Ausfall? Eine Lösungszeit kann niemand pauschal versprechen. Aber ein klarer Ablauf sorgt dafür, dass es nicht länger dauert als nötig.</p>
+</div>
+<hr class="hit-divider" />
+<p><!-- 5 SITUATIONEN --></p>
+<h2 id="situationen" class="hit-reveal" style="color: #004c82;">5 Situationen, in denen jede Minute zählt</h2>
+<p class="hit-reveal">Im Alltag merkst Du den Unterschied zwischen gutem und schlechtem IT-Support kaum. Alles läuft. Erst wenn es knallt, zeigt sich, was Dein IT-Dienstleister wirklich taugt.</p>
+<div class="hit-reveal" style="display: flex; flex-direction: column; gap: 10px; margin: 28px 0;"><details class="hit-sit">
+<summary><span class="hit-sit-num">1</span><span class="hit-sit-title">Der Server fällt mitten am Arbeitstag aus</span><span class="hit-sit-arr"></span></summary>
+<div class="hit-sit-body">
+<p style="margin: 0 0 10px 0!important;">Kein Zugriff auf Dateien, kein ERP, keine internen Systeme. 15 Leute sitzen rum und schauen sich an. Jede Stunde, die das dauert, kostet Dich Geld und Nerven.</p>
+<p style="margin: 0!important;">Eine schnelle Erstanalyse per <span class="tt" data-tip="Zugriff auf einen Computer oder Server über das Internet, ohne physisch vor Ort zu sein. Ermöglicht IT-Technikern, Probleme direkt auf Deinem System zu diagnostizieren und zu beheben.">Fernzugriff</span> kann klären, ob ein Neustart reicht, ob das <span class="tt" data-tip="Automatisches Umschalten auf ein Ersatzsystem, wenn das Hauptsystem ausfällt. Verhindert Ausfallzeiten bei kritischen Anwendungen.">Failover-System</span> einspringt oder ob ein Techniker vor Ort muss. Der Unterschied zwischen 15 Minuten und drei Stunden ist der Unterschied zwischen "kurze Störung" und "halber Tag weg".</p>
+</div>
+</details><details class="hit-sit">
+<summary><span class="hit-sit-num">2</span><span class="hit-sit-title">Ein Cyberangriff wird erkannt</span><span class="hit-sit-arr"></span></summary>
+<div class="hit-sit-body">
+<p style="margin: 0 0 10px 0!important;">Dein Monitoring schlägt Alarm: ungewöhnlicher <span class="tt" data-tip="Netzwerkverkehr, der vom normalen Muster abweicht, z.B. unerwartet grosse Datenmengen, die an unbekannte Server gesendet werden. Oft ein frühes Anzeichen für einen Cyberangriff.">Datenverkehr</span>, gesperrte Konten, verschlüsselte Dateien. Hier geht es nicht nur um Geschwindigkeit. Es geht darum, dass jemand weiss, was zu tun ist.</p>
+<p style="margin: 0!important;">Bei <span class="tt" data-tip="Schadsoftware, die Deine Daten verschlüsselt und Lösegeld fordert, bevor Du wieder Zugriff bekommst.">Ransomware</span> verbreitet sich die Verschlüsselung oft innerhalb von Minuten im gesamten Netzwerk. Zwei Stunden Verzögerung können bedeuten, dass statt drei Rechnern das ganze Unternehmen betroffen ist. Schnelle Reaktion heisst hier: Systeme isolieren, Backup prüfen, Schaden eingrenzen.</p>
+</div>
+</details><details class="hit-sit">
+<summary><span class="hit-sit-num">3</span><span class="hit-sit-title">Microsoft 365 funktioniert nicht mehr</span><span class="hit-sit-arr"></span></summary>
+<div class="hit-sit-body">
+<p style="margin: 0 0 10px 0!important;">Kein Outlook, kein Teams, kein SharePoint. Das halbe Unternehmen kann nicht kommunizieren. Die erste Frage, die sich jeder stellt: Liegt es an Microsoft oder an uns?</p>
+<p style="margin: 0!important;">Ein erfahrener IT-Dienstleister kann das innerhalb weniger Minuten klären. Globale Microsoft-Störung? Dann heisst es abwarten. Lokales Problem, zum Beispiel ein abgelaufenes <span class="tt" data-tip="Ein digitales Sicherheitszertifikat (SSL/TLS), das die verschlüsselte Kommunikation zwischen Deinem System und Cloud-Diensten ermöglicht. Wenn es abläuft, verweigern Browser und E-Mail-Programme die Verbindung.">Zertifikat</span> oder ein <span class="tt" data-tip="Ein Fehler im Domain Name System, der dazu führt, dass Domainnamen nicht in IP-Adressen aufgelöst werden können. Typische Folge: Webseiten, E-Mail oder Cloud-Dienste sind nicht erreichbar.">DNS-Fehler</span>? Dann ist es oft in 20 Minuten behoben.</p>
+<div class="hit-sit-callout">Lass mit Deinem IT-Partner eine <span class="tt" data-tip="Automatisierte Überwachung von IT-Systemen, die Störungen erkennt und meldet, bevor Benutzer sie bemerken.">Monitoring-Lösung</span> einrichten, die Ausfälle automatisch erkennt. Im besten Fall weiss Dein Partner vom Problem, bevor Du es selbst merkst.</div>
+</div>
+</details><details class="hit-sit">
+<summary><span class="hit-sit-num">4</span><span class="hit-sit-title">Netzwerkausfall kurz vor einer Deadline</span><span class="hit-sit-arr"></span></summary>
+<div class="hit-sit-body">
+<p style="margin: 0 0 10px 0!important;">16:15 Uhr. Du musst eine Offerte bis 17 Uhr rausschicken. Das Netzwerk streikt. Dein IT-Partner reagiert in 30 Minuten und richtet Dir einen <span class="tt" data-tip="Eine vorübergehende Behelfslösung, die den Betrieb aufrechterhält, während das eigentliche Problem im Hintergrund behoben wird.">Workaround</span> über den Hotspot ein. Offerte geht raus. Wer erst nach zwei Stunden reagiert, lässt Dich mit der Deadline allein.</p>
+<p style="margin: 0!important;">Solche Situationen passieren immer dann, wenn man es am wenigsten braucht. Und genau dann merkst Du, ob Dein <span class="tt" data-tip="Auslagerung der gesamten IT-Betreuung an einen externen Dienstleister. Dieser übernimmt Betrieb, Wartung, Support und Sicherheit Deiner IT-Infrastruktur, als wäre er Deine eigene IT-Abteilung.">IT-Outsourcing</span>-Partner seinen Job ernst nimmt.</p>
+</div>
+</details><details class="hit-sit">
+<summary><span class="hit-sit-num">5</span><span class="hit-sit-title">Neuer Mitarbeiter kann am ersten Tag nicht arbeiten</span><span class="hit-sit-arr"></span></summary>
+<div class="hit-sit-body">
+<p style="margin: 0 0 10px 0!important;">Der neue Mitarbeiter steht da. Laptop nicht eingerichtet, kein Konto, keine E-Mail. Er sitzt den ganzen Vormittag neben jemandem und schaut zu. Das ist kein guter erster Eindruck.</p>
+<p style="margin: 0!important;">Zwischen "in einer Stunde funktioniert alles" und "vielleicht bis Freitag" liegt ein schneller IT-Support. Noch besser: ein standardisierter <span class="tt" data-tip="Ein vordefinierter Prozess für die IT-Einrichtung neuer Mitarbeitender: Gerät, Konto, E-Mail, Zugriffsrechte und Software werden vor dem ersten Arbeitstag bereitgestellt.">Onboarding-Prozess</span>, bei dem alles schon am Vorabend bereitsteht.</p>
+</div>
+</details></div>
+<p><!-- MID-ARTICLE CTA --></p>
+<div class="hit-reveal" style="background: rgba(0,76,130,0.04); border: 1px solid rgba(0,76,130,0.12); border-radius: 10px; padding: 28px 32px; margin: 36px 0; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+<div style="flex: 1; min-width: 240px;">
+<p style="margin: 0 0 4px 0!important; font-weight: bold; color: #004c82; font-size: 0.95em;">Kennst Du die Reaktionszeit Deines IT-Partners?</p>
+<p style="margin: 0!important; font-size: 0.85em; color: #4a5568;">Wir zeigen Dir, wie Managed Services mit festen Reaktionszeiten funktionieren.</p>
+</div>
+<p><a class="hit-cta-btn" style="display: inline-block; background: #004C82; color: #ffffff; font-weight: bold; font-size: 0.85em; padding: 12px 24px; border-radius: 6px; text-decoration: none; white-space: nowrap; box-shadow: 0 4px 12px -3px rgba(0,76,130,0.3);" href="mailto:office@headitsolutions.ch?subject=Anfrage%20Managed%20Services%20Luzern&amp;body=Guten%20Tag%0A%0AIch%20interessiere%20mich%20f%C3%BCr%20Managed%20Services%20mit%20garantierten%20Reaktionszeiten.%20K%C3%B6nnen%20wir%20dar%C3%BCber%20sprechen%3F%0A%0AFreundliche%20Gr%C3%BCsse">Jetzt Beratung anfragen</a></p>
+</div>
+<hr class="hit-divider" />
+<p><!-- WORAUF ACHTEN --></p>
+<h2 id="worauf-achten" class="hit-reveal" style="color: #004c82;">Worauf Du bei einem IT-Dienstleister in Luzern achten solltest</h2>
+<p class="hit-reveal">Zwischen einem Freelancer, der nebenbei Webseiten baut, und einem spezialisierten IT-Dienstleister liegen Welten. Wir sehen bei Neukunden immer wieder dasselbe: kein schriftliches SLA, kein Monitoring, und wenn es brennt, geht niemand ran. Diese vier Punkte machen aus unserer Erfahrung den grössten Unterschied.</p>
+<div class="hit-reveal hit-card-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0;">
+<div class="hit-card" style="border-top: 3px solid #004C82; border-radius: 8px; padding: 22px 22px 18px 22px;">
+<p style="margin: 0 0 8px 0!important; font-weight: bold; color: #004c82; font-size: 0.95em;">Garantierte Reaktionszeiten</p>
+<p style="margin: 0!important; font-size: 0.9em; color: #4a5568;">Ein schriftliches SLA mit konkreten Zeiten nach Priorität. "Wir melden uns so schnell wie möglich" ist kein SLA. "Unter einer Stunde, vertraglich garantiert" schon. Frag nach Zahlen, nicht nach Versprechen.</p>
+</div>
+<div class="hit-card" style="border-top: 3px solid #004C82; border-radius: 8px; padding: 22px 22px 18px 22px;">
+<p style="margin: 0 0 8px 0!important; font-weight: bold; color: #004c82; font-size: 0.95em;">Lokale Präsenz</p>
+<p style="margin: 0!important; font-size: 0.9em; color: #4a5568;">Das meiste lösen wir per Fernzugriff. Aber wenn ein Server physisch getauscht oder ein Netzwerk neu verkabelt werden muss, zählt die Nähe. Ein IT-Partner vor Ort spart Dir im Ernstfall wertvolle Stunden.</p>
+</div>
+<div class="hit-card" style="border-top: 3px solid #004C82; border-radius: 8px; padding: 22px 22px 18px 22px;">
+<p style="margin: 0 0 8px 0!important; font-weight: bold; color: #004c82; font-size: 0.95em;">Fester Ansprechpartner</p>
+<p style="margin: 0!important; font-size: 0.9em; color: #4a5568;">Kein anonymes Ticketsystem, bei dem Du jedes Mal erklären musst, welche <span class="tt" data-tip="Ein Sicherheitssystem, das den Datenverkehr zwischen Deinem internen Netzwerk und dem Internet überwacht und filtert. Blockiert unerwünschte Zugriffe und schützt vor Angriffen von aussen.">Firewall</span> Du hast. Jemand, der Deine Umgebung kennt und direkt loslegen kann. Bei uns hat jeder Kunde einen festen Techniker, der seine Systeme kennt.</p>
+</div>
+<div class="hit-card" style="border-top: 3px solid #004C82; border-radius: 8px; padding: 22px 22px 18px 22px;">
+<p style="margin: 0 0 8px 0!important; font-weight: bold; color: #004c82; font-size: 0.95em;">Proaktives Monitoring</p>
+<p style="margin: 0!important; font-size: 0.9em; color: #4a5568;">Ein guter IT-Partner wartet nicht, bis Du anrufst. Er sieht auf seinem Dashboard, dass Deine Festplatte zu 92% voll ist, und meldet sich bei Dir. Bevor etwas ausfällt. Genau das unterscheidet <span class="tt" data-tip="Ein IT-Betreuungsmodell mit monatlicher Pauschale, bei dem Dein IT-Partner Deine Systeme laufend überwacht, wartet und proaktiv Probleme behebt, bevor sie den Betrieb stören.">Managed Services</span> vom klassischen <span class="tt" data-tip="Reaktives IT-Modell: Etwas geht kaputt, Du rufst an, der Techniker kommt und repariert es. Bezahlung pro Einsatz, keine laufende Überwachung, keine garantierten Reaktionszeiten.">Break-Fix-Modell</span>.</p>
+</div>
+</div>
+<div class="hit-reveal hit-callout-dark" style="background: linear-gradient(135deg,#004C82 0%,#0068b5 100%); border-radius: 10px; box-shadow: 0 12px 32px -8px rgba(0,76,130,0.4); padding: 28px 32px; margin: 32px 0;">
+<p style="margin: 0 0 6px 0!important; font-weight: bold; color: #ffffff; font-size: 1.05em;">Warum ein IT-Dienstleister aus Luzern</p>
+<p style="margin: 0!important; color: rgba(255,255,255,0.8); font-size: 0.9em;">80% der Probleme lösen wir per Fernzugriff. Dafür ist es egal, wo wir sitzen. Aber für die restlichen 20% brauchst Du jemanden, der schnell vor Ort sein kann. Serverwechsel, Netzwerkverkabelung, Sicherheitsvorfälle. HEAD IT Solutions sitzt in Emmenbrücke bei Luzern und betreut Kunden in der ganzen Zentralschweiz.</p>
+</div>
+<hr class="hit-divider" />
+<p><!-- HEAD IT --></p>
+<h2 id="head-it" class="hit-reveal" style="color: #004c82;">So läuft IT-Support bei HEAD IT Solutions</h2>
+<p class="hit-reveal">Wir sind kein Call-Center. Wenn Du bei uns anrufst, erreichst Du jemanden, der Deine Firewall kennt, weiss wie Dein Netzwerk aufgebaut ist und nicht erst nachfragen muss, welches Betriebssystem auf Deinem Server läuft. Als dreifach <a style="color: #004c82; font-weight: 600; text-decoration: underline;" href="https://www.headitsolutions.ch/about/zertifikate/" target="_blank" rel="noopener noreferrer">ISO-zertifiziertes Unternehmen</a> (<span class="tt" data-tip="ISO 9001: Qualitätsmanagement, stellt sicher, dass Prozesse dokumentiert und kontinuierlich verbessert werden. ISO 27001: Informationssicherheit, schützt Daten und IT-Systeme nach internationalem Standard. ISO 14001: Umweltmanagement, fördert nachhaltiges Wirtschaften.">ISO 9001, 27001 und 14001</span>) arbeiten wir mit dokumentierten Prozessen und Reaktionszeiten, die wir auch messen.</p>
+<p class="hit-reveal">Ab Silber erreichst Du uns rund um die Uhr über eine dedizierte <span class="tt" data-tip="Eine dedizierte Notfallnummer, die SLA-Kunden rund um die Uhr erreichen können, auch nachts, an Wochenenden und Feiertagen.">Piketthotline</span>. Im Platin-Modell hast Du einen dedizierten <span class="tt" data-tip="Ein erfahrener IT-Spezialist, der komplexere Probleme löst, die über den 1st-Level-Support (Erstaufnahme und einfache Lösungen) hinausgehen. Verfügt über tiefes Fachwissen zu Servern, Netzwerken und Sicherheit.">2nd-Level-Techniker</span>. Und wenn Fernzugriff nicht reicht, sind wir von Emmenbrücke aus schnell bei Dir vor Ort.</p>
+<p><!-- SLA-STUFEN VERGLEICH --></p>
+<div class="hit-reveal" style="margin: 36px 0;">
+<p style="font-weight: 800; color: #004c82; font-size: 1.05em; margin: 0 0 6px 0!important;">Unsere vier Service-Level-Klassen</p>
+<p style="margin: 0 0 20px 0!important;">Jedes SLA regelt verbindliche Reaktionszeiten, Supportkanäle und persönliche Betreuung. Du bist ein Betrieb mit 10 bis 30 Mitarbeitenden und brauchst Sicherheit im Ernstfall? Dann ist Silber oder Gold ein guter Startpunkt. Grössere Organisationen mit geschäftskritischen Systemen greifen oft zu Platin.</p>
+<div class="hit-sla-grid">
+<div class="hit-sla-card">
+<div class="hit-sla-head" style="background: linear-gradient(135deg,#a0856e,#8b7260);">Bronze</div>
+<div class="hit-sla-body">
+<div class="hit-sla-feat" style="--dot: #a0856e;">Ticket &amp; Hotline</div>
+<div class="hit-sla-feat" style="--dot: #a0856e;">1st-Level-Betreuung</div>
+<div class="hit-sla-feat" style="--dot: #a0856e;">Reaktion: Best Effort</div>
+<div class="hit-sla-feat hit-sla-no">Piketthotline</div>
+<div class="hit-sla-feat hit-sla-no">Emergency 24/7</div>
+<div class="hit-sla-feat hit-sla-no">Service Meeting</div>
+</div>
+</div>
+<div class="hit-sla-card">
+<div class="hit-sla-head" style="background: linear-gradient(135deg,#8a939c,#6b7280);">Silber</div>
+<div class="hit-sla-body">
+<div class="hit-sla-feat" style="--dot: #8a939c;">Ticket &amp; Hotline</div>
+<div class="hit-sla-feat" style="--dot: #8a939c;">Piketthotline 24/7</div>
+<div class="hit-sla-feat" style="--dot: #8a939c;">1st-Level-Betreuung</div>
+<div class="hit-sla-feat" style="--dot: #8a939c; font-weight: bold;">Reaktion &lt; 4 Std.</div>
+<div class="hit-sla-feat" style="--dot: #8a939c; font-weight: bold;">Emergency &lt; 6 Std.</div>
+<div class="hit-sla-feat" style="--dot: #8a939c;">1 Service Meeting/Jahr</div>
+</div>
+</div>
+<div class="hit-sla-card">
+<div class="hit-sla-head" style="background: linear-gradient(135deg,#c8a415,#a68a10);">Gold</div>
+<div class="hit-sla-body">
+<div class="hit-sla-feat" style="--dot: #c8a415;">Ticket &amp; Hotline</div>
+<div class="hit-sla-feat" style="--dot: #c8a415;">Piketthotline 24/7</div>
+<div class="hit-sla-feat" style="--dot: #c8a415;">1st-Level-Betreuung</div>
+<div class="hit-sla-feat" style="--dot: #c8a415; font-weight: bold;">Reaktion &lt; 2 Std.</div>
+<div class="hit-sla-feat" style="--dot: #c8a415; font-weight: bold;">Emergency &lt; 4 Std.</div>
+<div class="hit-sla-feat" style="--dot: #c8a415;">2 Service Meetings/Jahr</div>
+</div>
+</div>
+<div class="hit-sla-card">
+<div class="hit-sla-head" style="background: linear-gradient(135deg,#004C82,#0068b5);">Platin</div>
+<div class="hit-sla-body">
+<div class="hit-sla-feat" style="--dot: #004c82;">Ticket &amp; Hotline</div>
+<div class="hit-sla-feat" style="--dot: #004c82;">Piketthotline 24/7</div>
+<div class="hit-sla-feat" style="--dot: #004c82; font-weight: bold;">Dedizierter 2nd-Level</div>
+<div class="hit-sla-feat" style="--dot: #004c82; font-weight: bold;">Reaktion &lt; 1 Std.</div>
+<div class="hit-sla-feat" style="--dot: #004c82; font-weight: bold;">Emergency &lt; 2 Std.</div>
+<div class="hit-sla-feat" style="--dot: #004c82;">4 Service Meetings/Jahr</div>
+</div>
+</div>
+</div>
+<p style="font-size: 0.8em; margin: 16px 0 0 0!important; color: #004c82; opacity: 0.5; line-height: 1.4!important;">Supportzeiten: Mo-Fr, 08:00-17:30 Uhr | Genaue Konditionen auf Anfrage</p>
+</div>
+<hr class="hit-divider" />
+<p><!-- FAQ --></p>
+<h2 id="faq" class="hit-reveal" style="color: #004c82;">Häufig gestellte Fragen zu IT-Support und Managed Services in Luzern</h2>
+<div class="hit-reveal" style="display: flex; flex-direction: column; gap: 10px; margin: 28px 0;"><details class="hit-faq-item">
+<summary><span class="faq-arr"></span><p>Was ist eine gute Reaktionszeit bei IT-Support?</p></summary>
+<div class="faq-answer">
+<p style="margin: 0!important; padding-bottom: 2px;">Bei einem kritischen Problem sollte die Reaktionszeit unter zwei Stunden liegen. Für weniger dringende Anliegen sind vier Stunden ein guter Richtwert. Bei HEAD IT Solutions garantieren wir je nach SLA-Stufe eine Reaktionszeit von unter einer Stunde (Platin) bis unter vier Stunden (Silber). Diese Zeiten sind vertraglich festgehalten und werden gemessen.</p>
+</div>
+</details><details class="hit-faq-item">
+<summary><span class="faq-arr"></span><p>Was kostet ein IT-Dienstleister in Luzern mit garantierten Reaktionszeiten?</p></summary>
+<div class="faq-answer">
+<p style="margin: 0!important; padding-bottom: 2px;">Wir bieten vier SLA-Stufen an: Bronze (Best Effort), Silber (Reaktion unter 4 Std.), Gold (unter 2 Std.) und Platin (unter 1 Std.). Ab Silber ist eine 24/7-Piketthotline und Emergency-Support inklusive. Die genauen Konditionen besprechen wir persönlich, da sie von Deiner Unternehmensgrösse und IT-Umgebung abhängen. In den meisten Fällen kostet ein SLA deutlich weniger als ein einziger grösserer Ausfall ohne professionellen IT-Support.</p>
+</div>
+</details><details class="hit-faq-item">
+<summary><span class="faq-arr"></span><p>Brauche ich als KMU in der Schweiz wirklich ein IT-SLA?</p></summary>
+<div class="faq-answer">
+<p style="margin: 0!important; padding-bottom: 2px;">Ja. Laut der <a style="color: #004c82; font-weight: 600; text-decoration: underline;" href="https://www.digitalswitzerland.com/de/studie/cyberstudie-2024/" target="_blank" rel="noopener noreferrer">Cyberstudie 2024 von digitalswitzerland</a> haben 70% der Schweizer KMU kein formales <span class="tt" data-tip="Ein dokumentierter Plan, der festlegt, wie ein Unternehmen seine IT-Systeme und Daten vor Bedrohungen schützt. Umfasst Massnahmen wie Firewalls, Backups, Zugriffsrechte, Passwortrichtlinien und Notfallpläne.">IT-Sicherheitskonzept</span>. Gerade wenn Du keine eigene IT-Abteilung hast, bist Du vollständig auf Deinen externen Partner angewiesen. Ein SLA stellt sicher, dass Du im Ernstfall priorisiert behandelt wirst und nicht hinten in einer Warteschlange stehst.</p>
+</div>
+</details><details class="hit-faq-item">
+<summary><span class="faq-arr"></span><p>Was ist der Unterschied zwischen Break-Fix und Managed Services?</p></summary>
+<div class="faq-answer">
+<p style="margin: 0!important; padding-bottom: 2px;">Break-Fix heisst: Etwas geht kaputt, Du rufst an und bezahlst pro Einsatz. Managed Services sind ein Pauschalmodell mit laufender Überwachung, Wartung und festen Reaktionszeiten. Der Hauptvorteil: Probleme werden oft erkannt und behoben, bevor Du sie bemerkst. Und die monatlichen Kosten sind planbar.</p>
+</div>
+</details><details class="hit-faq-item">
+<summary><span class="faq-arr"></span><p>Kann ein IT-Dienstleister in Luzern auch IT-Outsourcing für KMU anbieten?</p></summary>
+<div class="faq-answer">
+<p style="margin: 0!important; padding-bottom: 2px;">Ja. Viele KMU in der Zentralschweiz lagern ihre gesamte IT an einen externen Partner aus. Das umfasst Arbeitsplatz-Management, Server-Betrieb, <span class="tt" data-tip="IT-Dienste, die über das Internet bereitgestellt werden, statt auf lokalen Servern zu laufen. Beispiele: Microsoft 365, Online-Backups, gehostete E-Mail. Vorteile: ortsunabhängiger Zugriff, automatische Updates und skalierbare Kapazität.">Cloud-Dienste</span>, Sicherheit und <span class="tt" data-tip="Verwaltung von Benutzerkonten, Zugriffsrechten und Passwörtern in der IT-Umgebung. Stellt sicher, dass jeder Mitarbeitende nur auf die Systeme und Daten zugreifen kann, die er für seine Arbeit braucht.">Benutzerverwaltung</span>. Bei HEAD IT Solutions betreuen wir Unternehmen von 5 bis 200 Mitarbeitenden als ihr komplettes IT-Team. Per Fernzugriff und bei Bedarf vor Ort.</p>
+</div>
+</details><details class="hit-faq-item">
+<summary><span class="faq-arr"></span><p>Wie wechsle ich den IT-Partner ohne Ausfallzeit?</p></summary>
+<div class="faq-answer">
+<p style="margin: 0!important; padding-bottom: 2px;">Ein guter neuer IT-Partner übernimmt die Transition für Dich. Das heisst: Er dokumentiert Deine bestehende Infrastruktur, übernimmt schrittweise die Verantwortung und sorgt dafür, dass es während des Wechsels keine Lücken gibt. Kündige den alten Vertrag erst, wenn der neue Partner vollständig eingearbeitet ist. Wir haben diesen Wechsel schon oft begleitet und wissen, worauf es ankommt.</p>
+</div>
+</details></div>
+<hr class="hit-divider" />
+<p><!-- FAZIT --></p>
+<h2 id="fazit" class="hit-reveal" style="color: #004c82;">Fazit</h2>
+<p class="hit-reveal">Deine IT wird irgendwann ausfallen. Das ist keine Frage des Ob. Wenn es passiert, willst Du jemanden am Telefon haben, der Deine Systeme kennt und sofort loslegt. Nicht einen Anrufbeantworter.</p>
+<p class="hit-reveal">Wenn Du Dir unsicher bist, ob Dein aktueller IT-Support das liefert, melde Dich bei uns. Wir schauen uns Deine Situation an und sagen Dir ehrlich, wo Du stehst. Kein Verkaufsgespräch, kein Fachchinesisch.</p>
+<p><!-- CTA POPUP --></p>
+<div id="hit-popup-overlay"> </div>
+<div id="hit-popup"><button id="hit-popup-close" aria-label="Schliessen">✕</button>
+<div style="padding: 28px 28px 32px 28px;">
+<p style="margin: 0 0 6px 0!important; color: #ffffff; font-weight: 800; font-size: 1.05em; line-height: 1.3!important;">Dein IT-Partner meldet sich «so schnell wie möglich»?</p>
+<p style="margin: 0 0 20px 0!important; color: rgba(255,255,255,0.75); font-size: 0.85em; line-height: 1.5!important;">Das ist kein SLA. Wir zeigen Dir, wie es besser geht.</p>
+<p><a class="hit-cta-btn" style="display: block; text-align: center; background: #ffffff; color: #004c82; font-weight: bold; font-size: 0.85em; padding: 14px 24px; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 16px -4px rgba(0,0,0,0.2);" href="mailto:office@headitsolutions.ch?subject=Anfrage%20Managed%20Services%20Luzern&amp;body=Guten%20Tag%0A%0AIch%20interessiere%20mich%20f%C3%BCr%20Managed%20Services%20mit%20garantierten%20Reaktionszeiten.%20K%C3%B6nnen%20wir%20dar%C3%BCber%20sprechen%3F%0A%0AFreundliche%20Gr%C3%BCsse">Jetzt Beratung anfragen →</a></p>
+<p style="margin: 10px 0 0 0!important; text-align: center; font-size: 0.75em; color: rgba(255,255,255,0.5);">Kein Verkaufsdruck. Einfach ein ehrliches Gespräch.</p>
+</div>
+</div>
+<p><!-- CTA-BOX --></p>
+<div class="hit-reveal hit-callout-dark hit-cta-box" style="background: linear-gradient(135deg,#004C82 0%,#0068b5 100%); border-radius: 12px; padding: 44px 40px; margin: 48px 0; text-align: center; box-shadow: 0 16px 48px -12px rgba(0,76,130,0.5); position: relative; overflow: hidden;">
+<div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);"> </div>
+<p style="color: #ffffff; font-size: 1.35em; font-weight: 800; margin: 0 0 10px 0!important; letter-spacing: -0.02em;">Lass uns über Deinen IT-Support reden</p>
+<p style="color: rgba(255,255,255,0.7); font-size: 0.95em; margin: 0 0 28px 0!important; max-width: 520px; display: inline-block;">Ein kurzes Gespräch reicht, um zu klären, ob Dein IT-Support hält, was er verspricht. Unverbindlich und auf Augenhöhe.</p>
+<p><a class="hit-cta-btn" style="display: inline-block; background: #ffffff; color: #004c82; font-weight: 800; font-size: 0.95em; padding: 16px 36px; border-radius: 8px; text-decoration: none; margin-bottom: 24px; box-shadow: 0 8px 24px -6px rgba(0,0,0,0.2); letter-spacing: 0.01em;" href="mailto:office@headitsolutions.ch?subject=Anfrage%20Managed%20Services%20Luzern&amp;body=Guten%20Tag%0A%0AIch%20interessiere%20mich%20f%C3%BCr%20Managed%20Services%20mit%20garantierten%20Reaktionszeiten.%20K%C3%B6nnen%20wir%20dar%C3%BCber%20sprechen%3F%0A%0AFreundliche%20Gr%C3%BCsse">Jetzt Beratung anfragen</a></p>
+<p style="color: rgba(255,255,255,0.5); font-size: 0.85em; margin: 0!important;"><a style="color: rgba(255,255,255,0.8); text-decoration: none; font-weight: 600;" href="tel:+41415100230">+41 41 510 02 30</a>  ·  <a style="color: rgba(255,255,255,0.6); text-decoration: none;" href="mailto:office@headitsolutions.ch">office@headitsolutions.ch</a></p>
+</div>
+<p><script>try{var hitTTBox=document.createElement('div');hitTTBox.id='hit-tt-box';hitTTBox.style.cssText='display:none;position:fixed;background:#0a1a2e;color:#fff;font-size:0.8em;line-height:1.5;padding:10px 14px;border-radius:8px;max-width:240px;box-shadow:0 8px 24px rgba(0,0,0,0.25);z-index:999999;pointer-events:none;white-space:normal;word-break:break-word;border:1px solid rgba(255,255,255,0.08);';(document.body||document.documentElement).appendChild(hitTTBox);document.addEventListener('mouseover',function(e){var t=e.target;while(t){if(t.nodeType!==1)break;if(t.className&&typeof t.className==='string'&&t.className.indexOf('tt')!==-1){var tip=t.getAttribute('data-tip');if(tip){hitTTBox.textContent=tip;hitTTBox.style.display='block';return;}}t=t.parentNode;if(!t)break;if(t===document.body)break;}hitTTBox.style.display='none';});document.addEventListener('mousemove',function(e){if(hitTTBox.style.display==='none')return;var x=e.clientX+14,y=e.clientY-60;if(x+254>window.innerWidth)x=e.clientX-254;if(y<8)y=e.clientY+20;hitTTBox.style.left=x+'px';hitTTBox.style.top=y+'px';});}catch(e){}var hitBar=document.getElementById('hit-progress');function hitProgress(){if(!hitBar)return;var scrolled=window.pageYOffset||document.documentElement.scrollTop||document.body.scrollTop||0;var docH=Math.max(document.body.scrollHeight||0,document.documentElement.scrollHeight||0,document.documentElement.offsetHeight||0);var winH=window.innerHeight||document.documentElement.clientHeight||0;var total=docH-winH;hitBar.style.width=(total>0?Math.min(scrolled/total*100,100):0)+'%';}window.addEventListener('scroll',hitProgress,{passive:true});window.addEventListener('resize',hitProgress,{passive:true});hitProgress();var hitTocS=['reaktionszeit-vs-loesungszeit','situationen','worauf-achten','head-it','faq','fazit'];window.addEventListener('scroll',function(){var cur='';for(var i=0;i<hitTocS.length;i++){var el=document.getElementById(hitTocS[i]);if(el){if(el.getBoundingClientRect().top<=120)cur=hitTocS[i];}}var links=document.querySelectorAll('.hit-toc-link');for(var j=0;j<links.length;j++){var a=links[j];if(a.getAttribute('href')==='#'+cur){if(a.className.indexOf('hit-toc-active')===-1)a.className+=' hit-toc-active';}else{a.className=a.className.replace(' hit-toc-active','').replace('hit-toc-active','');}}},{passive:true});document.addEventListener('click',function(e){var a=e.target;if(a.tagName!=='A')return;var href=a.getAttribute('href');if(!href||href.charAt(0)!=='#')return;if(a.className.indexOf('hit-toc-link')===-1)return;var target=document.getElementById(href.substring(1));if(!target)return;e.preventDefault();var top=target.getBoundingClientRect().top+window.pageYOffset-80;window.scrollTo({top:top,behavior:'smooth'});});(function(){var reveals=document.querySelectorAll('.hit-reveal');if(!reveals.length)return;if('IntersectionObserver' in window){for(var i=0;i<reveals.length;i++){if(reveals[i].className.indexOf('hit-reveal-ready')===-1)reveals[i].className+=' hit-reveal-ready';}var observer=new IntersectionObserver(function(entries){for(var j=0;j<entries.length;j++){if(entries[j].isIntersecting){var el=entries[j].target;if(el.className.indexOf('hit-visible')===-1)el.className+=' hit-visible';observer.unobserve(el);}}},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});for(var k=0;k<reveals.length;k++){observer.observe(reveals[k]);}}})();try{(function(){var popupShown=false;var popup=document.getElementById('hit-popup');var overlay=document.getElementById('hit-popup-overlay');var closeBtn=document.getElementById('hit-popup-close');if(!popup||!overlay||!closeBtn)return;function showPopup(){if(popupShown)return;popupShown=true;popup.style.display='block';overlay.style.display='block';setTimeout(function(){if(popup.className.indexOf('hit-popup-show')===-1)popup.className+=' hit-popup-show';if(overlay.className.indexOf('hit-popup-show')===-1)overlay.className+=' hit-popup-show';},30);}function hidePopup(){popup.className=popup.className.replace(' hit-popup-show','').replace('hit-popup-show','');overlay.className=overlay.className.replace(' hit-popup-show','').replace('hit-popup-show','');setTimeout(function(){popup.style.display='none';overlay.style.display='none';},350);}closeBtn.addEventListener('click',function(e){e.preventDefault();hidePopup();});overlay.addEventListener('click',hidePopup);window.addEventListener('scroll',function(){if(popupShown)return;var scrolled=window.pageYOffset||document.documentElement.scrollTop||0;var docH=Math.max(document.body.scrollHeight||0,document.documentElement.scrollHeight||0);var winH=window.innerHeight||document.documentElement.clientHeight||0;var total=docH-winH;if(total>0&&(scrolled/total)>0.55){showPopup();}},{passive:true});})();}catch(e){}</script></p>
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->

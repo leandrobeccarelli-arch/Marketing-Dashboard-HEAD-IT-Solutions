@@ -28,6 +28,7 @@
   pointer-events:none;z-index:0;opacity:0.6;
 }
 .cd-wrap>*{position:relative;z-index:1;}
+#cd-lines-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
 
 /* === HEADER === */
 .cd-header{
@@ -323,6 +324,7 @@
 </head>
 <body>
 <div class="cd-wrap">
+<canvas id="cd-lines-canvas"></canvas>
 
 <nav class="cd-nav">
 <div class="cd-nav-inner">
@@ -464,5 +466,46 @@
 
 </div>
 </div>
+<script>
+try{
+  var c=document.getElementById('cd-lines-canvas');
+  if(c){
+    var ctx=c.getContext('2d');
+    var w,h,particles=[];
+    var particleCount=50;
+    function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight;}
+    resize();
+    window.addEventListener('resize',resize);
+    function Particle(){
+      this.x=Math.random()*w;this.y=Math.random()*h;
+      this.vx=(Math.random()-0.5)*0.4;this.vy=(Math.random()-0.5)*0.4;
+      this.r=Math.random()*2+1;
+    }
+    for(var i=0;i<particleCount;i++){particles.push(new Particle());}
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      for(var i=0;i<particles.length;i++){
+        var p=particles[i];
+        p.x+=p.vx;p.y+=p.vy;
+        if(p.x<0)p.x=w;if(p.x>w)p.x=0;
+        if(p.y<0)p.y=h;if(p.y>h)p.y=0;
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle='rgba(0,116,194,0.25)';ctx.fill();
+        for(var j=i+1;j<particles.length;j++){
+          var p2=particles[j];var dx=p.x-p2.x;var dy=p.y-p2.y;
+          var dist=Math.sqrt(dx*dx+dy*dy);
+          if(dist<180){
+            ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p2.x,p2.y);
+            ctx.strokeStyle='rgba(0,116,194,'+(0.08*(1-dist/180))+')';
+            ctx.lineWidth=0.6;ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+}catch(e){}
+</script>
 </body>
 </html>

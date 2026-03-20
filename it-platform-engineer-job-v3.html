@@ -1,0 +1,549 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+/* ── Font System ────────────────────────────────────────── */
+h1,h2,h3,h4,p,a,li,span,summary,div,button,.hit-lead,.hit-label,.hit-body,.hit-meta,.hit-tag{font-family:'Montserrat',sans-serif!important;}
+/* ── Typography Scale ───────────────────────────────────── */
+/* Section lead text */ .hit-lead { font-size:1em; color:#555; line-height:1.65; }
+/* Card / step title */ .hit-label { font-size:0.92em; font-weight:700; color:#004c82; }
+/* Body / card text */ .hit-body { font-size:0.88em; color:#555; line-height:1.6; }
+/* Small / meta text */ .hit-meta { font-size:0.80em; color:#888; line-height:1.4; }
+/* Uppercase tag */ .hit-tag { font-size:0.76em; font-weight:700; letter-spacing:0.09em; text-transform:uppercase; }
+#hit-progress{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#004C82 0%,#0074c2 50%,#004C82 100%);z-index:9999;transition:width 0.15s linear;box-shadow:0 0 12px rgba(0,76,130,0.6);}
+/* CTA Button Hover */
+.hit-cta-btn{transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.25s ease;}
+.hit-cta-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 28px -6px rgba(0,0,0,0.22)!important;}
+/* Breathing room */
+h2{margin-top:56px!important;margin-bottom:16px!important;letter-spacing:-0.02em!important;}
+h3{margin-top:40px!important;margin-bottom:14px!important;}
+p{margin-bottom:14px!important;line-height:1.7!important;}
+/* === SECTION DIVIDER === */
+.hit-divider{border:none;height:2px;background:linear-gradient(90deg,transparent 0%,#004C82 20%,#004C82 80%,transparent 100%);opacity:0.15;margin:48px 0!important;}
+/* === SCROLL REVEAL === */
+.hit-reveal-ready{opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1);}
+.hit-visible{opacity:1!important;transform:translateY(0)!important;}
+/* === CARD HOVER === */
+.hit-card{transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s ease,border-color 0.3s ease;}
+.hit-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px -8px rgba(0,76,130,0.18)!important;}
+/* === QUOTE CARDS === */
+.hit-quote-card{transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:default;}
+.hit-quote-card:hover{transform:translateY(-6px);box-shadow:0 24px 48px -12px rgba(0,53,96,0.45);}
+/* === JOURNEY TIMELINE === */
+.hit-journey-wrap{position:relative;max-width:600px;margin:0 auto 40px auto;}
+.hit-journey-wrap::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:3px;margin-left:-1.5px;background:linear-gradient(180deg,#004C82 0%,#0068b5 100%);opacity:0.15;border-radius:3px;}
+.hit-journey-stop{position:relative;margin-bottom:32px;z-index:1;}
+.hit-journey-stop:last-child{margin-bottom:0;}
+.hit-journey-node{display:none;}
+/* Check items */
+.hit-check-item { cursor:pointer; user-select:none; -webkit-user-select:none; transition: all 0.2s ease; }
+.hit-check-item:hover { transform: translateX(3px); }
+/* Result hidden via CSS */
+.hit-result { display:none !important; }
+.hit-result.hit-result-show { display:block !important; }
+/* Quiz hidden until start button clicked */
+.hq-quiz-hidden { display:none !important; }
+.hq-quiz-visible { display:block !important; }
+/* Start screen hidden after click */
+.hq-start-hidden { display:none !important; }
+/* Spotlight overlay */
+#hit-spotlight { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0); z-index:998; pointer-events:none; transition:background 0.5s ease; }
+#hit-spotlight.hit-spotlight-on { background:rgba(0,0,0,0.72); pointer-events:auto; }
+/* Form section floats above overlay */
+#hit-bewerbungsformular-section { position:relative; z-index:999; }
+/* FAQ native details/summary (E7 Blog Style) */
+.hit-faq-item{background:#ffffff;border:1px solid #e0e8f0;border-radius:8px;overflow:hidden;transition:border-color 0.2s ease;}
+.hit-faq-item[open]{border-color:#004C82;}
+.hit-faq-item summary{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;gap:16px;cursor:pointer;user-select:none;-webkit-user-select:none;list-style:none;transition:background 0.2s ease;}
+.hit-faq-item summary::-webkit-details-marker{display:none;}
+.hit-faq-item summary::marker{display:none;content:'';}
+.hit-faq-item summary:hover{background:rgba(0,76,130,0.04);}
+.hit-faq-item summary p{margin:0!important;font-weight:700;color:#004c82;font-size:0.95em;user-select:none;-webkit-user-select:none;}
+.hit-faq-item .faq-arr{color:#004c82;font-size:0.7em;flex-shrink:0;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);}
+.hit-faq-item[open] .faq-arr{transform:rotate(180deg);}
+.hit-faq-item .faq-answer{padding:4px 24px 18px 24px;cursor:default;user-select:none;-webkit-user-select:none;}
+.hit-faq-item .faq-answer p{color:#555;font-size:0.9em;line-height:1.65;margin:0!important;cursor:default;}
+/* === TASK CARD ICONS === */
+.hit-task-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#004C82 0%,#0068b5 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px -4px rgba(0,76,130,0.3);}
+.hit-task-icon svg{width:24px;height:24px;fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+/* === SLIDER STABLE HEIGHT === */
+.hit-slider-box{position:relative;height:300px;}
+.hit-slider{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;}
+.hit-slider-nav{display:flex;align-items:center;justify-content:center;line-height:1;}
+/* Responsive */
+@media(max-width:680px){
+ .hit-task-grid{grid-template-columns:1fr!important;}
+ .hit-benefit-grid{grid-template-columns:1fr!important;}
+ .hit-journey-wrap::before{left:50%!important;}
+ .hit-hero-tags{flex-direction:column!important;align-items:flex-start!important;}
+ .hit-hero-box{padding:32px 24px 28px 24px!important;}
+ .hit-cta-final{padding:28px 24px!important;}
+ .hit-slider-box{height:auto!important;}
+ .hit-slider{position:relative!important;padding:28px 24px!important;}
+ .hit-slider-nav{display:none!important;}
+}
+</style>
+
+<div id="hit-spotlight" onclick="hqCloseSpotlight()"></div>
+<div id="hit-progress"></div>
+<!-- HERO mit integriertem Fit-Check -->
+<div class="hit-hero-box" style="background:linear-gradient(135deg,#004C82 0%,#003560 100%); border-radius: 12px; padding: 48px 40px 40px 40px; margin-bottom: 40px; position: relative; z-index: 999;">
+ <div style="position:absolute;inset:0;border-radius:12px;overflow:hidden;pointer-events:none;">
+ <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
+ <div style="position:absolute;bottom:-60px;right:60px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
+ </div>
+ <p style="color:#e8a838;font-size:0.82em;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin:0 0 12px 0 !important;">Karriere bei HEAD IT Solutions AG</p>
+ <h1 style="color:#ffffff;margin:0 0 16px 0 !important;font-size:1.9em;line-height:1.25;">Bist Du unser nächster IT Platform Engineer?</h1>
+ <p style="color:#cce0f5;font-size:1em;margin:0 0 20px 0 !important;max-width:560px;">Wir wachsen und suchen eine Person, die mitdenkt, mitpackt und mitgestaltet. Mach den Check und sieh in 2 Minuten, ob Du zu uns passt.</p>
+ <div class="hit-hero-tags" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:36px;">
+ <span style="background:rgba(255,255,255,0.15);color:#ffffff;padding:6px 14px;border-radius:50px;font-size:0.82em;font-weight:600;"> Emmenbrücke, Luzern</span>
+ <span style="background:rgba(255,255,255,0.15);color:#ffffff;padding:6px 14px;border-radius:50px;font-size:0.82em;font-weight:600;"> Vollzeit / Teilzeit möglich</span>
+ <span style="background:rgba(255,255,255,0.15);color:#ffffff;padding:6px 14px;border-radius:50px;font-size:0.82em;font-weight:600;"> Sofort oder nach Vereinbarung</span>
+ </div>
+ <div style="border-top:1px solid rgba(0,76,130,0.10);padding-top:32px;">
+ <div id="hq-start-screen" style="margin-top:32px;">
+<div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px;">
+<div style="flex:1;height:2px;background:rgba(255,255,255,0.2);border-radius:2px;"></div>
+<p class="hit-label" style="color:rgba(255,255,255,0.6);font-size:0.75em;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:0!important;">Fit-Check</p>
+<div style="flex:1;height:2px;background:rgba(255,255,255,0.2);border-radius:2px;"></div>
+</div>
+<button id="hq-start-btn" class="hit-cta-btn" style="display:flex;align-items:center;justify-content:center;gap:10px;margin:16px auto 8px;padding:16px 40px;background:#ffffff;color:#004C82;border:none;border-radius:12px;font-size:1em;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;">Jetzt Fit-Check starten</button>
+<p style="text-align:center;font-size:0.8em;color:rgba(255,255,255,0.5);margin:0!important;">5 Fragen, ca. 2 Minuten</p>
+</div>
+<div id="hq-quiz" class="hq-quiz-hidden" style="margin-top:24px;background:#f0f4f8;border-radius:14px;padding:32px 28px;backdrop-filter:blur(8px);border:1px solid rgba(0,76,130,0.2);">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+<div id="hq-bar" style="flex:1;height:4px;background:#ffffff;border-radius:4px;overflow:hidden;margin-right:16px;cursor:default;"><div id="hq-bar-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#0074c2,#00a3ff);border-radius:4px;transition:width 0.4s ease;cursor:default;"></div></div>
+<p id="hq-counter" style="color:rgba(0,76,130,0.20);font-size:0.8em;font-weight:600;margin:0!important;white-space:nowrap;">Frage 1 / 5</p>
+</div>
+<h3 id="hq-q" style="color:#004C82;font-size:1.3em;font-weight:700;text-align:center;margin:0 0 24px 0!important;line-height:1.4;cursor:default;user-select:none;"></h3>
+<p id="hq-sub" style="color:#666;font-size:0.85em;text-align:center;margin:0 0 20px 0!important;display:none;cursor:default;user-select:none;"></p>
+<div id="hq-options" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
+</div>
+<div id="hq-result" class="hq-quiz-hidden" style="margin-top:24px;background:#f0f4f8;border-radius:14px;padding:40px 28px;backdrop-filter:blur(8px);border:1px solid rgba(0,76,130,0.2);text-align:center;">
+<div id="hq-result-icon" style="font-size:2.5em;margin-bottom:12px;"></div>
+<h3 id="hq-result-title" style="color:#004C82;font-size:1.4em;margin:0 0 12px 0!important;"></h3>
+<p id="hq-result-text" style="color:rgba(0,76,130,0.30);font-size:0.95em;line-height:1.6;margin:0 0 24px 0!important;"></p>
+<p id="hq-result-score" style="color:#0074c2;font-size:0.85em;font-weight:600;margin:0 0 24px 0!important;"></p>
+<button id="hq-apply-btn" class="hit-cta-btn" onclick="document.getElementById('hit-bewerbungsformular-section').style.display='block';var r=document.getElementById('hq-result');if(r.className.indexOf('hq-quiz-hidden')===-1){r.className+=' hq-quiz-hidden';}document.getElementById('hit-bewerbungsformular-section').scrollIntoView({behavior:'smooth',block:'center'});" style="display:inline-flex;align-items:center;gap:10px;padding:14px 36px;background:#ffffff;color:#004C82;border:none;border-radius:12px;font-size:0.95em;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;margin-bottom:12px;">Jetzt bewerben</button>
+<br><button id="hq-restart" onclick="hqRestart();" style="background:none;border:none;color:rgba(0,76,130,0.20);font-size:0.8em;cursor:pointer;font-family:'Montserrat',sans-serif;text-decoration:underline;">Nochmal starten</button>
+</div>
+<div id="hit-bewerbungsformular-section" class="hq-quiz-hidden" style="margin-top:24px;background:#f0f4f8;border-radius:14px;padding:40px 28px;backdrop-filter:blur(8px);border:1px solid rgba(0,76,130,0.2);text-align:center;">
+<div style="width:120px;height:120px;border-radius:50%;border:3px solid rgba(0,116,194,0.4);overflow:hidden;margin:0 auto 16px;background:#e8eef4;">
+<img src="https://www.headitsolutions.ch/wp-content/uploads/Raphael-Mehr-Profilbild.webp" alt="Raphael Mehr" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:rgba(0,76,130,0.15);font-size:2.5em;\'>RM</div>'">
+</div>
+<p style="color:#0074c2;font-weight:700;font-size:1.05em;margin:0 0 2px 0!important;">Raphael Mehr</p>
+<p style="color:rgba(0,76,130,0.20);font-size:0.85em;margin:0 0 16px 0!important;">Executive Director</p>
+<p style="color:#555;font-size:0.9em;line-height:1.6;margin:0 0 24px 0!important;">Vielen Dank für Deine Zeit! Füll noch kurz Deine Daten aus, ich melde mich persönlich bei Dir.</p>
+<form id="hq-form" style="max-width:440px;margin:0 auto;text-align:left;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+<div style="position:relative;">
+<span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(0,76,130,0.15);font-size:0.9em;pointer-events:none;">✉</span>
+<input type="text" id="hq-fname" placeholder="Vorname" required style="width:100%;padding:14px 14px 14px 38px;background:#ffffff;border:1px solid rgba(0,76,130,0.2);border-radius:10px;color:#004C82;font-size:0.9em;font-family:'Montserrat',sans-serif;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#0074c2'" onblur="this.style.borderColor='rgba(0,76,130,0.08)'">
+</div>
+<div style="position:relative;">
+<span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(0,76,130,0.15);font-size:0.9em;pointer-events:none;">✉</span>
+<input type="text" id="hq-lname" placeholder="Nachname" required style="width:100%;padding:14px 14px 14px 38px;background:#ffffff;border:1px solid rgba(0,76,130,0.2);border-radius:10px;color:#004C82;font-size:0.9em;font-family:'Montserrat',sans-serif;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#0074c2'" onblur="this.style.borderColor='rgba(0,76,130,0.08)'">
+</div>
+</div>
+<div style="position:relative;margin-bottom:16px;">
+<span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(0,76,130,0.15);font-size:0.9em;pointer-events:none;">@</span>
+<input type="email" id="hq-email" placeholder="E-Mail" required style="width:100%;padding:14px 14px 14px 38px;background:#ffffff;border:1px solid rgba(0,76,130,0.2);border-radius:10px;color:#004C82;font-size:0.9em;font-family:'Montserrat',sans-serif;box-sizing:border-box;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#0074c2'" onblur="this.style.borderColor='rgba(0,76,130,0.08)'">
+</div>
+<label style="display:flex;align-items:flex-start;gap:10px;color:rgba(0,76,130,0.20);font-size:0.78em;line-height:1.5;cursor:pointer;margin-bottom:20px;">
+<input type="checkbox" id="hq-privacy" required style="margin-top:3px;accent-color:#0074c2;flex-shrink:0;">
+<span>Ich habe die <a href="/datenschutz" target="_blank" style="color:#0074c2;text-decoration:underline;">Datenschutzhinweise</a> von HEAD IT Solutions AG zur Kenntnis genommen und stimme der Kontaktaufnahme zu.</span>
+</label>
+<button type="submit" class="hit-cta-btn" style="width:100%;padding:16px;background:linear-gradient(135deg,#004C82 0%,#0068b5 100%);color:#ffffff;border:none;border-radius:12px;font-size:0.95em;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;">Bewerbung absenden</button>
+</form>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:28px;padding-top:24px;border-top:1px solid rgba(0,76,130,0.04);">
+<div style="text-align:center;"><p style="color:#0074c2;font-size:1.4em;font-weight:800;margin:0 0 4px 0!important;">1.</p><p style="color:#004C82;font-size:0.8em;font-weight:600;margin:0 0 2px 0!important;">Daten eingeben</p><p style="color:#888;font-size:0.72em;margin:0!important;">Nur noch Deine Kontaktdaten.</p></div>
+<div style="text-align:center;"><p style="color:#0074c2;font-size:1.4em;font-weight:800;margin:0 0 4px 0!important;">2.</p><p style="color:#004C82;font-size:0.8em;font-weight:600;margin:0 0 2px 0!important;">Zügige Rückmeldung</p><p style="color:#888;font-size:0.72em;margin:0!important;">Ich werte Deine Antworten aus und melde mich.</p></div>
+<div style="text-align:center;"><p style="color:#0074c2;font-size:1.4em;font-weight:800;margin:0 0 4px 0!important;">3.</p><p style="color:#004C82;font-size:0.8em;font-weight:600;margin:0 0 2px 0!important;">Dein Traumjob</p><p style="color:#888;font-size:0.72em;margin:0!important;">Wenn alles passt, willkommen im Team!</p></div>
+</div>
+</div>
+</div>
+</div>
+<script>
+var hqQuestions=[
+{q:"Welche Ausbildung hast Du abgeschlossen?",type:"single",options:[{text:"Informatiker/in EFZ",score:3},{text:"Vergleichbare IT-Ausbildung",score:2},{text:"Keine abgeschlossene IT-Ausbildung",score:0}]},
+{q:"Wie viel Berufserfahrung bringst Du im ICT-Umfeld mit?",type:"single",options:[{text:"5+ Jahre Praxiserfahrung",score:3},{text:"2\u20134 Jahre Praxiserfahrung",score:3},{text:"Weniger als 2 Jahre Praxiserfahrung",score:1}]},
+{q:"Wie gut sind Deine Deutschkenntnisse?",type:"single",options:[{text:"Deutsch ist meine Muttersprache",score:3},{text:"Ich kann mich im Arbeitsalltag schriftlich und m\u00fcndlich gut verst\u00e4ndigen",score:3},{text:"Ich habe Grundkenntnisse",score:1},{text:"Keine Deutschkenntnisse",score:0}]},
+{q:"Welchen F\u00fchrerausweis hast Du?",type:"single",options:[{text:"Kat. B",score:3},{text:"Kat. B + BE",score:3},{text:"Keinen B-F\u00fchrerschein",score:0}]},
+{q:"In welchen Bereichen hast Du praktische Erfahrung?",type:"multi",sub:"(Mehrfachauswahl m\u00f6glich)",options:[{text:"Windows Server Systeme",score:1},{text:"Microsoft 365 Services",score:1},{text:"Client Management (Microsoft Endpoint Manager / Intune)",score:1},{text:"Netzwerktechnik & Firewalls",score:1}]}
+];
+var hqCurrent=0,hqScore=0,hqMultiSelected=[];
+function hqRender(){
+var q=hqQuestions[hqCurrent];
+document.getElementById("hq-counter").textContent="Frage "+(hqCurrent+1)+" / "+hqQuestions.length;
+document.getElementById("hq-bar-fill").style.width=((hqCurrent)/hqQuestions.length*100)+"%";
+document.getElementById("hq-q").textContent=q.q;
+var sub=document.getElementById("hq-sub");
+if(q.sub){sub.textContent=q.sub;sub.style.display="block";}else{sub.style.display="none";}
+var opts=document.getElementById("hq-options");
+opts.innerHTML="";
+hqMultiSelected=[];
+if(q.type==="multi"){
+opts.style.gridTemplateColumns="1fr 1fr";
+q.options.forEach(function(o,i){
+var btn=document.createElement("div");
+btn.setAttribute("data-idx",i);
+btn.style.cssText="background:#f5f8fb;border:1px solid #ffffff;border-radius:12px;padding:18px 20px;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:12px;";
+var check=document.createElement("span");
+check.className="hq-check";
+check.style.cssText="width:20px;height:20px;border:2px solid rgba(0,76,130,0.2);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-size:0.7em;color:transparent;";
+check.textContent="\u2713";
+var label=document.createElement("span");
+label.style.cssText="color:#004C82;font-size:0.88em;line-height:1.4;font-weight:600;cursor:pointer;user-select:none;";
+label.textContent=o.text;
+btn.appendChild(check);
+btn.appendChild(label);
+btn.onclick=function(){
+var idx=parseInt(this.getAttribute("data-idx"));
+var checkEl=this.querySelector(".hq-check");
+if(hqMultiSelected.indexOf(idx)!==-1){
+hqMultiSelected.splice(hqMultiSelected.indexOf(idx),1);
+this.style.borderColor="#ffffff";
+this.style.background="rgba(0,76,130,0.04)";
+checkEl.style.background="transparent";
+checkEl.style.borderColor="rgba(0,76,130,0.15)";
+checkEl.style.color="transparent";
+}else{
+hqMultiSelected.push(idx);
+this.style.borderColor="#0074c2";
+this.style.background="rgba(0,116,194,0.12)";
+checkEl.style.background="#0074c2";
+checkEl.style.borderColor="#0074c2";
+checkEl.style.color="#fff";
+}
+var confirmBtn=document.getElementById("hq-confirm");
+if(confirmBtn)confirmBtn.style.opacity=hqMultiSelected.length>0?"1":"0.4";
+};
+opts.appendChild(btn);
+});
+var confirmDiv=document.createElement("div");
+confirmDiv.style.cssText="grid-column:1/-1;text-align:center;margin-top:8px;";
+var confirmBtn=document.createElement("button");
+confirmBtn.id="hq-confirm";
+confirmBtn.textContent="Weiter";
+confirmBtn.style.cssText="padding:12px 32px;background:#0074c2;color:#ffffff;border:none;border-radius:10px;font-size:0.9em;font-weight:600;cursor:pointer;font-family:Montserrat,sans-serif;opacity:0.4;transition:opacity 0.2s;";
+confirmBtn.onclick=function(){hqMultiConfirm();};
+confirmDiv.appendChild(confirmBtn);
+opts.appendChild(confirmDiv);
+}else{
+opts.style.gridTemplateColumns="1fr 1fr";
+q.options.forEach(function(o,i){
+var btn=document.createElement("div");
+btn.style.cssText="background:#f5f8fb;border:1px solid #ffffff;border-radius:12px;padding:18px 20px;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:12px;"+(q.options.length===3&&i===2?"grid-column:1/-1;max-width:50%;":"");
+var arrow=document.createElement("span");
+arrow.style.cssText="color:#888;font-size:0.8em;flex-shrink:0;cursor:pointer;user-select:none;";
+arrow.textContent="\u203A";
+var label=document.createElement("span");
+label.style.cssText="color:#004C82;font-size:0.88em;line-height:1.4;font-weight:600;cursor:pointer;user-select:none;";
+label.textContent=o.text;
+btn.appendChild(arrow);
+btn.appendChild(label);
+btn.onmouseover=function(){this.style.borderColor="rgba(0,116,194,0.5)";this.style.background="rgba(0,116,194,0.08)";};
+btn.onmouseout=function(){this.style.borderColor="#ffffff";this.style.background="rgba(0,76,130,0.04)";};
+btn.onclick=function(){hqAnswer(i);};
+opts.appendChild(btn);
+});
+}
+}
+function hqMultiConfirm(){
+if(hqMultiSelected.length===0)return;
+hqScore+=3;
+hqCurrent++;
+if(hqCurrent<hqQuestions.length){hqRender();}else{hqShowResult();}
+}
+function hqAnswer(idx){
+hqScore+=hqQuestions[hqCurrent].options[idx].score;
+hqCurrent++;
+if(hqCurrent<hqQuestions.length){hqRender();}else{hqShowResult();}
+}
+function hqShowResult(){
+var quizEl=document.getElementById("hq-quiz");
+if(quizEl.className.indexOf("hq-quiz-hidden")===-1){quizEl.className+=" hq-quiz-hidden";}
+var resEl=document.getElementById("hq-result");
+resEl.className=resEl.className.replace("hq-quiz-hidden","");
+var max=15;var pct=Math.round(hqScore/max*100);
+if(pct>=70){
+document.getElementById("hq-result-title").textContent="Starkes Profil!";
+document.getElementById("hq-result-text").textContent="Du bringst genau mit, was wir suchen. Lass uns reden.";
+}else if(pct>=40){
+document.getElementById("hq-result-title").textContent="Gute Basis!";
+document.getElementById("hq-result-text").textContent="Nicht alles muss von Tag 1 sitzen. Bewirb Dich trotzdem.";
+}else{
+document.getElementById("hq-result-title").textContent="Noch nicht ganz passend";
+document.getElementById("hq-result-text").textContent="F\u00fcr diese Stelle fehlen ein paar Voraussetzungen.";
+}
+document.getElementById("hq-result-score").textContent=pct+"% Match";
+}
+function hqRestart(){
+hqCurrent=0;hqScore=0;hqMultiSelected=[];
+var resEl=document.getElementById("hq-result");
+if(resEl.className.indexOf("hq-quiz-hidden")===-1){resEl.className+=" hq-quiz-hidden";}
+var quizEl=document.getElementById("hq-quiz");
+quizEl.className=quizEl.className.replace("hq-quiz-hidden","");
+hqRender();
+}
+document.getElementById("hq-start-btn").onclick=function(){
+var startEl=document.getElementById("hq-start-screen");
+if(startEl.className.indexOf("hq-quiz-hidden")===-1){startEl.className+=" hq-quiz-hidden";}
+var quizEl=document.getElementById("hq-quiz");
+quizEl.className=quizEl.className.replace("hq-quiz-hidden","");
+hqRender();
+};
+</script>
+</div></div>
+<script>
+try{
+var bar=document.getElementById('hit-progress');
+function hitProgress(){
+ if(!bar)return;
+ var scrolled=window.pageYOffset||document.documentElement.scrollTop||document.body.scrollTop||0;
+ var docH=Math.max(document.body.scrollHeight||0,document.body.offsetHeight||0,document.documentElement.scrollHeight||0,document.documentElement.offsetHeight||0,document.documentElement.clientHeight||0);
+ var winH=window.innerHeight||document.documentElement.clientHeight||0;
+ var total=docH-winH;
+ bar.style.width=(total>0?Math.min(scrolled/total*100,100):0)+'%';
+}
+window.addEventListener('scroll',hitProgress,{passive:true});
+window.addEventListener('resize',hitProgress,{passive:true});
+hitProgress();
+}catch(e){}
+</script>
+
+<!-- INTRO TEXT -->
+
+<p>Wir sind <strong>HEAD IT Solutions</strong> aus Emmenbrücke bei Luzern. Managed Services, Cloud, Security – wir betreuen KMUs und Grossunternehmen in der Zentralschweiz. Persönlich, direkt und ohne Umwege.</p>
+
+<p>Für unser Team suchen wir einen <strong>IT Platform Engineer</strong>. Jemand, der Kunden vor Ort und remote betreut, Infrastrukturen am Laufen hält und mitdenkt, bevor es brennt.</p>
+
+<!-- AUFGABEN SECTION -->
+<h2 class="hit-reveal" style="color:#004c82;">Was Dich bei uns erwartet</h2>
+<p>Als IT Platform Engineer übernimmst Du vielseitige Aufgaben. Kein Tag ist wie der andere. Hier siehst Du, was auf Dich zukommt:</p>
+
+<div class="hit-task-grid hit-reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0 40px 0;">
+
+<div class="hit-card" style="background:#ffffff;border-radius:10px;padding:24px 22px;display:flex;gap:16px;align-items:flex-start;border:1px solid #e0e8f0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.06);">
+<div class="hit-task-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></div>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 6px 0 !important;font-size:0.95em;">1st & 2nd Level Support</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;">Kunden per Fernwartung oder direkt vor Ort betreuen. Du bist die erste verlässliche Anlaufstelle.</p></div>
+</div>
+
+<div class="hit-card" style="background:#ffffff;border-radius:10px;padding:24px 22px;display:flex;gap:16px;align-items:flex-start;border:1px solid #e0e8f0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.06);">
+<div class="hit-task-icon"><svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg></div>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 6px 0 !important;font-size:0.95em;">Cloud-Lösungen</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;">Cloudbasierte Lösungen bereitstellen und Microsoft 365 Umgebungen verwalten und optimieren.</p></div>
+</div>
+
+<div class="hit-card" style="background:#ffffff;border-radius:10px;padding:24px 22px;display:flex;gap:16px;align-items:flex-start;border:1px solid #e0e8f0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.06);">
+<div class="hit-task-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 6px 0 !important;font-size:0.95em;">Firewalls & Sicherheit</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;">Firewalls warten und anpassen, Benutzer- und Berechtigungsverwaltung übernehmen.</p></div>
+</div>
+
+<div class="hit-card" style="background:#ffffff;border-radius:10px;padding:24px 22px;display:flex;gap:16px;align-items:flex-start;border:1px solid #e0e8f0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.06);">
+<div class="hit-task-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"></rect><rect x="2" y="14" width="20" height="8" rx="2"></rect><circle cx="6" cy="6" r="1"></circle><circle cx="6" cy="18" r="1"></circle></svg></div>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 6px 0 !important;font-size:0.95em;">Installationen & Infrastruktur</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;">Arbeitsstationen und Server installieren, WLAN-Umgebungen aufbauen, Backups einrichten.</p></div>
+</div>
+
+<div class="hit-card" style="background:#ffffff;border-radius:10px;padding:24px 22px;display:flex;gap:16px;align-items:flex-start;border:1px solid #e0e8f0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.06);">
+<div class="hit-task-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg></div>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 6px 0 !important;font-size:0.95em;">Monitoring & Betrieb</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;">IT-Infrastrukturen unserer Kunden überwachen und im laufenden Betrieb betreuen.</p></div>
+</div>
+
+<div class="hit-card" style="background:#ffffff;border-radius:10px;padding:24px 22px;display:flex;gap:16px;align-items:flex-start;border:1px solid #e0e8f0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.06);">
+<div class="hit-task-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 6px 0 !important;font-size:0.95em;">Projekte & Administration</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;">Projektunterstützung, Angebote erstellen, Garantiefälle abwickeln. Du denkst mit.</p></div>
+</div>
+
+</div>
+
+<hr class="hit-divider" />
+
+<!-- MITARBEITENDEN-ZITATE -->
+<h2 class="hit-reveal" style="color:#004c82;">Was das Team sagt</h2>
+
+<!-- Zitat-Cards nebeneinander, Mitte höher -->
+<div class="hit-reveal" style="display:flex;gap:20px;flex-wrap:wrap;margin-top:24px;margin-bottom:40px;align-items:flex-end;">
+
+<div class="hit-quote-card" style="flex:1;min-width:220px;background:linear-gradient(135deg,#004C82 0%,#003560 100%);border-radius:16px;padding:32px 24px;text-align:center;">
+<div style="width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.12);border:3px solid rgba(255,255,255,0.25);overflow:hidden;margin:0 auto 14px auto;"><img src="https://www.headitsolutions.ch/wp-content/uploads/2026/01/8.png" alt="Jan" style="width:100%;height:100%;object-fit:cover;"></div>
+<p style="color:#ffffff;font-weight:700;font-size:0.95em;margin:0 0 2px 0!important;">Jan</p>
+<p style="color:#b8d4ee;font-size:0.78em;margin:0 0 16px 0!important;">System Engineer</p>
+<svg style="margin:0 auto 12px auto;display:block;opacity:0.3;" width="24" height="18" viewBox="0 0 24 18" fill="#ffffff"><path d="M0 18V10.8C0 3.6 4.5 0.5 10.8 0l1.2 2.8C7.7 3.4 6.4 5.7 6.2 8.2H10.3v9.8H0zm13.7 0V10.8c0-7.2 4.5-10.3 10.8-10.8l1.2 2.8c-4.3 0.6-5.6 2.9-5.8 5.4h4.1v9.8h-10.3z"/></svg>
+<p style="color:#dce8f3;font-size:0.85em;line-height:1.7;margin:0!important;font-style:italic;">&#8222;Das Team hier ist einfach stark. Man hilft sich gegenseitig, feiert Erfolge zusammen und wenn es mal stressig wird, packen alle mit an.&#8220;</p>
+</div>
+
+<div class="hit-quote-card" style="flex:1;min-width:220px;background:linear-gradient(135deg,#004C82 0%,#003560 100%);border-radius:16px;padding:32px 24px;text-align:center;margin-top:-6px;">
+<div style="width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.12);border:3px solid rgba(255,255,255,0.25);overflow:hidden;margin:0 auto 14px auto;"><img src="https://www.headitsolutions.ch/wp-content/uploads/2026/01/10.png" alt="Fabian" style="width:100%;height:100%;object-fit:cover;"></div>
+<p style="color:#ffffff;font-weight:700;font-size:0.95em;margin:0 0 2px 0!important;">Fabian</p>
+<p style="color:#b8d4ee;font-size:0.78em;margin:0 0 16px 0!important;">System Engineer</p>
+<svg style="margin:0 auto 12px auto;display:block;opacity:0.3;" width="24" height="18" viewBox="0 0 24 18" fill="#ffffff"><path d="M0 18V10.8C0 3.6 4.5 0.5 10.8 0l1.2 2.8C7.7 3.4 6.4 5.7 6.2 8.2H10.3v9.8H0zm13.7 0V10.8c0-7.2 4.5-10.3 10.8-10.8l1.2 2.8c-4.3 0.6-5.6 2.9-5.8 5.4h4.1v9.8h-10.3z"/></svg>
+<p style="color:#dce8f3;font-size:0.85em;line-height:1.7;margin:0!important;font-style:italic;">&#8222;Die Projekte hier sind richtig cool. Cloud-Migrationen, Security-Setups, neue Infrastrukturen aufbauen. Du siehst direkt beim Kunden, was Deine Arbeit bringt.&#8220;</p>
+</div>
+
+<div class="hit-quote-card" style="flex:1;min-width:220px;background:linear-gradient(135deg,#004C82 0%,#003560 100%);border-radius:16px;padding:32px 24px;text-align:center;">
+<div style="width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.12);border:3px solid rgba(255,255,255,0.25);overflow:hidden;margin:0 auto 14px auto;"><img src="https://www.headitsolutions.ch/wp-content/uploads/2026/01/5.png" alt="Reto" style="width:100%;height:100%;object-fit:cover;"></div>
+<p style="color:#ffffff;font-weight:700;font-size:0.95em;margin:0 0 2px 0!important;">Reto</p>
+<p style="color:#b8d4ee;font-size:0.78em;margin:0 0 16px 0!important;">System Engineer</p>
+<svg style="margin:0 auto 12px auto;display:block;opacity:0.3;" width="24" height="18" viewBox="0 0 24 18" fill="#ffffff"><path d="M0 18V10.8C0 3.6 4.5 0.5 10.8 0l1.2 2.8C7.7 3.4 6.4 5.7 6.2 8.2H10.3v9.8H0zm13.7 0V10.8c0-7.2 4.5-10.3 10.8-10.8l1.2 2.8c-4.3 0.6-5.6 2.9-5.8 5.4h4.1v9.8h-10.3z"/></svg>
+<p style="color:#dce8f3;font-size:0.85em;line-height:1.7;margin:0!important;font-style:italic;">&#8222;Das Klima hier ist echt locker. Kein Ellbogen-Ding, keine Politik. Einfach ein Team, das zusammenhält und gemeinsam gute Arbeit abliefert.&#8220;</p>
+</div>
+
+</div>
+
+
+<hr class="hit-divider" />
+
+<!-- DEIN WEG BEI UNS -->
+<h2 class="hit-reveal" style="color:#004c82;">Dein Weg bei uns</h2>
+<p class="hit-reveal" style="color:#555;font-size:0.95em;margin-bottom:32px !important;">Von Tag 1 an mittendrin. So sieht Dein Start bei uns aus:</p>
+
+<div style="position:relative;margin:0 0 40px 0;padding-left:56px;">
+<!-- Vertical line -->
+<div style="position:absolute;left:19px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,#5a9fcf 0%,#3580b8 25%,#1a6aa0 50%,#0d5a91 75%,#004C82 100%);border-radius:2px;"></div>
+
+<!-- Step 1 — hellste Stufe -->
+<div style="position:relative;margin-bottom:32px;">
+<div style="position:absolute;left:-45px;top:2px;width:28px;height:28px;border-radius:50%;background:#5a9fcf;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(90,159,207,0.3);">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+</div>
+<p style="color:#5a9fcf;font-weight:700;font-size:1em;margin:0 0 4px 0 !important;">Willkommen an Bord</p>
+<p style="color:#555;font-size:0.88em;line-height:1.6;margin:0 !important;">Laptop, Accounts, Badge. Alles steht bereit. Du lernst das Team kennen, wir zeigen Dir die Systeme und Du bekommst einen festen Buddy, der Dir den Einstieg leicht macht.</p>
+</div>
+
+<!-- Step 2 -->
+<div style="position:relative;margin-bottom:32px;">
+<div style="position:absolute;left:-45px;top:2px;width:28px;height:28px;border-radius:50%;background:#3580b8;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(53,128,184,0.3);">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+</div>
+<p style="color:#3580b8;font-weight:700;font-size:1em;margin:0 0 4px 0 !important;">Einarbeitung mit Tiefgang</p>
+<p style="color:#555;font-size:0.88em;line-height:1.6;margin:0 !important;">Kein Death-by-PowerPoint. Du arbeitest von Anfang an mit echten Systemen, begleitest Kollegen zu Kunden und baust Dir Schritt für Schritt Dein Know-how auf.</p>
+</div>
+
+<!-- Step 3 -->
+<div style="position:relative;margin-bottom:32px;">
+<div style="position:absolute;left:-45px;top:2px;width:28px;height:28px;border-radius:50%;background:#1a6aa0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(26,106,160,0.3);">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+</div>
+<p style="color:#1a6aa0;font-weight:700;font-size:1em;margin:0 0 4px 0 !important;">Erste eigene Projekte</p>
+<p style="color:#555;font-size:0.88em;line-height:1.6;margin:0 !important;">Nach wenigen Wochen übernimmst Du eigene Kunden und Projekte. Cloud-Migrationen, Firewall-Setups oder M365-Rollouts. Du entscheidest mit, wie es umgesetzt wird.</p>
+</div>
+
+<!-- Step 4 -->
+<div style="position:relative;margin-bottom:32px;">
+<div style="position:absolute;left:-45px;top:2px;width:28px;height:28px;border-radius:50%;background:#0d5a91;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(13,90,145,0.3);">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+</div>
+<p style="color:#0d5a91;font-weight:700;font-size:1em;margin:0 0 4px 0 !important;">Zertifizierungen und Spezialisierung</p>
+<p style="color:#555;font-size:0.88em;line-height:1.6;margin:0 !important;">Microsoft, Sophos, Security. Du sagst uns, wohin Du willst. Wir geben Dir die Zeit und das Budget für Zertifizierungen, die Dich und uns weiterbringen.</p>
+</div>
+
+<!-- Step 5 — Brand-Farbe -->
+<div style="position:relative;">
+<div style="position:absolute;left:-45px;top:2px;width:28px;height:28px;border-radius:50%;background:#004C82;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,76,130,0.35);">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+</div>
+<p style="color:#004C82;font-weight:700;font-size:1em;margin:0 0 4px 0 !important;">Wachsen und Verantwortung übernehmen</p>
+<p style="color:#555;font-size:0.88em;line-height:1.6;margin:0 !important;">Ob Teamlead, technische Spezialisierung oder Kundenprojektleitung. Bei uns wächst Du in die Rolle rein, die zu Dir passt. Ohne starre Karrierepfade.</p>
+</div>
+
+</div>
+
+<hr class="hit-divider" />
+
+<!-- FAQ -->
+<h2 class="hit-reveal" style="color:#004c82;">Häufig gestellte Fragen</h2>
+
+<div class="hit-reveal" style="display:flex;flex-direction:column;gap:10px;margin:28px 0;">
+<details class="hit-faq-item">
+<summary><p>Warum sollte ich mich bei HEAD IT Solutions AG bewerben?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer"><p style="margin:0!important;padding-bottom:2px;">Ganz ehrlich? Weil Du hier nicht einfach Tickets abarbeitest und um 17 Uhr den Laptop zumachst. Du arbeitest direkt mit Kunden, siehst was Deine Arbeit bewirkt und hast ein Team im Rücken, das zusammenhält. Wir sind ISO-zertifiziert, Sophos Platinum Partner und wachsen gerade ordentlich. Wenn Du Bock auf echte Verantwortung hast statt Konzern-Bürokratie, bist Du hier richtig.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Ist Home-Office möglich?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer"><p style="margin:0!important;padding-bottom:2px;">Jein. Seien wir ehrlich: Als IT Platform Engineer bist Du oft beim Kunden vor Ort in der Region Luzern und Zentralschweiz. Das gehört dazu und macht den Job auch spannend. Für Doku, Admin-Kram oder interne Projekte kannst Du aber auch mal von zuhause arbeiten. Wir sind da unkompliziert.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Welche Weiterbildungsmöglichkeiten gibt es?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer"><p style="margin:0!important;padding-bottom:2px;">Kurze Antwort: Alles was Dich weiterbringt. Microsoft-Zertifizierungen, Sophos-Trainings, Security-Kurse, Netzwerk-Schulungen. Du arbeitest täglich mit Microsoft 365, Intune, Azure und Firewalls. Wer hier reinkommt und lernen will, bekommt die Zeit und das Budget dafür. Stillstand gibt es bei uns nicht.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Wie gross ist das Team?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer"><p style="margin:0!important;padding-bottom:2px;">Klein genug, dass Du jeden beim Namen kennst. Gross genug, dass es nie langweilig wird. Vom Lernenden bis zum Chef sind alle per Du. Kein Abteilungsdenken, keine Politik. Wenn Du eine Idee hast, sagst Du es einfach. Punkt.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Wann kann ich starten?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer"><p style="margin:0!important;padding-bottom:2px;">Am liebsten gestern. Aber klar, wir richten uns nach Deiner Kündigungsfrist.</p></div>
+</details>
+<details class="hit-faq-item">
+<summary><p>Wird Teilzeit angeboten?</p><span class="faq-arr">&#9660;</span></summary>
+<div class="faq-answer"><p style="margin:0!important;padding-bottom:2px;">Ja, klar. Ob 80% oder 100%, das besprechen wir ganz individuell. Wir glauben nicht daran, dass gute Arbeit nur bei einem 100%-Pensum funktioniert. Sag uns einfach, was für Dich passt, dann finden wir eine Lösung.</p></div>
+</details>
+</div>
+
+<hr class="hit-divider" />
+
+<!-- WARUM HEAD IT -->
+<h2 class="hit-reveal" style="color:#004c82;">Warum HEAD IT Solutions?</h2>
+<p>Wir sind ein bodenständiges Schweizer KMU. Kein Konzern, kein Grossraumbüro-Anonymat. Bei uns kennst Du Deine Kollegen beim Namen, arbeitest mit echten Kunden und siehst sofort, was Deine Arbeit bringt.</p>
+
+<div class="hit-benefit-grid hit-reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;">
+
+<div class="hit-card" style="background:#ffffff;border-radius:10px;padding:24px 22px;display:flex;gap:16px;align-items:flex-start;border:1px solid #e0e8f0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.06);">
+<div class="hit-task-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></div>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 6px 0 !important;font-size:0.95em;">Du lernst jeden Tag dazu</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;">Microsoft-Zertifizierungen, Sophos-Trainings, Security-Kurse. Wer sich entwickeln will, bekommt Zeit und Budget dafür.</p></div>
+</div>
+
+<div class="hit-card" style="background:#ffffff;border-radius:10px;padding:24px 22px;display:flex;gap:16px;align-items:flex-start;border:1px solid #e0e8f0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.06);">
+<div class="hit-task-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 7V5a4 4 0 0 0-8 0v2"></path></svg></div>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 6px 0 !important;font-size:0.95em;">Abwechslung statt Routine</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;">Verschiedene Kunden, verschiedene Branchen, verschiedene Herausforderungen. Kein Tag ist wie der andere.</p></div>
+</div>
+
+<div class="hit-card" style="background:#ffffff;border-radius:10px;padding:24px 22px;display:flex;gap:16px;align-items:flex-start;border:1px solid #e0e8f0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.06);">
+<div class="hit-task-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 6px 0 !important;font-size:0.95em;">Flache Hierarchien</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;">Vom Lernenden bis zum Chef alle per Du. Deine Ideen zählen, nicht Dein Jobtitel.</p></div>
+</div>
+
+<div class="hit-card" style="background:#ffffff;border-radius:10px;padding:24px 22px;display:flex;gap:16px;align-items:flex-start;border:1px solid #e0e8f0;box-shadow:0 2px 8px -2px rgba(0,76,130,0.06);">
+<div class="hit-task-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
+<div><p style="font-weight:700;color:#004c82;margin:0 0 6px 0 !important;font-size:0.95em;">Wachstum mit Spielraum</p>
+<p style="color:#555;font-size:0.88em;margin:0 !important;">Wir wachsen gerade ordentlich. Das heisst: mehr Projekte, mehr Verantwortung, mehr Möglichkeiten für Dich.</p></div>
+</div>
+
+</div>
+
+<hr class="hit-divider" />
+
+<!-- CTA BOX -->
+<div class="hit-cta-final" style="background:linear-gradient(135deg,#004C82 0%,#003560 100%);border-radius:12px;padding:36px 40px;text-align:center;box-shadow:0 8px 24px -6px rgba(0,76,130,0.35);">
+<p style="color:#b8d4ee;font-size:0.76em;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;margin:0 0 12px 0 !important;">Bereit für den nächsten Schritt?</p>
+<h2 style="color:#ffffff;margin:0 0 16px 0 !important;font-size:1.5em;">Jetzt bewerben. Wir freuen uns auf Dich.</h2>
+<p style="color:#cce0f5;font-size:0.92em;margin:0 0 28px 0 !important;max-width:480px;margin-left:auto !important;margin-right:auto !important;">Kein langer Prozess. Eine kurze Mail mit Deinem Lebenslauf reicht. Wir melden uns innert 2 Arbeitstagen.</p>
+<a class="hit-cta-btn" onclick="try{document.getElementById('hq-start-screen').scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){try{hqSpotlightLocked=true;document.getElementById('hit-spotlight').className='hit-spotlight-on';setTimeout(function(){hqSpotlightLocked=false;},1200);}catch(e){}},400);}catch(e){} return false;" href="#" style="display:inline-block;background:#ffffff;color:#004C82;font-weight:bold;font-size:1em;padding:16px 36px;border-radius:8px;text-decoration:none;margin-bottom:20px;box-shadow:0 6px 16px -4px rgba(0,0,0,0.18);"> Jetzt bewerben</a>
+<p style="color:#cce0f5;font-size:0.88em;margin:0 !important;"><a style="color:#ffffff;" href="tel:+41415100230">+41 41 510 02 30</a> &nbsp;|&nbsp; <a style="color:#cce0f5;" href="mailto:office@headitsolutions.ch">office@headitsolutions.ch</a></p>
+</div>
+
+<script>
+try{
+var revealEls=document.querySelectorAll('.hit-reveal');
+if(typeof IntersectionObserver!=='undefined'){
+ for(var r=0;r<revealEls.length;r++){revealEls[r].className+=' hit-reveal-ready';}
+ var revealObs=new IntersectionObserver(function(entries){
+ for(var i=0;i<entries.length;i++){
+ if(entries[i].isIntersecting){
+ entries[i].target.className+=' hit-visible';
+ revealObs.unobserve(entries[i].target);
+ }
+ }
+ },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+ for(var r=0;r<revealEls.length;r++){revealObs.observe(revealEls[r]);}
+}
+}catch(e){}
+
+</script>
