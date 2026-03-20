@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content &amp; SEO - Competitor Intelligence</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+/* === BASE === */
+.cd-wrap{
+  font-family:'Montserrat',sans-serif;
+  color:#1A1A2E;
+  background:linear-gradient(160deg,#002A4A 0%,#004C82 40%,#003D6B 70%,#002040 100%);
+  background-attachment:fixed;
+  padding:0 0 64px 0;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  position:relative;
+}
+.cd-wrap::before{
+  content:'';position:fixed;top:0;left:0;width:100%;height:100%;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat:repeat;background-size:128px 128px;
+  pointer-events:none;z-index:0;opacity:0.6;
+}
+.cd-wrap>*{position:relative;z-index:1;}
+#cd-lines-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+
+/* === NAV === */
+.cd-nav{background:#FFFFFF;border-bottom:1px solid #E2E8F0;}
+.cd-nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;}
+.cd-nav-brand{padding:14px 20px;font-size:15px;font-weight:700;color:#1A1A2E;text-decoration:none;margin-right:auto;}
+.cd-nav a.cd-nav-link{padding:14px 16px;font-size:13px;font-weight:600;color:#4A5568;text-decoration:none;border-bottom:2px solid transparent;display:inline-block;}
+.cd-nav a.cd-nav-link:hover{color:#004C82;}
+.cd-nav a.cd-nav-link.active{color:#004C82;border-bottom-color:#004C82;}
+
+/* === SECTION TITLE === */
+.cd-section-title{
+  font-size:16px;font-weight:700;color:#FFFFFF;margin:0 0 24px 0;
+  padding-bottom:0;border-bottom:none;
+  display:flex;align-items:center;gap:8px;
+}
+.cd-section-title::before{
+  content:'';display:inline-block;width:3px;height:18px;background:#FFFFFF;border-radius:2px;flex-shrink:0;
+}
+
+/* === CARDS === */
+.cd-card{
+  background:#FFFFFF;border:none;border-radius:8px;padding:24px 24px 24px 28px;
+  position:relative;overflow:hidden;transition:transform 0.15s;
+  box-shadow:0 1px 3px rgba(0,0,0,0.08);
+  display:flex;flex-direction:column;min-height:0;
+}
+.cd-card:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.12);}
+.cd-card-accent{position:absolute;top:0;left:0;width:4px;height:100%;border-radius:8px 0 0 8px;}
+
+/* === WHITE SECTION CARD === */
+.cd-white-card{
+  background:#FFFFFF;border-radius:8px;padding:28px;margin-bottom:32px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.08);
+}
+.cd-white-card h3{
+  font-size:15px;font-weight:700;color:#1A1A2E;margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;
+}
+.cd-white-card h3::before{
+  content:'';display:inline-block;width:3px;height:16px;background:#004C82;border-radius:2px;flex-shrink:0;
+}
+
+/* === TABLE === */
+.cd-table-wrap{overflow-x:auto;margin:16px 0;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
+.cd-table{width:100%;border-collapse:collapse;font-size:13px;}
+.cd-table th{
+  background:#F5F7FA;color:#4A5568;font-weight:700;text-align:left;
+  padding:10px 16px;border-bottom:1px solid #E2E8F0;white-space:nowrap;font-size:11px;
+  text-transform:uppercase;letter-spacing:0.06em;
+}
+.cd-table th.cd-you{background:#004C82;color:#fff;font-size:11px;}
+.cd-table td{padding:12px 16px;border-bottom:1px solid #E2E8F0;vertical-align:middle;text-align:center;}
+.cd-table td:first-child{text-align:left;font-weight:600;color:#1A1A2E;}
+.cd-table tbody tr:last-child td{border-bottom:none;}
+.cd-table tbody tr:nth-child(even) td{background:#FAFBFC;}
+.cd-table tbody tr:nth-child(odd) td{background:#FFFFFF;}
+.cd-table tbody tr:hover td{background:#E8F0FE !important;}
+.cd-table td.cd-highlight{background:#E8F0FE !important;border-left:2px solid #004C82;font-weight:600;}
+
+/* === BADGES === */
+.cd-badge{display:inline-block;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:0.02em;}
+.cd-badge.active{background:#ECFDF5;color:#065f46;border:1px solid #D1FAE5;}
+.cd-badge.moderate{background:#FFFBEB;color:#92400e;border:1px solid #FEF3C7;}
+.cd-badge.inactive{background:#FEF2F2;color:#991b1b;border:1px solid #FECACA;}
+.cd-badge.unknown{background:#F5F7FA;color:#4A5568;border:1px solid #E2E8F0;}
+.cd-badge.you{background:#004C82;color:#fff;border:1px solid #004C82;}
+
+/* SEO badges */
+.cd-seo-yes{display:inline-block;padding:4px 12px;border-radius:4px;font-size:11px;font-weight:700;background:#ECFDF5;color:#065f46;border:1px solid #D1FAE5;}
+.cd-seo-no{display:inline-block;padding:4px 12px;border-radius:4px;font-size:11px;font-weight:700;background:#F5F7FA;color:#94a3b8;border:1px solid #E2E8F0;}
+
+/* Content count colors */
+.cd-cnt-zero{color:#991b1b;font-weight:700;}
+.cd-cnt-low{color:#92400e;font-weight:700;}
+.cd-cnt-high{color:#065f46;font-weight:700;}
+.cd-cnt-bold{font-weight:800;}
+
+/* === LINKS === */
+.cd-link{
+  display:inline-flex;align-items:center;gap:4px;padding:4px 10px;
+  background:#E8F0FE;color:#004C82;border-radius:4px;font-size:12px;font-weight:600;
+  text-decoration:none;transition:all 0.15s;margin:2px 0;border:1px solid #D6E4F0;
+}
+.cd-link:hover{background:#E8F0FE;border-color:#004C82;}
+
+/* === GAP CARDS === */
+.cd-gap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:16px 0;}
+.cd-gap-card{
+  background:#FFF;border:1px solid #E2E8F0;border-radius:8px;padding:20px;
+  border-left:4px solid #E63329;position:relative;
+}
+.cd-gap-card h4{font-size:14px;font-weight:700;color:#1A1A2E;margin-bottom:8px;}
+.cd-gap-card .cd-gap-who{font-size:12px;color:#991b1b;font-weight:600;margin-bottom:8px;}
+.cd-gap-card .cd-gap-action{
+  font-size:12px;color:#065f46;font-weight:600;padding:6px 10px;
+  background:#ECFDF5;border-radius:4px;border:1px solid #D1FAE5;margin-top:8px;display:inline-block;
+}
+
+/* === CONTENT GRID (Blog cards) === */
+.cd-content-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0;}
+.cd-content-card{border:none;border-radius:8px;padding:20px;background:#FFFFFF;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
+.cd-content-card h4{
+  font-size:14px;font-weight:700;color:#1A1A2E;margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.cd-content-card h4 .cd-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}
+.cd-content-card ul{list-style:none;padding:0;}
+.cd-content-card li{
+  padding:6px 0;border-bottom:1px solid #E2E8F0;font-size:13px;color:#4A5568;
+  font-weight:500;line-height:1.5;
+}
+.cd-content-card li:last-child{border-bottom:none;}
+.cd-content-card li a{color:#004C82;text-decoration:none;font-weight:600;}
+.cd-content-card li a:hover{text-decoration:underline;}
+.cd-content-card .cd-meta{font-size:11px;color:#4A5568;font-weight:500;}
+
+/* === INSIGHT BOX === */
+.cd-insight{
+  margin-top:32px;padding:24px;border-radius:8px;
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+}
+.cd-insight-title{
+  font-size:13px;font-weight:700;color:rgba(255,255,255,0.5);
+  text-transform:uppercase;letter-spacing:0.06em;margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;
+}
+.cd-insight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;}
+.cd-insight-item{
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);
+  border-radius:6px;padding:16px;
+}
+.cd-insight-item .cd-insight-label{
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;
+  margin-bottom:6px;display:inline-block;padding:2px 8px;border-radius:3px;
+}
+.cd-insight-item .cd-insight-label.chance{background:rgba(16,185,129,0.2);color:#6EE7B7;}
+.cd-insight-item .cd-insight-label.risiko{background:rgba(239,68,68,0.2);color:#FCA5A5;}
+.cd-insight-item .cd-insight-label.tipp{background:rgba(59,130,246,0.2);color:#93C5FD;}
+.cd-insight-item p{font-size:13px;color:rgba(255,255,255,0.8);font-weight:500;line-height:1.6;margin:0;}
+
+/* === NOTE BOX === */
+.cd-note{
+  margin-top:12px;padding:12px 16px;border-radius:6px;
+  background:#FFFBEB;border:1px solid #FEF3C7;
+  font-size:13px;font-weight:600;color:#92400e;
+  display:flex;align-items:center;gap:8px;
+}
+
+/* === RESPONSIVE === */
+@media(max-width:1100px){
+  .cd-content-grid,.cd-gap-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:700px){
+  .cd-content-grid,.cd-gap-grid{grid-template-columns:1fr;}
+  .cd-white-card{padding:20px 16px;}
+  .cd-nav-inner{flex-wrap:wrap;}
+  .cd-nav a.cd-nav-link{padding:10px 12px;font-size:12px;}
+}
+</style>
+</head>
+<body>
+<div class="cd-wrap">
+<canvas id="cd-lines-canvas"></canvas>
+
+<nav class="cd-nav">
+<div class="cd-nav-inner">
+  <a href="index.html" class="cd-nav-brand">Competitor Intelligence</a>
+  <a href="index.html" class="cd-nav-link">Home</a>
+  <a href="uebersicht.html" class="cd-nav-link">&Uuml;bersicht</a>
+  <a href="social.html" class="cd-nav-link">Social Media</a>
+  <a href="content.html" class="cd-nav-link active">Content</a>
+  <a href="markt.html" class="cd-nav-link">Markt</a>
+  <a href="map.html" class="cd-nav-link">Standorte</a>
+</div>
+</nav>
+
+<div style="max-width:1200px;margin:0 auto;padding:32px">
+
+<!-- ========== 1. SEO KEYWORD RANKING ========== -->
+<h2 class="cd-section-title">SEO Keyword Ranking</h2>
+<div class="cd-white-card">
+  <h3>Wer rankt f&uuml;r die wichtigsten Suchbegriffe?</h3>
+  <div class="cd-table-wrap">
+  <table class="cd-table">
+    <thead>
+      <tr>
+        <th>Keyword</th>
+        <th class="cd-you">HEAD IT</th>
+        <th>iTrust</th>
+        <th>care4IT</th>
+        <th>Leuchter</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>IT Support Luzern</td>
+        <td class="cd-highlight"><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-yes">Seite 1</span></td>
+      </tr>
+      <tr>
+        <td>IT Outsourcing KMU Schweiz</td>
+        <td class="cd-highlight"><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-yes">Seite 1</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+      </tr>
+      <tr>
+        <td>Managed IT Services Schweiz</td>
+        <td class="cd-highlight"><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+      </tr>
+      <tr>
+        <td>Microsoft 365 Beratung Schweiz</td>
+        <td class="cd-highlight"><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+      </tr>
+      <tr>
+        <td>Cyber Security KMU Schweiz</td>
+        <td class="cd-highlight"><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+      </tr>
+      <tr>
+        <td>Cloud Migration Schweiz</td>
+        <td class="cd-highlight"><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+      </tr>
+      <tr>
+        <td>IT Dienstleister Zentralschweiz</td>
+        <td class="cd-highlight"><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+        <td><span class="cd-seo-no">&ndash;</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="cd-note">&#9888;&#65039; 5 von 7 Keywords sind unbesetzt &ndash; grosse Chance f&uuml;r HEAD IT</div>
+</div>
+
+<!-- ========== 2. CONTENT-THEMEN VERGLEICH ========== -->
+<h2 class="cd-section-title">Content-Themen Vergleich</h2>
+<div class="cd-white-card">
+  <h3>Blog-Posts nach Themengebiet</h3>
+  <div class="cd-table-wrap">
+  <table class="cd-table">
+    <thead>
+      <tr>
+        <th>Thema</th>
+        <th class="cd-you">HEAD IT</th>
+        <th>iTrust</th>
+        <th>care4IT</th>
+        <th>Leuchter</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cyber Security</td>
+        <td class="cd-highlight"><span class="cd-cnt-high">3</span></td>
+        <td><span class="cd-cnt-low">1</span></td>
+        <td><span class="cd-cnt-low">2</span></td>
+        <td><span class="cd-cnt-high cd-cnt-bold">4</span></td>
+      </tr>
+      <tr>
+        <td>Microsoft 365</td>
+        <td class="cd-highlight"><span class="cd-cnt-high cd-cnt-bold">3</span></td>
+        <td><span class="cd-cnt-high cd-cnt-bold">3</span></td>
+        <td><span class="cd-cnt-low">2</span></td>
+        <td><span class="cd-cnt-high cd-cnt-bold">3</span></td>
+      </tr>
+      <tr>
+        <td>AI / Copilot</td>
+        <td class="cd-highlight"><span class="cd-cnt-zero">0</span></td>
+        <td><span class="cd-cnt-low">2</span></td>
+        <td><span class="cd-cnt-high cd-cnt-bold">4</span></td>
+        <td><span class="cd-cnt-low">1</span></td>
+      </tr>
+      <tr>
+        <td>Teams</td>
+        <td class="cd-highlight"><span class="cd-cnt-zero">0</span></td>
+        <td><span class="cd-cnt-low">1</span></td>
+        <td><span class="cd-cnt-high cd-cnt-bold">3</span></td>
+        <td><span class="cd-cnt-low">1</span></td>
+      </tr>
+      <tr>
+        <td>IT Outsourcing</td>
+        <td class="cd-highlight"><span class="cd-cnt-low">2</span></td>
+        <td><span class="cd-cnt-zero">0</span></td>
+        <td><span class="cd-cnt-high cd-cnt-bold">4</span></td>
+        <td><span class="cd-cnt-zero">0</span></td>
+      </tr>
+      <tr>
+        <td>Employer Branding</td>
+        <td class="cd-highlight"><span class="cd-cnt-high cd-cnt-bold">5</span></td>
+        <td><span class="cd-cnt-low">2</span></td>
+        <td><span class="cd-cnt-zero">0</span></td>
+        <td><span class="cd-cnt-low">1</span></td>
+      </tr>
+      <tr>
+        <td>Thought Leadership</td>
+        <td class="cd-highlight"><span class="cd-cnt-zero">0</span></td>
+        <td><span class="cd-cnt-high cd-cnt-bold">6</span></td>
+        <td><span class="cd-cnt-zero">0</span></td>
+        <td><span class="cd-cnt-zero">0</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- ========== 3. CONTENT-GAPS ========== -->
+<h2 class="cd-section-title">Content-Gaps</h2>
+<div class="cd-white-card">
+  <h3>Themen, die HEAD IT nicht abdeckt</h3>
+  <div class="cd-gap-grid">
+
+    <div class="cd-gap-card">
+      <h4>AI/Copilot f&uuml;r KMU</h4>
+      <div class="cd-gap-who">&#9888; care4IT dominiert mit 4 Posts &middot; HEAD IT: 0</div>
+      <p style="font-size:13px;color:#4A5568;line-height:1.6">care4IT publiziert regelm&auml;ssig Vergleiche (Copilot vs. ChatGPT), Use Cases und PowerPoint-Tutorials. HEAD IT hat keinen einzigen AI-fokussierten Blog-Post.</p>
+      <div class="cd-gap-action">&#10003; Aktion: 2 Posts schreiben &ndash; &laquo;Copilot f&uuml;r KMU&raquo; und &laquo;AI im Arbeitsalltag&raquo;</div>
+    </div>
+
+    <div class="cd-gap-card">
+      <h4>Microsoft Teams Updates</h4>
+      <div class="cd-gap-who">&#9888; care4IT: 3 Posts &middot; Leuchter: 1 &middot; HEAD IT: 0</div>
+      <p style="font-size:13px;color:#4A5568;line-height:1.6">Teams-Updates sind Evergreen-Content mit hohem Suchvolumen. care4IT nutzt das konsequent, HEAD IT &uuml;berl&auml;sst das Feld komplett.</p>
+      <div class="cd-gap-action">&#10003; Aktion: Monatlichen &laquo;Teams Update&raquo;-Post einf&uuml;hren</div>
+    </div>
+
+    <div class="cd-gap-card">
+      <h4>Thought Leadership Interviews</h4>
+      <div class="cd-gap-who">&#9888; iTrust: 6 &laquo;Talk mit...&raquo; Posts &middot; HEAD IT: 0</div>
+      <p style="font-size:13px;color:#4A5568;line-height:1.6">iTrust f&uuml;hrt Interviews mit CEOs und Entscheidern (Confiserie Bachmann, Balmer-Etienne). Das baut Vertrauen und generiert Backlinks.</p>
+      <div class="cd-gap-action">&#10003; Aktion: Quartalsweise &laquo;Talk mit...&raquo;-Serie mit Kunden starten</div>
+    </div>
+
+    <div class="cd-gap-card">
+      <h4>IT Outsourcing Entscheidungshilfen</h4>
+      <div class="cd-gap-who">&#9888; care4IT: 4 Buyer-Journey Posts &middot; HEAD IT: 0</div>
+      <p style="font-size:13px;color:#4A5568;line-height:1.6">care4IT hat Checklisten, Vergleiche und Entscheidungshilfen f&uuml;r KMU, die IT auslagern wollen. Das zieht potenzielle Kunden direkt in den Sales-Funnel.</p>
+      <div class="cd-gap-action">&#10003; Aktion: Pillar Page &laquo;IT Outsourcing Guide f&uuml;r KMU&raquo; erstellen</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== 4. BLOG-AKTIVITÄT ========== -->
+<h2 class="cd-section-title">Blog-Aktivit&auml;t</h2>
+<div class="cd-content-grid">
+
+  <div class="cd-content-card">
+    <h4><span class="cd-dot" style="background:#004C82"></span> HEAD IT Blog</h4>
+    <p style="margin-bottom:8px"><a class="cd-link" href="https://www.headitsolutions.ch/news/" target="_blank">&#128279; headitsolutions.ch/news</a></p>
+    <ul>
+      <li><a href="https://www.headitsolutions.ch/news/" target="_blank">Microsoft 365 E7</a><br><span class="cd-meta">M&auml;rz 2026</span></li>
+      <li><a href="https://www.headitsolutions.ch/news/" target="_blank">Cyberangriff auf KMU erkennen</a><br><span class="cd-meta">Cyber Security</span></li>
+      <li><a href="https://www.headitsolutions.ch/news/" target="_blank">Microsoft Copilot</a><br><span class="cd-meta">KI / Produktivit&auml;t</span></li>
+      <li><a href="https://www.headitsolutions.ch/news/" target="_blank">MDR simple.Security</a><br><span class="cd-meta">Managed Detection &amp; Response</span></li>
+    </ul>
+    <div style="margin-top:10px"><span class="cd-badge you">Dein Blog</span></div>
+  </div>
+
+  <div class="cd-content-card">
+    <h4><span class="cd-dot" style="background:#2EA3F2"></span> iTrust Blog</h4>
+    <p style="margin-bottom:8px"><a class="cd-link" href="https://www.itrust.ch/blog/" target="_blank">&#128279; itrust.ch/blog</a></p>
+    <ul>
+      <li><a href="https://www.itrust.ch/blog/copilot-agents/" target="_blank">Copilot Agents</a><br><span class="cd-meta">Deep-Dive Artikel</span></li>
+      <li><a href="https://www.itrust.ch/blog/microsoft-copilot/" target="_blank">Microsoft Copilot</a><br><span class="cd-meta">Enterprise Guide</span></li>
+      <li><a href="https://www.itrust.ch/blog/talk-mit-raphael-bachmann-ceo-confiserie-bachmann/" target="_blank">Talk: Confiserie Bachmann CEO</a><br><span class="cd-meta">Leader Talk Serie</span></li>
+      <li><a href="https://www.itrust.ch/blog/talk-digitalisierung-treuhand-balmer-etienne/" target="_blank">Talk: Balmer-Etienne</a><br><span class="cd-meta">Digitalisierung Treuhand</span></li>
+      <li><a href="https://www.itrust.ch/blog/" target="_blank">KI-News Newsletter (11+ Ausgaben)</a><br><span class="cd-meta">Regelm&auml;ssig</span></li>
+    </ul>
+    <div style="margin-top:10px"><span class="cd-badge active">Sehr aktiv + Podcast</span></div>
+  </div>
+
+  <div class="cd-content-card">
+    <h4><span class="cd-dot" style="background:#0170B9"></span> care4IT Blog</h4>
+    <p style="margin-bottom:8px"><a class="cd-link" href="https://info.care4it.ch/blog" target="_blank">&#128279; info.care4it.ch/blog</a></p>
+    <ul>
+      <li><a href="https://info.care4it.ch/blog" target="_blank">AI Cybercrime: Neue Bedrohungslage</a><br><span class="cd-meta">14. M&auml;rz 2026</span></li>
+      <li><a href="https://info.care4it.ch/blog" target="_blank">Microsoft Copilot mit PowerPoint</a><br><span class="cd-meta">6. M&auml;rz 2026</span></li>
+      <li><a href="https://info.care4it.ch/blog" target="_blank">Microsoft Teams Update</a><br><span class="cd-meta">28. Februar 2026</span></li>
+      <li><a href="https://info.care4it.ch/blog" target="_blank">Neue Phishing-E-Mail-Welle</a><br><span class="cd-meta">18. Februar 2026</span></li>
+      <li><a href="https://info.care4it.ch/blog" target="_blank">Copilot oder ChatGPT f&uuml;r KMU?</a><br><span class="cd-meta">2. Februar 2026</span></li>
+    </ul>
+    <div style="margin-top:10px"><span class="cd-badge active">2-3 Posts/Monat</span></div>
+  </div>
+
+  <div class="cd-content-card">
+    <h4><span class="cd-dot" style="background:#E63329"></span> Leuchter Blog</h4>
+    <p style="margin-bottom:8px"><a class="cd-link" href="https://www.leuchterag.ch/blog" target="_blank">&#128279; leuchterag.ch/blog</a></p>
+    <ul>
+      <li><a href="https://www.leuchterag.ch/blog" target="_blank">Microsoft 365 Preis&auml;nderungen</a><br><span class="cd-meta">Februar 2026, Copilot</span></li>
+      <li><a href="https://www.leuchterag.ch/blog" target="_blank">Teams Updates</a><br><span class="cd-meta">Regelm&auml;ssig</span></li>
+      <li><a href="https://www.leuchterag.ch/blog" target="_blank">E-Mail Authentifizierung</a><br><span class="cd-meta">Best Practices</span></li>
+      <li><a href="https://www.leuchterag.ch/blog" target="_blank">.NET Aspire Entwicklung</a><br><span class="cd-meta">Technischer Deep-Dive</span></li>
+    </ul>
+    <div style="margin-top:10px"><span class="cd-badge moderate">Moderat aktiv</span></div>
+  </div>
+
+</div>
+
+<!-- ========== 5. INSIGHT BOX ========== -->
+<div class="cd-insight">
+  <div class="cd-insight-title">&#128161; Content &amp; SEO Handlungsempfehlungen</div>
+  <div class="cd-insight-grid">
+    <div class="cd-insight-item">
+      <span class="cd-insight-label chance">Chance</span>
+      <p>5 von 7 SEO Keywords sind unbesetzt. HEAD IT kann mit gezielten Blog-Posts diese Begriffe besetzen, bevor Wettbewerber sie f&uuml;r sich beanspruchen.</p>
+    </div>
+    <div class="cd-insight-item">
+      <span class="cd-insight-label risiko">Risiko</span>
+      <p>care4IT hat die aggressivste SEO-Strategie (HubSpot Blog, KMU-Keywords). Sie werden weiter wachsen und organischen Traffic abgreifen, den HEAD IT h&auml;tte haben k&ouml;nnen.</p>
+    </div>
+    <div class="cd-insight-item">
+      <span class="cd-insight-label tipp">Tipp</span>
+      <p>Einen SEO-fokussierten Blog-Post pro Monat schreiben: &laquo;IT Support Luzern&raquo;, &laquo;Managed IT Services KMU&raquo;, &laquo;Cloud Migration Schweiz&raquo; usw. Innerhalb von 6 Monaten k&ouml;nnen die ersten Rankings erreicht werden.</p>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+try{
+  var c=document.getElementById('cd-lines-canvas');
+  if(c){
+    var ctx=c.getContext('2d');
+    var w,h,pts=[];
+    var N=120;
+    var LINK=160;
+    function rs(){w=c.width=window.innerWidth;h=c.height=window.innerHeight;}
+    rs();
+    window.addEventListener('resize',rs);
+    for(var i=0;i<N;i++){
+      pts.push({
+        x:Math.random()*w,
+        y:Math.random()*h,
+        vx:(Math.random()-0.5)*0.35,
+        vy:(Math.random()-0.5)*0.35,
+        r:Math.random()*1.5+0.5,
+        bright:Math.random()>0.7
+      });
+    }
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      for(var i=0;i<N;i++){
+        var p=pts[i];
+        p.x+=p.vx;p.y+=p.vy;
+        if(p.x<0)p.x=w;if(p.x>w)p.x=0;
+        if(p.y<0)p.y=h;if(p.y>h)p.y=0;
+        for(var j=i+1;j<N;j++){
+          var q=pts[j];
+          var dx=p.x-q.x,dy=p.y-q.y;
+          var d=dx*dx+dy*dy;
+          if(d<LINK*LINK){
+            var a=1-Math.sqrt(d)/LINK;
+            ctx.beginPath();
+            ctx.moveTo(p.x,p.y);
+            ctx.lineTo(q.x,q.y);
+            ctx.strokeStyle='rgba(60,160,240,'+a*0.18+')';
+            ctx.lineWidth=a*1.2+0.3;
+            ctx.stroke();
+          }
+        }
+        if(p.bright){
+          ctx.beginPath();
+          ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
+          ctx.fillStyle='rgba(60,160,240,0.08)';
+          ctx.fill();
+        }
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=p.bright?'rgba(100,200,255,0.7)':'rgba(60,160,240,0.35)';
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+}catch(e){}
+</script>
+</body>
+</html>
