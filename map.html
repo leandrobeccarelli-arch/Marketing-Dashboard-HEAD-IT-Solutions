@@ -529,35 +529,53 @@ try{
   var c=document.getElementById('cd-lines-canvas');
   if(c){
     var ctx=c.getContext('2d');
-    var w,h,particles=[];
-    var particleCount=50;
-    function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight;}
-    resize();
-    window.addEventListener('resize',resize);
-    function Particle(){
-      this.x=Math.random()*w;this.y=Math.random()*h;
-      this.vx=(Math.random()-0.5)*0.4;this.vy=(Math.random()-0.5)*0.4;
-      this.r=Math.random()*2+1;
+    var w,h,pts=[];
+    var N=120;
+    var LINK=160;
+    function rs(){w=c.width=window.innerWidth;h=c.height=window.innerHeight;}
+    rs();
+    window.addEventListener('resize',rs);
+    for(var i=0;i<N;i++){
+      pts.push({
+        x:Math.random()*w,
+        y:Math.random()*h,
+        vx:(Math.random()-0.5)*0.35,
+        vy:(Math.random()-0.5)*0.35,
+        r:Math.random()*1.5+0.5,
+        bright:Math.random()>0.7
+      });
     }
-    for(var i=0;i<particleCount;i++){particles.push(new Particle());}
     function draw(){
       ctx.clearRect(0,0,w,h);
-      for(var i=0;i<particles.length;i++){
-        var p=particles[i];
+      for(var i=0;i<N;i++){
+        var p=pts[i];
         p.x+=p.vx;p.y+=p.vy;
         if(p.x<0)p.x=w;if(p.x>w)p.x=0;
         if(p.y<0)p.y=h;if(p.y>h)p.y=0;
-        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fillStyle='rgba(0,116,194,0.25)';ctx.fill();
-        for(var j=i+1;j<particles.length;j++){
-          var p2=particles[j];var dx=p.x-p2.x;var dy=p.y-p2.y;
-          var dist=Math.sqrt(dx*dx+dy*dy);
-          if(dist<180){
-            ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p2.x,p2.y);
-            ctx.strokeStyle='rgba(0,116,194,'+(0.08*(1-dist/180))+')';
-            ctx.lineWidth=0.6;ctx.stroke();
+        for(var j=i+1;j<N;j++){
+          var q=pts[j];
+          var dx=p.x-q.x,dy=p.y-q.y;
+          var d=dx*dx+dy*dy;
+          if(d<LINK*LINK){
+            var a=1-Math.sqrt(d)/LINK;
+            ctx.beginPath();
+            ctx.moveTo(p.x,p.y);
+            ctx.lineTo(q.x,q.y);
+            ctx.strokeStyle='rgba(60,160,240,'+a*0.18+')';
+            ctx.lineWidth=a*1.2+0.3;
+            ctx.stroke();
           }
         }
+        if(p.bright){
+          ctx.beginPath();
+          ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
+          ctx.fillStyle='rgba(60,160,240,0.08)';
+          ctx.fill();
+        }
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=p.bright?'rgba(100,200,255,0.7)':'rgba(60,160,240,0.35)';
+        ctx.fill();
       }
       requestAnimationFrame(draw);
     }
