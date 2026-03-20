@@ -1,0 +1,268 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+/* === BASE === */
+.cd-wrap{
+  font-family:'Montserrat',sans-serif;
+  color:#1A1A2E;
+  background:linear-gradient(160deg,#002A4A 0%,#004C82 40%,#003D6B 70%,#002040 100%);
+  background-attachment:fixed;
+  padding:0 0 64px 0;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  position:relative;
+}
+.cd-wrap::before{
+  content:'';position:fixed;top:0;left:0;width:100%;height:100%;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat:repeat;background-size:128px 128px;
+  pointer-events:none;z-index:0;opacity:0.6;
+}
+.cd-wrap>*{position:relative;z-index:1;}
+
+/* === NAV BAR === */
+.cd-nav{
+  background:#FFFFFF;
+  border-bottom:1px solid #E2E8F0;
+  padding:0 32px;
+}
+.cd-nav-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;min-height:52px;flex-wrap:wrap;
+}
+.cd-nav-brand{
+  font-size:15px;font-weight:700;color:#1A1A2E;
+  text-decoration:none;letter-spacing:-0.02em;
+  flex-shrink:0;
+}
+.cd-nav-brand:hover{color:#004C82;}
+.cd-nav-links{
+  display:flex;align-items:center;gap:0;flex-wrap:wrap;
+}
+.cd-nav-links a{
+  padding:14px 14px;
+  font-size:12px;font-weight:600;color:#4A5568;
+  text-decoration:none;
+  border-bottom:2px solid transparent;
+  transition:all 0.15s;
+  white-space:nowrap;
+}
+.cd-nav-links a:hover{color:#004C82;}
+.cd-nav-links a.active{color:#004C82;border-bottom-color:#004C82;}
+
+/* === HEADER === */
+.cd-header{
+  background:#FFFFFF;
+  color:#1A1A2E;
+  padding:40px 32px 32px;
+  border-bottom:1px solid #E2E8F0;
+}
+.cd-header-inner{
+  max-width:1200px;margin:0 auto;
+}
+.cd-header h1{font-size:24px;font-weight:700;letter-spacing:-0.02em;color:#1A1A2E;}
+.cd-header p{font-size:13px;font-weight:500;color:#4A5568;margin-top:2px;}
+
+/* === KPI CARDS === */
+.cd-kpi-row{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+  max-width:1200px;margin:32px auto 0;padding:0 32px;
+}
+.cd-kpi{
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:8px;
+  padding:24px;
+  text-align:center;
+  backdrop-filter:blur(4px);
+}
+.cd-kpi-value{
+  font-size:32px;font-weight:700;color:#FFFFFF;
+  letter-spacing:-0.02em;line-height:1.2;
+}
+.cd-kpi-label{
+  font-size:12px;font-weight:600;color:rgba(255,255,255,0.6);
+  text-transform:uppercase;letter-spacing:0.06em;margin-top:4px;
+}
+.cd-kpi-sub{
+  display:inline-block;margin-top:10px;
+  font-size:11px;font-weight:700;
+  padding:3px 10px;border-radius:4px;
+  background:rgba(255,255,255,0.15);color:#FFFFFF;
+  letter-spacing:0.02em;
+}
+
+/* === NAV GRID === */
+.cd-nav-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+  max-width:1200px;margin:32px auto 0;padding:0 32px;
+}
+.cd-nav-card{
+  background:#FFFFFF;
+  border-radius:8px;
+  padding:24px 24px 24px 28px;
+  text-decoration:none;color:inherit;
+  position:relative;overflow:hidden;
+  transition:transform 0.15s,box-shadow 0.15s;
+  box-shadow:0 1px 3px rgba(0,0,0,0.08);
+  display:flex;flex-direction:column;
+}
+.cd-nav-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(0,0,0,0.15);
+}
+.cd-nav-card::before{
+  content:'';position:absolute;top:0;left:0;width:4px;height:100%;
+  background:#004C82;border-radius:8px 0 0 8px;
+}
+.cd-nav-card h3{
+  font-size:15px;font-weight:700;color:#1A1A2E;margin-bottom:6px;
+}
+.cd-nav-card p{
+  font-size:12px;font-weight:500;color:#4A5568;line-height:1.5;margin:0;
+}
+.cd-nav-card .cd-nav-arrow{
+  margin-top:auto;padding-top:14px;
+  font-size:12px;font-weight:700;color:#004C82;
+  display:flex;align-items:center;gap:4px;
+}
+
+/* === FOOTER === */
+.cd-footer{
+  max-width:1200px;margin:48px auto 0;padding:0 32px;
+  text-align:center;
+}
+.cd-footer p{
+  font-size:12px;font-weight:500;color:rgba(255,255,255,0.4);
+}
+
+/* === RESPONSIVE === */
+@media(max-width:900px){
+  .cd-kpi-row,.cd-nav-grid{grid-template-columns:repeat(2,1fr);}
+  .cd-nav-links a{padding:10px 10px;font-size:11px;}
+}
+@media(max-width:600px){
+  .cd-kpi-row,.cd-nav-grid{grid-template-columns:1fr;}
+  .cd-nav-inner{flex-direction:column;align-items:flex-start;padding:12px 0;}
+  .cd-nav-links{width:100%;overflow-x:auto;}
+  .cd-header{padding:24px 20px 20px;}
+  .cd-kpi-row,.cd-nav-grid{padding:0 20px;}
+}
+</style>
+
+<div class="cd-wrap">
+
+<!-- ===== NAV BAR (reusable block) ===== -->
+<nav class="cd-nav">
+  <div class="cd-nav-inner">
+    <a href="index.html" class="cd-nav-brand">Competitor Intelligence</a>
+    <div class="cd-nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="uebersicht.html">Übersicht</a>
+      <a href="social.html">Social Media</a>
+      <a href="blogs.html">Blogs</a>
+      <a href="angebot.html">Angebot</a>
+      <a href="kunden.html">Kunden</a>
+      <a href="analytics.html">Analytics</a>
+      <a href="feeds.html">Feeds</a>
+      <a href="ads.html">Ads &amp; Video</a>
+    </div>
+  </div>
+</nav>
+<!-- ===== END NAV BAR ===== -->
+
+<!-- Header -->
+<div class="cd-header">
+  <div class="cd-header-inner">
+    <h1>Competitor Intelligence</h1>
+    <p>HEAD IT Solutions AG</p>
+  </div>
+</div>
+
+<!-- KPI Score Cards -->
+<div class="cd-kpi-row">
+  <div class="cd-kpi">
+    <div class="cd-kpi-value">1'668</div>
+    <div class="cd-kpi-label">HEAD IT LinkedIn</div>
+    <span class="cd-kpi-sub">Rang 3</span>
+  </div>
+  <div class="cd-kpi">
+    <div class="cd-kpi-value">387</div>
+    <div class="cd-kpi-label">HEAD IT Instagram</div>
+    <span class="cd-kpi-sub">Rang 1</span>
+  </div>
+  <div class="cd-kpi">
+    <div class="cd-kpi-value">6/7</div>
+    <div class="cd-kpi-label">Plattformen</div>
+    <span class="cd-kpi-sub">Beste Abdeckung</span>
+  </div>
+  <div class="cd-kpi">
+    <div class="cd-kpi-value">3</div>
+    <div class="cd-kpi-label">Competitors</div>
+    <span class="cd-kpi-sub">iTrust, care4IT, Leuchter</span>
+  </div>
+</div>
+
+<!-- Navigation Grid -->
+<div class="cd-nav-grid">
+
+  <a href="uebersicht.html" class="cd-nav-card">
+    <h3>Übersicht</h3>
+    <p>Competitor-Karten und Schnellvergleich</p>
+    <span class="cd-nav-arrow">Öffnen &#8594;</span>
+  </a>
+
+  <a href="social.html" class="cd-nav-card">
+    <h3>Social Media</h3>
+    <p>Follower-Vergleich und Direktlinks</p>
+    <span class="cd-nav-arrow">Öffnen &#8594;</span>
+  </a>
+
+  <a href="blogs.html" class="cd-nav-card">
+    <h3>Blogs</h3>
+    <p>Blog-Aktivitäten und RSS-Feed</p>
+    <span class="cd-nav-arrow">Öffnen &#8594;</span>
+  </a>
+
+  <a href="angebot.html" class="cd-nav-card">
+    <h3>Angebot</h3>
+    <p>Service-Vergleich und Tech-Partner</p>
+    <span class="cd-nav-arrow">Öffnen &#8594;</span>
+  </a>
+
+  <a href="kunden.html" class="cd-nav-card">
+    <h3>Kunden</h3>
+    <p>Referenzen und Kundenvergleich</p>
+    <span class="cd-nav-arrow">Öffnen &#8594;</span>
+  </a>
+
+  <a href="analytics.html" class="cd-nav-card">
+    <h3>Analytics</h3>
+    <p>Charts und Plattform-Matrix</p>
+    <span class="cd-nav-arrow">Öffnen &#8594;</span>
+  </a>
+
+  <a href="feeds.html" class="cd-nav-card">
+    <h3>Feeds</h3>
+    <p>Social Feed Links</p>
+    <span class="cd-nav-arrow">Öffnen &#8594;</span>
+  </a>
+
+  <a href="ads.html" class="cd-nav-card">
+    <h3>Ads &amp; Video</h3>
+    <p>YouTube, Events, Meta Ads</p>
+    <span class="cd-nav-arrow">Öffnen &#8594;</span>
+  </a>
+
+</div>
+
+<!-- Footer -->
+<div class="cd-footer">
+  <p>Stand: 20. März 2026 &middot; HEAD IT Solutions AG</p>
+</div>
+
+</div>
