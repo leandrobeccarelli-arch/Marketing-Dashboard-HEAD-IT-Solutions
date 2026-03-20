@@ -1,259 +1,260 @@
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
 
-* { margin:0; padding:0; box-sizing:border-box; }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-.cd-wrap {
+/* === BASE === */
+.cd-wrap{
   font-family:'Montserrat',sans-serif;
-  color:#1a1a2e;
-  background:#f0f2f5;
-  padding:0 0 60px 0;
+  color:#1A1A2E;
+  background:#FFFFFF;
+  padding:0 0 64px 0;
   line-height:1.6;
+  -webkit-font-smoothing:antialiased;
 }
 
-/* Header */
-.cd-header {
-  background:linear-gradient(135deg,#004C82 0%,#0068b5 100%);
-  color:#fff;
-  padding:44px 32px 36px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
+/* === HEADER === */
+.cd-header{
+  background:#FFFFFF;
+  color:#1A1A2E;
+  padding:40px 32px 32px;
+  border-bottom:1px solid #E2E8F0;
 }
-.cd-header::before {
-  content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;
-  border:2px solid rgba(255,255,255,0.08);border-radius:50%;
+.cd-header-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
 }
-.cd-header::after {
-  content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;
-  border:2px solid rgba(255,255,255,0.06);border-radius:50%;
+.cd-header h1{font-size:24px;font-weight:700;letter-spacing:-0.02em;color:#1A1A2E;}
+.cd-header p{font-size:13px;font-weight:500;color:#4A5568;margin-top:2px;}
+.cd-header .cd-date{font-size:12px;font-weight:500;color:#4A5568;}
+.cd-refresh-bar{display:flex;align-items:center;gap:8px;}
+.cd-refresh-btn{
+  display:inline-flex;align-items:center;gap:6px;padding:8px 16px;
+  background:#FFFFFF;color:#004C82;border:1px solid #E2E8F0;border-radius:6px;
+  font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;
+  cursor:pointer;transition:all 0.15s;user-select:none;
 }
-.cd-header h1 { font-size:1.9em; font-weight:800; letter-spacing:-0.5px; margin-bottom:6px; }
-.cd-header p { font-size:0.92em; opacity:0.85; }
-.cd-header .cd-date {
-  display:inline-block;margin-top:10px;background:rgba(255,255,255,0.15);
-  padding:4px 16px;border-radius:20px;font-size:0.78em;font-weight:600;
-}
-.cd-refresh-bar {
-  display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px;position:relative;z-index:1;
-}
-.cd-refresh-btn {
-  display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:#fff;color:#004C82;
-  border:none;border-radius:8px;font-family:'Montserrat',sans-serif;font-size:0.8em;font-weight:700;
-  cursor:pointer;transition:all 0.2s;user-select:none;
-}
-.cd-refresh-btn:hover { background:#fce8f2; color:#E2007A; }
-.cd-refresh-btn.loading { opacity:0.6; pointer-events:none; }
-.cd-refresh-btn .cd-spin { display:inline-block; }
-.cd-refresh-btn.loading .cd-spin { animation:cdSpin 1s linear infinite; }
-@keyframes cdSpin { to { transform:rotate(360deg); } }
-.cd-refresh-status { font-size:0.73em; color:rgba(255,255,255,0.7); }
+.cd-refresh-btn:hover{background:#E8F0FE;border-color:#004C82;}
+.cd-refresh-btn.loading{opacity:0.5;pointer-events:none;}
+.cd-refresh-btn .cd-spin{display:inline-block;}
+.cd-refresh-btn.loading .cd-spin{animation:cdSpin 1s linear infinite;}
+@keyframes cdSpin{to{transform:rotate(360deg);}}
+.cd-refresh-status{font-size:12px;color:#4A5568;font-weight:500;}
 
-/* Container */
-.cd-container { max-width:1280px; margin:0 auto; padding:0 20px; }
+/* === CONTAINER === */
+.cd-container{max-width:1200px;margin:0 auto;padding:0 24px;}
 
-/* Tabs */
-.cd-tabs {
-  display:flex;gap:3px;margin:28px auto 0;max-width:1280px;padding:0 20px;flex-wrap:wrap;
+/* === TABS === */
+.cd-tabs{
+  display:flex;gap:0;margin:0 auto;max-width:1200px;padding:0 24px;
+  border-bottom:1px solid #E2E8F0;
 }
-.cd-tab {
-  padding:10px 18px;background:#fff;border:none;border-radius:8px 8px 0 0;
-  font-family:'Montserrat',sans-serif;font-size:0.82em;font-weight:600;color:#666;
-  cursor:pointer;transition:all 0.2s;user-select:none;
+.cd-tab{
+  padding:12px 20px;background:none;border:none;border-bottom:2px solid transparent;
+  font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:#4A5568;
+  cursor:pointer;transition:all 0.15s;user-select:none;
 }
-.cd-tab:hover { color:#E2007A; background:#fce8f2; }
-.cd-tab.active { color:#004C82; background:#fff; box-shadow:0 -2px 0 #E2007A inset; }
+.cd-tab:hover{color:#004C82;}
+.cd-tab.active{color:#004C82;border-bottom-color:#004C82;}
 
-/* Panels */
-.cd-panel {
-  display:none;background:#fff;border-radius:0 12px 12px 12px;padding:32px;
-  box-shadow:0 2px 12px rgba(0,0,0,0.06);margin:0 auto;max-width:1280px;
+/* === PANELS === */
+.cd-panel{
+  display:none;background:#FFFFFF;padding:32px 0;margin:0 auto;max-width:1200px;
 }
-.cd-panel.active { display:block; }
+.cd-panel.active{display:block;}
 
-/* Section title */
-.cd-section-title {
-  font-size:1.2em;font-weight:700;color:#004C82;margin:0 0 20px 0;
-  padding-bottom:10px;border-bottom:2px solid #e8f0f8;
+/* === SECTION TITLE === */
+.cd-section-title{
+  font-size:18px;font-weight:700;color:#1A1A2E;margin:0 0 24px 0;
+  padding-bottom:12px;border-bottom:1px solid #E2E8F0;
 }
 
-/* 4-col cards */
-.cd-cards { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:8px; }
-.cd-card {
-  background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px;
-  position:relative;overflow:hidden;transition:transform 0.2s, box-shadow 0.2s;
+/* === CARDS === */
+.cd-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px;}
+.cd-card{
+  background:#FFFFFF;border:1px solid #E2E8F0;border-radius:8px;padding:24px;
+  position:relative;overflow:hidden;transition:border-color 0.15s;
 }
-.cd-card:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,76,130,0.1); }
-.cd-card-accent { position:absolute;top:0;left:0;right:0;height:4px; }
-.cd-card[data-comp="headit"] .cd-card-accent { background:linear-gradient(90deg,#004C82,#E2007A); }
-.cd-card[data-comp="itrust"] .cd-card-accent { background:#2EA3F2; }
-.cd-card[data-comp="care4it"] .cd-card-accent { background:#0170B9; }
-.cd-card[data-comp="leuchter"] .cd-card-accent { background:#E63329; }
+.cd-card:hover{border-color:#004C82;}
+.cd-card-accent{position:absolute;top:0;left:0;right:0;height:3px;}
+.cd-card[data-comp="headit"] .cd-card-accent{background:#004C82;}
+.cd-card[data-comp="itrust"] .cd-card-accent{background:#2EA3F2;}
+.cd-card[data-comp="care4it"] .cd-card-accent{background:#0170B9;}
+.cd-card[data-comp="leuchter"] .cd-card-accent{background:#E63329;}
 
-.cd-card-logo {
-  width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;
-  font-weight:800;font-size:0.95em;color:#fff;margin-bottom:12px;
+.cd-card-logo{
+  width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:14px;color:#fff;margin-bottom:16px;
 }
-.cd-card[data-comp="headit"] .cd-card-logo { background:linear-gradient(135deg,#004C82,#0068b5); }
-.cd-card[data-comp="itrust"] .cd-card-logo { background:linear-gradient(135deg,#007AC2,#2EA3F2); }
-.cd-card[data-comp="care4it"] .cd-card-logo { background:linear-gradient(135deg,#0170B9,#216093); }
-.cd-card[data-comp="leuchter"] .cd-card-logo { background:linear-gradient(135deg,#E63329,#ff4d42); }
+.cd-card[data-comp="headit"] .cd-card-logo{background:#004C82;}
+.cd-card[data-comp="itrust"] .cd-card-logo{background:#2EA3F2;}
+.cd-card[data-comp="care4it"] .cd-card-logo{background:#0170B9;}
+.cd-card[data-comp="leuchter"] .cd-card-logo{background:#E63329;}
 
-.cd-card .cd-you-badge {
-  position:absolute;top:12px;right:12px;background:#E2007A;color:#fff;
-  font-size:0.65em;font-weight:700;padding:2px 8px;border-radius:4px;
+.cd-card .cd-you-badge{
+  position:absolute;top:16px;right:16px;background:#004C82;color:#fff;
+  font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:0.02em;
 }
+.cd-card h3{font-size:15px;font-weight:700;color:#1A1A2E;margin-bottom:4px;}
+.cd-card .cd-card-sub{font-size:12px;color:#4A5568;font-weight:500;margin-bottom:16px;}
+.cd-card-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.cd-card-stat{background:#F5F7FA;padding:10px 12px;border-radius:6px;}
+.cd-card-stat .val{font-size:16px;font-weight:700;color:#1A1A2E;display:block;}
+.cd-card-stat .lbl{font-size:11px;color:#4A5568;font-weight:500;}
 
-.cd-card h3 { font-size:1em; font-weight:700; margin-bottom:3px; }
-.cd-card .cd-card-sub { font-size:0.76em; color:#666; margin-bottom:14px; }
-.cd-card-stats { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
-.cd-card-stat { background:#f8fafc; padding:7px 9px; border-radius:6px; }
-.cd-card-stat .val { font-size:0.95em; font-weight:700; color:#004C82; }
-.cd-card-stat .lbl { font-size:0.65em; color:#888; font-weight:500; }
+/* === TABLE === */
+.cd-table-wrap{overflow-x:auto;margin:16px 0;}
+.cd-table{width:100%;border-collapse:collapse;font-size:13px;}
+.cd-table th{
+  background:#F5F7FA;color:#1A1A2E;font-weight:700;text-align:left;
+  padding:12px 16px;border-bottom:1px solid #E2E8F0;white-space:nowrap;font-size:12px;
+  text-transform:uppercase;letter-spacing:0.04em;
+}
+.cd-table th.cd-you{background:#004C82;color:#fff;}
+.cd-table td{padding:12px 16px;border-bottom:1px solid #E2E8F0;vertical-align:top;}
+.cd-table tbody tr:nth-child(even) td{background:#F5F7FA;}
+.cd-table tbody tr:nth-child(odd) td{background:#FFFFFF;}
+.cd-table .comp-name{font-weight:600;white-space:nowrap;color:#1A1A2E;}
+.cd-table td.cd-highlight{background:#E8F0FE !important;}
 
-/* Table */
-.cd-table-wrap { overflow-x:auto; margin:16px 0; }
-.cd-table { width:100%; border-collapse:collapse; font-size:0.84em; }
-.cd-table th {
-  background:#f0f4f8;color:#004C82;font-weight:700;text-align:left;
-  padding:10px 14px;border-bottom:2px solid #e2e8f0;white-space:nowrap;
-}
-.cd-table th.cd-you { background:linear-gradient(135deg,#004C82,#E2007A); color:#fff; }
-.cd-table td { padding:10px 14px; border-bottom:1px solid #f0f2f5; vertical-align:top; }
-.cd-table tr:hover td { background:#f8fafc; }
-.cd-table .comp-name { font-weight:600; white-space:nowrap; }
-.cd-table td.cd-highlight { background:#fef5f9; }
+/* === BADGES === */
+.cd-badge{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:0.01em;}
+.cd-badge.active{background:#ECFDF5;color:#065f46;}
+.cd-badge.moderate{background:#FFFBEB;color:#92400e;}
+.cd-badge.inactive{background:#FEF2F2;color:#991b1b;}
+.cd-badge.unknown{background:#F5F7FA;color:#4A5568;}
+.cd-badge.you{background:#004C82;color:#fff;}
 
-/* Badges */
-.cd-badge { display:inline-block;padding:3px 9px;border-radius:12px;font-size:0.75em;font-weight:600; }
-.cd-badge.active { background:#d1fae5; color:#065f46; }
-.cd-badge.moderate { background:#fef3c7; color:#92400e; }
-.cd-badge.inactive { background:#fee2e2; color:#991b1b; }
-.cd-badge.unknown { background:#e2e8f0; color:#475569; }
-.cd-badge.you { background:#E2007A; color:#fff; }
+/* === LINKS === */
+.cd-link{
+  display:inline-flex;align-items:center;gap:4px;padding:4px 10px;
+  background:#F5F7FA;color:#004C82;border-radius:4px;font-size:12px;font-weight:600;
+  text-decoration:none;transition:all 0.15s;margin:2px 0;border:1px solid transparent;
+}
+.cd-link:hover{background:#E8F0FE;border-color:#004C82;}
 
-/* Links */
-.cd-link {
-  display:inline-flex;align-items:center;gap:4px;padding:4px 11px;background:#e8f0f8;
-  color:#004C82;border-radius:6px;font-size:0.78em;font-weight:600;
-  text-decoration:none;transition:background 0.2s;margin:2px 0;
+/* === CONTENT GRID === */
+.cd-content-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0;}
+.cd-content-card{border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#FFFFFF;}
+.cd-content-card h4{
+  font-size:14px;font-weight:700;color:#1A1A2E;margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
 }
-.cd-link:hover { background:#fce8f2; color:#E2007A; }
+.cd-content-card h4 .cd-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}
+.cd-content-card ul{list-style:none;padding:0;}
+.cd-content-card li{
+  padding:6px 0;border-bottom:1px solid #E2E8F0;font-size:13px;color:#4A5568;
+  font-weight:500;line-height:1.5;
+}
+.cd-content-card li:last-child{border-bottom:none;}
+.cd-content-card li a{color:#004C82;text-decoration:none;font-weight:600;}
+.cd-content-card li a:hover{text-decoration:underline;}
+.cd-content-card .cd-meta{font-size:11px;color:#4A5568;font-weight:500;}
 
-/* 4-col content grid */
-.cd-content-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:16px 0; }
-.cd-content-card { border:1px solid #e2e8f0; border-radius:10px; padding:18px; background:#fff; }
-.cd-content-card h4 {
-  font-size:0.9em;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px;
+/* === CUSTOMER GRID === */
+.cd-customer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0;}
+.cd-customer-card{border:1px solid #E2E8F0;border-radius:8px;padding:20px;}
+.cd-customer-card h4{font-size:14px;font-weight:700;margin-bottom:12px;}
+.cd-customer-list{display:flex;flex-wrap:wrap;gap:6px;}
+.cd-customer-tag{
+  background:#F5F7FA;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:500;color:#1A1A2E;
 }
-.cd-content-card h4 .cd-dot { width:9px;height:9px;border-radius:50%;display:inline-block; }
-.cd-content-card ul { list-style:none; padding:0; }
-.cd-content-card li {
-  padding:5px 0;border-bottom:1px solid #f5f5f5;font-size:0.8em;color:#444;line-height:1.5;
-}
-.cd-content-card li:last-child { border-bottom:none; }
-.cd-content-card li a { color:#004C82; text-decoration:none; font-weight:600; }
-.cd-content-card li a:hover { text-decoration:underline; }
-.cd-content-card .cd-meta { font-size:0.73em; color:#999; font-weight:500; }
+.cd-customer-tag.highlight{background:#004C82;color:#fff;}
+.cd-customer-tag.you{background:#E8F0FE;border:1px solid #004C82;color:#004C82;}
 
-/* Customer grid */
-.cd-customer-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:16px 0; }
-.cd-customer-card { border:1px solid #e2e8f0; border-radius:10px; padding:18px; }
-.cd-customer-card h4 { font-size:0.9em; font-weight:700; margin-bottom:10px; }
-.cd-customer-list { display:flex; flex-wrap:wrap; gap:5px; }
-.cd-customer-tag {
-  background:#f0f4f8;padding:3px 10px;border-radius:6px;font-size:0.73em;font-weight:500;color:#334155;
-}
-.cd-customer-tag.highlight { background:#004C82; color:#fff; }
-.cd-customer-tag.you { background:#fce8f2; border:1px solid #E2007A; color:#E2007A; }
+/* === SERVICE GRID === */
+.cd-service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0;}
+.cd-service-card{border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#FFFFFF;}
+.cd-service-card h4{font-size:14px;font-weight:700;margin-bottom:12px;}
+.cd-service-item{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:13px;color:#4A5568;font-weight:500;}
+.cd-check{color:#004C82;font-weight:700;flex-shrink:0;}
+.cd-unique{color:#4A5568;font-weight:700;flex-shrink:0;}
 
-/* Service grid */
-.cd-service-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:16px 0; }
-.cd-service-card { border:1px solid #e2e8f0; border-radius:10px; padding:18px; background:#fff; }
-.cd-service-card h4 { font-size:0.9em; font-weight:700; margin-bottom:10px; }
-.cd-service-item { display:flex;align-items:flex-start;gap:6px;padding:4px 0;font-size:0.8em;color:#444; }
-.cd-check { color:#0170B9; font-weight:700; flex-shrink:0; }
-.cd-unique { color:#E63329; font-weight:700; flex-shrink:0; }
+/* === LIVE BLOG === */
+.cd-live-results{margin-top:16px;border:1px solid #E2E8F0;border-radius:8px;overflow:hidden;}
+.cd-live-header{
+  display:flex;align-items:center;justify-content:space-between;padding:12px 16px;
+  background:#F5F7FA;font-size:13px;font-weight:600;color:#1A1A2E;
+  border-bottom:1px solid #E2E8F0;
+}
+.cd-live-header .cd-live-dot{
+  width:6px;height:6px;border-radius:50%;background:#004C82;display:inline-block;
+  margin-right:6px;animation:cdPulse 2s infinite;
+}
+@keyframes cdPulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.cd-live-body{padding:16px;}
+.cd-live-item{
+  display:flex;align-items:flex-start;gap:12px;padding:10px 0;
+  border-bottom:1px solid #E2E8F0;font-size:13px;
+}
+.cd-live-item:last-child{border-bottom:none;}
+.cd-live-comp{flex-shrink:0;width:6px;height:6px;border-radius:50%;margin-top:7px;}
+.cd-live-item a{color:#004C82;text-decoration:none;font-weight:600;}
+.cd-live-item a:hover{text-decoration:underline;}
+.cd-live-date{font-size:11px;color:#4A5568;margin-top:2px;font-weight:500;}
+.cd-live-loading{text-align:center;padding:32px 16px;color:#4A5568;font-size:13px;font-weight:500;}
 
-/* Live blog */
-.cd-live-results { margin-top:16px;border:2px solid #e8f0f8;border-radius:10px;overflow:hidden; }
-.cd-live-header {
-  display:flex;align-items:center;justify-content:space-between;padding:10px 14px;
-  background:#f0f4f8;font-size:0.82em;font-weight:600;color:#004C82;
+/* === QUICK OPEN === */
+.cd-quick-open{
+  display:flex;flex-wrap:wrap;gap:8px;margin:16px 0;padding:16px;
+  background:#F5F7FA;border-radius:8px;border:1px solid #E2E8F0;
 }
-.cd-live-header .cd-live-dot {
-  width:8px;height:8px;border-radius:50%;background:#0170B9;display:inline-block;
-  margin-right:5px;animation:cdPulse 2s infinite;
-}
-@keyframes cdPulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-.cd-live-body { padding:14px; }
-.cd-live-item {
-  display:flex;align-items:flex-start;gap:10px;padding:8px 0;
-  border-bottom:1px solid #f0f2f5;font-size:0.82em;
-}
-.cd-live-item:last-child { border-bottom:none; }
-.cd-live-comp { flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:6px; }
-.cd-live-item a { color:#004C82; text-decoration:none; font-weight:600; }
-.cd-live-item a:hover { text-decoration:underline; }
-.cd-live-date { font-size:0.78em; color:#999; margin-top:2px; }
-.cd-live-loading { text-align:center;padding:30px 16px;color:#888;font-size:0.88em; }
+.cd-quick-open span{font-size:12px;font-weight:700;color:#1A1A2E;margin-right:8px;display:flex;align-items:center;}
 
-/* Quick open */
-.cd-quick-open {
-  display:flex;flex-wrap:wrap;gap:6px;margin:16px 0;padding:14px;background:#f0f4f8;border-radius:10px;
+/* === RESPONSIVE === */
+@media(max-width:1100px){
+  .cd-cards,.cd-content-grid,.cd-customer-grid,.cd-service-grid{grid-template-columns:repeat(2,1fr);}
 }
-.cd-quick-open span { font-size:0.8em;font-weight:600;color:#004C82;margin-right:6px; }
-
-/* Responsive */
-@media(max-width:1100px) {
-  .cd-cards,.cd-content-grid,.cd-customer-grid,.cd-service-grid { grid-template-columns:repeat(2,1fr); }
-  .cd-embed-grid { grid-template-columns:1fr; }
-}
-@media(max-width:700px) {
-  .cd-cards,.cd-content-grid,.cd-customer-grid,.cd-service-grid,.cd-embed-grid { grid-template-columns:1fr; }
-  .cd-header h1 { font-size:1.4em; }
-  .cd-panel { padding:16px; }
-  .cd-tab { padding:7px 10px; font-size:0.75em; }
+@media(max-width:700px){
+  .cd-cards,.cd-content-grid,.cd-customer-grid,.cd-service-grid{grid-template-columns:1fr;}
+  .cd-header h1{font-size:20px;}
+  .cd-header-inner{flex-direction:column;align-items:flex-start;}
+  .cd-panel{padding:24px 0;}
+  .cd-tab{padding:10px 14px;font-size:12px;}
+  .cd-tabs{overflow-x:auto;flex-wrap:nowrap;}
 }
 </style>
 
 <div class="cd-wrap">
 
 <div class="cd-header">
-  <h1>Competitor Intelligence Dashboard</h1>
-  <p>HEAD IT Solutions AG vs. Wettbewerber</p>
-  <span class="cd-date" id="cdLastUpdate">Stand: 20. M&auml;rz 2026</span>
-  <div class="cd-refresh-bar">
-    <button class="cd-refresh-btn" id="cdRefreshBtn" onclick="refreshDashboard()">
-      <span class="cd-spin">&#8635;</span> Blog-Feeds laden
-    </button>
-    <button class="cd-refresh-btn" id="cdScrapeBtn" onclick="triggerFullUpdate()" style="background:#E2007A;color:#fff">
-      <span class="cd-spin">&#8635;</span> Alles aktualisieren
-    </button>
-    <span class="cd-refresh-status" id="cdRefreshStatus"></span>
+  <div class="cd-header-inner">
+    <div>
+      <h1>Competitor Intelligence</h1>
+      <p>HEAD IT Solutions AG &middot; <span id="cdLastUpdate">Stand: 20. M&auml;rz 2026</span></p>
+    </div>
+    <div class="cd-refresh-bar">
+      <button class="cd-refresh-btn" id="cdRefreshBtn" onclick="refreshDashboard()">
+        <span class="cd-spin">&#8635;</span> Blog-Feeds
+      </button>
+      <button class="cd-refresh-btn" id="cdScrapeBtn" onclick="triggerFullUpdate()" style="background:#004C82;color:#fff;border-color:#004C82">
+        <span class="cd-spin">&#8635;</span> Alles aktualisieren
+      </button>
+      <span class="cd-refresh-status" id="cdRefreshStatus"></span>
+    </div>
   </div>
   <!-- Token Modal -->
-  <div id="cdTokenModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,20,40,0.6);z-index:99999;justify-content:center;align-items:center">
-    <div style="background:#fff;border-radius:12px;padding:28px 32px;max-width:440px;width:90%;box-shadow:0 24px 48px rgba(0,0,0,0.3)">
-      <p style="font-weight:800;color:#004C82;font-size:1em;margin-bottom:8px!important">GitHub Token eingeben</p>
-      <p style="font-size:0.82em;color:#666;margin-bottom:16px!important">Erstelle einen Token unter <a href="https://github.com/settings/tokens/new" target="_blank" style="color:#E2007A;font-weight:600">github.com/settings/tokens</a> mit <strong>repo</strong> + <strong>actions</strong> Berechtigung. Wird nur lokal in deinem Browser gespeichert.</p>
-      <input id="cdTokenInput" type="password" placeholder="ghp_xxxxxxxxxxxx" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:8px;font-family:Montserrat,sans-serif;font-size:0.88em;margin-bottom:12px">
+  <div id="cdTokenModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:99999;justify-content:center;align-items:center">
+    <div style="background:#fff;border-radius:8px;padding:32px;max-width:420px;width:90%;border:1px solid #E2E8F0">
+      <p style="font-weight:700;color:#1A1A2E;font-size:16px;margin-bottom:8px!important">GitHub Token eingeben</p>
+      <p style="font-size:13px;color:#4A5568;font-weight:500;margin-bottom:20px!important">Erstelle einen Token unter <a href="https://github.com/settings/tokens/new" target="_blank" style="color:#004C82;font-weight:600">github.com/settings/tokens</a> mit <strong>repo</strong> + <strong>actions</strong> Berechtigung.</p>
+      <input id="cdTokenInput" type="password" placeholder="ghp_xxxxxxxxxxxx" style="width:100%;padding:10px 12px;border:1px solid #E2E8F0;border-radius:6px;font-family:Montserrat,sans-serif;font-size:13px;font-weight:500;margin-bottom:16px;outline:none">
       <div style="display:flex;gap:8px">
-        <button onclick="saveToken()" style="flex:1;padding:10px;background:#E2007A;color:#fff;border:none;border-radius:8px;font-family:Montserrat,sans-serif;font-weight:700;font-size:0.85em;cursor:pointer">Speichern &amp; Starten</button>
-        <button onclick="closeTokenModal()" style="padding:10px 16px;background:#f0f2f5;color:#666;border:none;border-radius:8px;font-family:Montserrat,sans-serif;font-weight:600;font-size:0.85em;cursor:pointer">Abbrechen</button>
+        <button onclick="saveToken()" style="flex:1;padding:10px;background:#004C82;color:#fff;border:none;border-radius:6px;font-family:Montserrat,sans-serif;font-weight:700;font-size:13px;cursor:pointer">Speichern</button>
+        <button onclick="closeTokenModal()" style="padding:10px 16px;background:#fff;color:#4A5568;border:1px solid #E2E8F0;border-radius:6px;font-family:Montserrat,sans-serif;font-weight:600;font-size:13px;cursor:pointer">Abbrechen</button>
       </div>
     </div>
   </div>
 </div>
 
 <div class="cd-tabs" id="cdTabs">
-  <button class="cd-tab active" data-panel="overview">&#128200; &Uuml;bersicht</button>
-  <button class="cd-tab" data-panel="social">&#128241; Social Media</button>
-  <button class="cd-tab" data-panel="blogs">&#128221; Blogs</button>
-  <button class="cd-tab" data-panel="angebot">&#128188; Angebot</button>
-  <button class="cd-tab" data-panel="kunden">&#127919; Kunden</button>
-  <button class="cd-tab" data-panel="feeds">&#128247; Live Feeds</button>
-  <button class="cd-tab" data-panel="ads">&#128226; Ads &amp; Video</button>
+  <button class="cd-tab active" data-panel="overview">&Uuml;bersicht</button>
+  <button class="cd-tab" data-panel="social">Social Media</button>
+  <button class="cd-tab" data-panel="blogs">Blogs</button>
+  <button class="cd-tab" data-panel="angebot">Angebot</button>
+  <button class="cd-tab" data-panel="kunden">Kunden</button>
+  <button class="cd-tab" data-panel="feeds">Feeds</button>
+  <button class="cd-tab" data-panel="ads">Ads &amp; Video</button>
 </div>
 
 <!-- ==================== OVERVIEW ==================== -->
@@ -703,7 +704,7 @@
 
 <div class="cd-service-grid">
 
-  <div class="cd-service-card" style="border-color:#E2007A;border-width:2px">
+  <div class="cd-service-card" style="border-color:#004C82">
     <h4 style="color:#004C82">HEAD IT Solutions AG <span class="cd-badge you" style="font-size:0.7em;vertical-align:middle">DU</span></h4>
     <p style="font-size:0.78em;color:#666;margin-bottom:12px">Fokus: Managed IT "simple.", M365, Security</p>
     <div class="cd-service-item"><span class="cd-check">&#10003;</span> simple.Cloud (Migration &amp; Management)</div>
@@ -805,7 +806,7 @@
 
 <div class="cd-customer-grid">
 
-  <div class="cd-customer-card" style="border-color:#E2007A;border-width:2px">
+  <div class="cd-customer-card" style="border-color:#004C82">
     <h4 style="color:#004C82">HEAD IT Solutions AG <span class="cd-badge you" style="font-size:0.65em;vertical-align:middle">DU</span></h4>
     <div class="cd-customer-list">
       <span class="cd-customer-tag you">INTRASOFT / PQFORCE</span>
@@ -886,24 +887,24 @@
 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0">
 
   <!-- HEAD IT -->
-  <div style="border:2px solid #E2007A;border-radius:12px;padding:20px;background:#fff">
+  <div style="border:1px solid #004C82;border-radius:8px;padding:20px;background:#fff">
     <h4 style="font-size:0.92em;font-weight:700;color:#004C82;margin-bottom:14px">HEAD IT (Du)</h4>
     <div style="display:flex;flex-direction:column;gap:8px">
-      <a href="https://www.instagram.com/headitsolutions/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://www.instagram.com/headitsolutions/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#128247;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">Instagram</strong><span style="font-size:0.72em;color:#888">@headitsolutions</span></span>
         <span style="font-size:0.7em;color:#004C82;font-weight:700">387 Followers</span>
       </a>
-      <a href="https://ch.linkedin.com/company/headitsolutions" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://ch.linkedin.com/company/headitsolutions" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#128101;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">LinkedIn</strong><span style="font-size:0.72em;color:#888">headitsolutions</span></span>
         <span style="font-size:0.7em;color:#004C82;font-weight:700">1'288 Followers</span>
       </a>
-      <a href="https://www.facebook.com/headitsolutions/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://www.facebook.com/headitsolutions/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#128266;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">Facebook</strong><span style="font-size:0.72em;color:#888">headitsolutions</span></span>
       </a>
-      <a href="https://www.tiktok.com/@headitsolutions" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://www.tiktok.com/@headitsolutions" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#127926;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">TikTok</strong><span style="font-size:0.72em;color:#888">@headitsolutions</span></span>
       </a>
@@ -911,28 +912,28 @@
   </div>
 
   <!-- iTrust -->
-  <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#fff">
+  <div style="border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#fff">
     <h4 style="font-size:0.92em;font-weight:700;color:#2EA3F2;margin-bottom:14px">iTrust AG</h4>
     <div style="display:flex;flex-direction:column;gap:8px">
-      <a href="https://www.instagram.com/itrust.ch/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://www.instagram.com/itrust.ch/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#128247;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">Instagram</strong><span style="font-size:0.72em;color:#888">@itrust.ch</span></span>
         <span style="font-size:0.7em;color:#007AC2;font-weight:700">122 Followers</span>
       </a>
-      <a href="https://ch.linkedin.com/company/itrust" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://ch.linkedin.com/company/itrust" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#128101;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">LinkedIn</strong><span style="font-size:0.72em;color:#888">itrust</span></span>
         <span style="font-size:0.7em;color:#007AC2;font-weight:700">3'197 Followers</span>
       </a>
-      <a href="https://www.facebook.com/itrust.ag/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://www.facebook.com/itrust.ag/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#128266;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">Facebook</strong><span style="font-size:0.72em;color:#888">itrust.ag</span></span>
       </a>
-      <a href="https://www.youtube.com/c/itrustag" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://www.youtube.com/c/itrustag" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#127909;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">YouTube</strong><span style="font-size:0.72em;color:#888">itrustag</span></span>
       </a>
-      <a href="https://www.itrust.ch/podcast/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://www.itrust.ch/podcast/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#127911;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">Podcast</strong><span style="font-size:0.72em;color:#888">digital erfolgreicher arbeiten</span></span>
       </a>
@@ -940,24 +941,24 @@
   </div>
 
   <!-- care4IT -->
-  <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#fff">
+  <div style="border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#fff">
     <h4 style="font-size:0.92em;font-weight:700;color:#0170B9;margin-bottom:14px">care4IT AG</h4>
     <div style="display:flex;flex-direction:column;gap:8px">
-      <a href="https://www.instagram.com/care4it/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://www.instagram.com/care4it/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#128247;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">Instagram</strong><span style="font-size:0.72em;color:#888">@care4it</span></span>
         <span style="font-size:0.7em;color:#216093;font-weight:700">166 Followers</span>
       </a>
-      <a href="https://www.linkedin.com/company/care4it-ch" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://www.linkedin.com/company/care4it-ch" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#128101;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">LinkedIn</strong><span style="font-size:0.72em;color:#888">care4it-ch</span></span>
         <span style="font-size:0.7em;color:#216093;font-weight:700">~1'020 Followers</span>
       </a>
-      <a href="https://www.facebook.com/care4IT.ch/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://www.facebook.com/care4IT.ch/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#128266;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">Facebook</strong><span style="font-size:0.72em;color:#888">care4IT.ch</span></span>
       </a>
-      <a href="https://x.com/care4it_ch" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://x.com/care4it_ch" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#120143;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">X / Twitter</strong><span style="font-size:0.72em;color:#888">@care4it_ch</span></span>
       </a>
@@ -965,20 +966,20 @@
   </div>
 
   <!-- Leuchter -->
-  <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#fff">
+  <div style="border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#fff">
     <h4 style="font-size:0.92em;font-weight:700;color:#E63329;margin-bottom:14px">Leuchter IT</h4>
     <div style="display:flex;flex-direction:column;gap:8px">
-      <a href="https://www.instagram.com/leuchterag.ch/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://www.instagram.com/leuchterag.ch/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#128247;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">Instagram</strong><span style="font-size:0.72em;color:#888">@leuchterag.ch</span></span>
         <span style="font-size:0.7em;color:#c42a22;font-weight:700">379 Followers</span>
       </a>
-      <a href="https://ch.linkedin.com/company/leuchter-it-solutions" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://ch.linkedin.com/company/leuchter-it-solutions" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#128101;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">LinkedIn</strong><span style="font-size:0.72em;color:#888">leuchter-it-solutions</span></span>
         <span style="font-size:0.7em;color:#c42a22;font-weight:700">1'277 Followers</span>
       </a>
-      <a href="https://www.facebook.com/leuchterag/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">
+      <a href="https://www.facebook.com/leuchterag/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
         <span style="font-size:1.3em">&#128266;</span>
         <span style="flex:1"><strong style="font-size:0.82em;display:block">Facebook</strong><span style="font-size:0.72em;color:#888">leuchterag</span></span>
       </a>
@@ -1286,12 +1287,12 @@ function runFullUpdate() {
       if (st) st.textContent = 'Scraper gestartet. Seite in ~2 Min. neu laden.';
       if (btn) {
         btn.innerHTML = '<span class="cd-spin">&#10003;</span> Gestartet!';
-        btn.style.background = '#059669';
+        btn.style.background = '#004C82';
       }
       setTimeout(function() {
         if (btn) {
           btn.innerHTML = '<span class="cd-spin">&#8635;</span> Alles aktualisieren';
-          btn.style.background = '#E2007A';
+          btn.style.background = '#004C82';
           btn.className = btn.className.replace(' loading', '');
         }
       }, 5000);
