@@ -42,7 +42,7 @@
   border:none;border-radius:8px;font-family:'Montserrat',sans-serif;font-size:0.8em;font-weight:700;
   cursor:pointer;transition:all 0.2s;user-select:none;
 }
-.cd-refresh-btn:hover { background:#e8f0f8; }
+.cd-refresh-btn:hover { background:#fce8f2; color:#E2007A; }
 .cd-refresh-btn.loading { opacity:0.6; pointer-events:none; }
 .cd-refresh-btn .cd-spin { display:inline-block; }
 .cd-refresh-btn.loading .cd-spin { animation:cdSpin 1s linear infinite; }
@@ -61,8 +61,8 @@
   font-family:'Montserrat',sans-serif;font-size:0.82em;font-weight:600;color:#666;
   cursor:pointer;transition:all 0.2s;user-select:none;
 }
-.cd-tab:hover { color:#004C82; background:#e8f0f8; }
-.cd-tab.active { color:#004C82; background:#fff; box-shadow:0 -2px 0 #004C82 inset; }
+.cd-tab:hover { color:#E2007A; background:#fce8f2; }
+.cd-tab.active { color:#004C82; background:#fff; box-shadow:0 -2px 0 #E2007A inset; }
 
 /* Panels */
 .cd-panel {
@@ -85,7 +85,7 @@
 }
 .cd-card:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,76,130,0.1); }
 .cd-card-accent { position:absolute;top:0;left:0;right:0;height:4px; }
-.cd-card[data-comp="headit"] .cd-card-accent { background:#004C82; }
+.cd-card[data-comp="headit"] .cd-card-accent { background:linear-gradient(90deg,#004C82,#E2007A); }
 .cd-card[data-comp="itrust"] .cd-card-accent { background:#2563eb; }
 .cd-card[data-comp="care4it"] .cd-card-accent { background:#059669; }
 .cd-card[data-comp="leuchter"] .cd-card-accent { background:#d97706; }
@@ -100,7 +100,7 @@
 .cd-card[data-comp="leuchter"] .cd-card-logo { background:linear-gradient(135deg,#d97706,#f59e0b); }
 
 .cd-card .cd-you-badge {
-  position:absolute;top:12px;right:12px;background:#004C82;color:#fff;
+  position:absolute;top:12px;right:12px;background:#E2007A;color:#fff;
   font-size:0.65em;font-weight:700;padding:2px 8px;border-radius:4px;
 }
 
@@ -118,11 +118,11 @@
   background:#f0f4f8;color:#004C82;font-weight:700;text-align:left;
   padding:10px 14px;border-bottom:2px solid #e2e8f0;white-space:nowrap;
 }
-.cd-table th.cd-you { background:#004C82; color:#fff; }
+.cd-table th.cd-you { background:linear-gradient(135deg,#004C82,#E2007A); color:#fff; }
 .cd-table td { padding:10px 14px; border-bottom:1px solid #f0f2f5; vertical-align:top; }
 .cd-table tr:hover td { background:#f8fafc; }
 .cd-table .comp-name { font-weight:600; white-space:nowrap; }
-.cd-table td.cd-highlight { background:#f0f6ff; }
+.cd-table td.cd-highlight { background:#fef5f9; }
 
 /* Badges */
 .cd-badge { display:inline-block;padding:3px 9px;border-radius:12px;font-size:0.75em;font-weight:600; }
@@ -130,7 +130,7 @@
 .cd-badge.moderate { background:#fef3c7; color:#92400e; }
 .cd-badge.inactive { background:#fee2e2; color:#991b1b; }
 .cd-badge.unknown { background:#e2e8f0; color:#475569; }
-.cd-badge.you { background:#004C82; color:#fff; }
+.cd-badge.you { background:#E2007A; color:#fff; }
 
 /* Links */
 .cd-link {
@@ -138,7 +138,7 @@
   color:#004C82;border-radius:6px;font-size:0.78em;font-weight:600;
   text-decoration:none;transition:background 0.2s;margin:2px 0;
 }
-.cd-link:hover { background:#d0e2f0; }
+.cd-link:hover { background:#fce8f2; color:#E2007A; }
 
 /* 4-col content grid */
 .cd-content-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:16px 0; }
@@ -165,7 +165,7 @@
   background:#f0f4f8;padding:3px 10px;border-radius:6px;font-size:0.73em;font-weight:500;color:#334155;
 }
 .cd-customer-tag.highlight { background:#004C82; color:#fff; }
-.cd-customer-tag.you { background:#e8f0f8; border:1px solid #004C82; color:#004C82; }
+.cd-customer-tag.you { background:#fce8f2; border:1px solid #E2007A; color:#E2007A; }
 
 /* Service grid */
 .cd-service-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:16px 0; }
@@ -688,7 +688,7 @@
 
 <div class="cd-service-grid">
 
-  <div class="cd-service-card" style="border-color:#004C82">
+  <div class="cd-service-card" style="border-color:#E2007A;border-width:2px">
     <h4 style="color:#004C82">HEAD IT Solutions AG <span class="cd-badge you" style="font-size:0.7em;vertical-align:middle">DU</span></h4>
     <p style="font-size:0.78em;color:#666;margin-bottom:12px">Fokus: Managed IT "simple.", M365, Security</p>
     <div class="cd-service-item"><span class="cd-check">&#10003;</span> simple.Cloud (Migration &amp; Management)</div>
@@ -790,7 +790,7 @@
 
 <div class="cd-customer-grid">
 
-  <div class="cd-customer-card" style="border-color:#004C82">
+  <div class="cd-customer-card" style="border-color:#E2007A;border-width:2px">
     <h4 style="color:#004C82">HEAD IT Solutions AG <span class="cd-badge you" style="font-size:0.65em;vertical-align:middle">DU</span></h4>
     <div class="cd-customer-list">
       <span class="cd-customer-tag you">INTRASOFT / PQFORCE</span>
@@ -871,7 +871,7 @@
 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0">
 
   <!-- HEAD IT -->
-  <div style="border:2px solid #004C82;border-radius:12px;padding:20px;background:#fff">
+  <div style="border:2px solid #E2007A;border-radius:12px;padding:20px;background:#fff">
     <h4 style="font-size:0.92em;font-weight:700;color:#004C82;margin-bottom:14px">HEAD IT (Du)</h4>
     <div style="display:flex;flex-direction:column;gap:8px">
       <a href="https://www.instagram.com/headitsolutions/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:background 0.2s">

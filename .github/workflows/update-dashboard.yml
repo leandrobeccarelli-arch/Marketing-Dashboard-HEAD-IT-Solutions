@@ -1,0 +1,40 @@
+name: Update Competitor Dashboard
+
+on:
+  schedule:
+    # Runs every Monday at 07:00 UTC (09:00 Zurich time)
+    - cron: '0 7 * * 1'
+  workflow_dispatch: # Manual trigger from GitHub UI
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run updater script
+        run: python update_dashboard.py
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "Dashboard Bot"
+          git config user.email "bot@headitsolutions.ch"
+          git add competitor-dashboard.html
+          git commit -m "Auto-update dashboard stats $(date +%Y-%m-%d)"
+          git push
