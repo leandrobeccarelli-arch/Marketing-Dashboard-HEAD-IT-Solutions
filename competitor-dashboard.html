@@ -42,15 +42,15 @@
 .cd-refresh-status{font-size:12px;color:#4A5568;font-weight:500;}
 
 /* === CONTAINER === */
-.cd-container{max-width:1200px;margin:0 auto;padding:0 24px;}
+.cd-container{max-width:100%;margin:0;padding:0;}
 
 /* === TABS === */
 .cd-tabs{
-  display:flex;gap:0;margin:0 auto;max-width:1200px;padding:0 24px;
+  display:flex;gap:0;margin:0 auto;max-width:1200px;padding:0 32px;
   background:#FFFFFF;border-bottom:1px solid #E2E8F0;
 }
 .cd-tab{
-  padding:12px 20px;background:none;border:none;border-bottom:2px solid transparent;
+  padding:14px 20px;background:none;border:none;border-bottom:2px solid transparent;
   font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:#4A5568;
   cursor:pointer;transition:all 0.15s;user-select:none;
 }
@@ -59,7 +59,7 @@
 
 /* === PANELS === */
 .cd-panel{
-  display:none;background:#FFFFFF;padding:32px 24px;margin:0 auto;max-width:1200px;
+  display:none;background:#FFFFFF;padding:32px;margin:0 auto;max-width:1200px;
   border:1px solid #E2E8F0;border-top:none;border-radius:0 0 8px 8px;
 }
 .cd-panel.active{display:block;}
@@ -352,7 +352,7 @@
 
 </div>
 
-<h2 class="cd-section-title" style="margin-top:28px">Schnellvergleich</h2>
+<h2 class="cd-section-title" style="margin-top:40px">Schnellvergleich</h2>
 <div class="cd-table-wrap">
 <table class="cd-table">
   <thead>
@@ -650,11 +650,11 @@
 </div>
 
 <!-- Live RSS -->
-<h2 class="cd-section-title" style="margin-top:24px">Live Blog-Feed (RSS)</h2>
+<h2 class="cd-section-title" style="margin-top:40px">Live Blog-Feed (RSS)</h2>
 <div class="cd-live-results" id="cdLiveBlog">
   <div class="cd-live-header">
     <span><span class="cd-live-dot"></span> Neueste Beitr&auml;ge aller Blogs</span>
-    <button class="cd-refresh-btn" onclick="fetchBlogs()" style="padding:4px 12px;font-size:0.75em;background:#fff">
+    <button class="cd-refresh-btn" onclick="fetchBlogs()" style="padding:4px 12px;font-size:12px;background:#fff">
       <span class="cd-spin">&#8635;</span> Laden
     </button>
   </div>
@@ -663,7 +663,7 @@
   </div>
 </div>
 
-<h2 class="cd-section-title" style="margin-top:24px">Themen&uuml;berschneidungen</h2>
+<h2 class="cd-section-title" style="margin-top:40px">Themen&uuml;berschneidungen</h2>
 <div class="cd-table-wrap">
 <table class="cd-table">
   <thead>
@@ -780,7 +780,7 @@
 
 <p style="font-size:12px;color:#4A5568;margin-top:6px">&#10003; = Vergleichbares Angebot &nbsp;&nbsp; &#9733; = Alleinstellungsmerkmal</p>
 
-<h2 class="cd-section-title" style="margin-top:24px">Technologie-Partner</h2>
+<h2 class="cd-section-title" style="margin-top:40px">Technologie-Partner</h2>
 <div class="cd-table-wrap">
 <table class="cd-table">
   <thead>
@@ -822,7 +822,7 @@
 <div class="cd-customer-grid">
 
   <div class="cd-customer-card" style="border-color:#004C82">
-    <h4 style="color:#004C82">HEAD IT Solutions AG <span class="cd-badge you" style="font-size:0.65em;vertical-align:middle">DU</span></h4>
+    <h4 style="color:#004C82">HEAD IT Solutions AG <span class="cd-badge you" style="font-size:10px;vertical-align:middle">DU</span></h4>
     <div class="cd-customer-list">
       <span class="cd-customer-tag you">INTRASOFT / PQFORCE</span>
       <span class="cd-customer-tag you">Hotel Vitznauerhof</span>
@@ -899,7 +899,7 @@
 <h2 class="cd-section-title">Social Feeds</h2>
 
 <!-- 4-column social cards -->
-<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0">
+<div class="cd-cards" style="margin:16px 0">
 
   <!-- HEAD IT -->
   <div style="border:1px solid #004C82;border-radius:8px;padding:20px;background:#fff">
@@ -1066,8 +1066,8 @@
 </div>
 
 <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin-top:20px">
-  <h4 style="font-size:0.9em;font-weight:700;color:#004C82;margin-bottom:6px">Meta Ad Library (manuell pr&uuml;fen)</h4>
-  <p style="font-size:0.82em;color:#555;margin-bottom:10px">Automatisierte Abfragen blockiert. Hier direkt pr&uuml;fen:</p>
+  <h4 style="font-size:14px;font-weight:700;color:#1A1A2E;margin-bottom:8px">Meta Ad Library (manuell pr&uuml;fen)</h4>
+  <p style="font-size:13px;color:#4A5568;font-weight:500;margin-bottom:12px">Automatisierte Abfragen blockiert. Hier direkt pr&uuml;fen:</p>
   <div style="display:flex;flex-wrap:wrap;gap:6px">
     <a class="cd-link" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=CH&q=head+it+solutions" target="_blank">HEAD IT Ads</a>
     <a class="cd-link" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=CH&q=itrust" target="_blank">iTrust Ads</a>
@@ -1180,13 +1180,13 @@ function renderItems(all) {
       html += '<strong>' + it.title + '</strong>';
     }
     if (it.desc) {
-      html += '<div style="font-size:0.82em;color:#666;margin-top:2px">' + it.desc + '</div>';
+      html += '<div style="font-size:12px;color:#4A5568;margin-top:2px;font-weight:500">' + it.desc + '</div>';
     }
     html += '<div class="cd-live-date">' + it.source;
     if (it.date) html += ' &middot; ' + fmtDate(it.date);
     html += '</div></div>';
     if (it.link) {
-      html += '<a href="' + it.link + '" target="_blank" style="flex-shrink:0;font-size:0.75em;color:#004C82;text-decoration:none;font-weight:600;padding:4px 10px;background:#e8f0f8;border-radius:5px;align-self:center">Lesen &#8599;</a>';
+      html += '<a href="' + it.link + '" target="_blank" style="flex-shrink:0;font-size:12px;color:#004C82;text-decoration:none;font-weight:600;padding:4px 10px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:4px;align-self:center">Lesen &#8599;</a>';
     }
     html += '</div>';
   }
