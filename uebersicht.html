@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Übersicht - Competitor Intelligence</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
 
@@ -25,30 +31,15 @@
 
 /* === NAV === */
 .cd-nav{
-  background:#FFFFFF;
-  padding:0 32px;
-  border-bottom:1px solid #E2E8F0;
-  display:flex;align-items:center;gap:0;
+  background:#FFFFFF;border-bottom:1px solid #E2E8F0;padding:0 32px;display:flex;gap:0;
 }
-.cd-nav-brand{
-  font-family:'Montserrat',sans-serif;
-  font-size:15px;font-weight:700;color:#1A1A2E;
-  text-decoration:none;margin-right:32px;padding:14px 0;
-  white-space:nowrap;
+.cd-nav a{
+  padding:14px 20px;font-size:13px;font-weight:600;color:#4A5568;text-decoration:none;
+  border-bottom:2px solid transparent;display:inline-block;
 }
-.cd-nav-brand:hover{color:#004C82;}
-.cd-nav-links{
-  display:flex;align-items:center;gap:0;
-}
-.cd-nav-links a{
-  font-family:'Montserrat',sans-serif;
-  font-size:13px;font-weight:600;color:#4A5568;
-  text-decoration:none;padding:14px 16px;
-  border-bottom:2px solid transparent;
-  transition:all 0.15s;
-}
-.cd-nav-links a:hover{color:#004C82;}
-.cd-nav-links a.active{color:#004C82;border-bottom:2px solid #004C82;}
+.cd-nav a:hover{color:#004C82;}
+.cd-nav a.active{color:#004C82;border-bottom:2px solid #004C82;}
+.cd-nav .cd-nav-brand{font-weight:700;color:#1A1A2E;margin-right:auto;}
 
 /* === SECTION TITLE === */
 .cd-section-title{
@@ -162,26 +153,25 @@
 @media(max-width:700px){
   .cd-cards{grid-template-columns:1fr;}
   .cd-nav{flex-wrap:wrap;padding:0 16px;}
-  .cd-nav-links{flex-wrap:wrap;}
-  .cd-nav-links a{padding:10px 12px;font-size:12px;}
+  .cd-nav a{padding:10px 14px;font-size:12px;}
 }
 </style>
-
+</head>
+<body>
 <div class="cd-wrap">
 
 <nav class="cd-nav">
-  <a class="cd-nav-brand" href="index.html">Competitor Intelligence</a>
-  <div class="cd-nav-links">
-    <a href="index.html">Home</a>
-    <a href="uebersicht.html" class="active">&Uuml;bersicht</a>
-    <a href="social.html">Social Media</a>
-    <a href="blogs.html">Blogs</a>
-    <a href="angebot.html">Angebot</a>
-    <a href="kunden.html">Kunden</a>
-    <a href="analytics.html">Analytics</a>
-    <a href="feeds.html">Feeds</a>
-    <a href="ads.html">Ads &amp; Video</a>
-  </div>
+  <a href="index.html" class="cd-nav-brand">Competitor Intelligence</a>
+  <a href="index.html">Home</a>
+  <a href="uebersicht.html" class="active">&#220;bersicht</a>
+  <a href="social.html">Social Media</a>
+  <a href="blogs.html">Blogs</a>
+  <a href="angebot.html">Angebot</a>
+  <a href="kunden.html">Kunden</a>
+  <a href="analytics.html">Analytics</a>
+  <a href="feeds.html">Feeds</a>
+  <a href="map.html" class="cd-nav-link">Standorte</a>
+  <a href="ads.html">Ads &amp; Video</a>
 </nav>
 
 <div style="max-width:1200px;margin:0 auto;padding:32px">
@@ -366,3 +356,5 @@
 
 </div>
 </div>
+</body>
+</html>

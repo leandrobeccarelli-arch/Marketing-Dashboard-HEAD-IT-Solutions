@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - Competitor Intelligence</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
 
@@ -23,36 +29,17 @@
 }
 .cd-wrap>*{position:relative;z-index:1;}
 
-/* === NAV BAR === */
+/* === NAV === */
 .cd-nav{
-  background:#FFFFFF;
-  border-bottom:1px solid #E2E8F0;
-  padding:0 32px;
+  background:#FFFFFF;border-bottom:1px solid #E2E8F0;padding:0 32px;display:flex;gap:0;
 }
-.cd-nav-inner{
-  max-width:1200px;margin:0 auto;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:16px;min-height:52px;flex-wrap:wrap;
+.cd-nav a{
+  padding:14px 20px;font-size:13px;font-weight:600;color:#4A5568;text-decoration:none;
+  border-bottom:2px solid transparent;display:inline-block;
 }
-.cd-nav-brand{
-  font-size:15px;font-weight:700;color:#1A1A2E;
-  text-decoration:none;letter-spacing:-0.02em;
-  flex-shrink:0;
-}
-.cd-nav-brand:hover{color:#004C82;}
-.cd-nav-links{
-  display:flex;align-items:center;gap:0;flex-wrap:wrap;
-}
-.cd-nav-links a{
-  padding:14px 14px;
-  font-size:12px;font-weight:600;color:#4A5568;
-  text-decoration:none;
-  border-bottom:2px solid transparent;
-  transition:all 0.15s;
-  white-space:nowrap;
-}
-.cd-nav-links a:hover{color:#004C82;}
-.cd-nav-links a.active{color:#004C82;border-bottom-color:#004C82;}
+.cd-nav a:hover{color:#004C82;}
+.cd-nav a.active{color:#004C82;border-bottom:2px solid #004C82;}
+.cd-nav .cd-nav-brand{font-weight:700;color:#1A1A2E;margin-right:auto;}
 
 /* === HEADER === */
 .cd-header{
@@ -143,37 +130,33 @@
 /* === RESPONSIVE === */
 @media(max-width:900px){
   .cd-kpi-row,.cd-nav-grid{grid-template-columns:repeat(2,1fr);}
-  .cd-nav-links a{padding:10px 10px;font-size:11px;}
+  .cd-nav a{padding:10px 14px;font-size:12px;}
 }
 @media(max-width:600px){
   .cd-kpi-row,.cd-nav-grid{grid-template-columns:1fr;}
-  .cd-nav-inner{flex-direction:column;align-items:flex-start;padding:12px 0;}
-  .cd-nav-links{width:100%;overflow-x:auto;}
+  .cd-nav{flex-wrap:wrap;padding:0 16px;}
+  .cd-nav a{padding:10px 14px;font-size:12px;}
   .cd-header{padding:24px 20px 20px;}
   .cd-kpi-row,.cd-nav-grid{padding:0 20px;}
 }
 </style>
-
+</head>
+<body>
 <div class="cd-wrap">
 
-<!-- ===== NAV BAR (reusable block) ===== -->
 <nav class="cd-nav">
-  <div class="cd-nav-inner">
-    <a href="index.html" class="cd-nav-brand">Competitor Intelligence</a>
-    <div class="cd-nav-links">
-      <a href="index.html" class="active">Home</a>
-      <a href="uebersicht.html">Übersicht</a>
-      <a href="social.html">Social Media</a>
-      <a href="blogs.html">Blogs</a>
-      <a href="angebot.html">Angebot</a>
-      <a href="kunden.html">Kunden</a>
-      <a href="analytics.html">Analytics</a>
-      <a href="feeds.html">Feeds</a>
-      <a href="ads.html">Ads &amp; Video</a>
-    </div>
-  </div>
+  <a href="index.html" class="cd-nav-brand">Competitor Intelligence</a>
+  <a href="index.html" class="active">Home</a>
+  <a href="uebersicht.html">&#220;bersicht</a>
+  <a href="social.html">Social Media</a>
+  <a href="blogs.html">Blogs</a>
+  <a href="angebot.html">Angebot</a>
+  <a href="kunden.html">Kunden</a>
+  <a href="analytics.html">Analytics</a>
+  <a href="feeds.html">Feeds</a>
+  <a href="map.html" class="cd-nav-link">Standorte</a>
+  <a href="ads.html">Ads &amp; Video</a>
 </nav>
-<!-- ===== END NAV BAR ===== -->
 
 <!-- Header -->
 <div class="cd-header">
@@ -252,6 +235,12 @@
     <span class="cd-nav-arrow">Öffnen &#8594;</span>
   </a>
 
+  <a href="map.html" class="cd-nav-card">
+    <h3>Standorte</h3>
+    <p>Schweizer Karte mit allen IT-Dienstleistern</p>
+    <span class="cd-nav-arrow">Öffnen &#8594;</span>
+  </a>
+
   <a href="ads.html" class="cd-nav-card">
     <h3>Ads &amp; Video</h3>
     <p>YouTube, Events, Meta Ads</p>
@@ -266,3 +255,5 @@
 </div>
 
 </div>
+</body>
+</html>

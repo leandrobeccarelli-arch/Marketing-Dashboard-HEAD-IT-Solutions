@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Standorte - Competitor Intelligence</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Montserrat',sans-serif;
+  color:#1A1A2E;
+  background:linear-gradient(160deg,#002A4A 0%,#004C82 40%,#003D6B 70%,#002040 100%);
+  background-attachment:fixed;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+}
+body::before{
+  content:'';position:fixed;top:0;left:0;width:100%;height:100%;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat:repeat;background-size:128px 128px;
+  pointer-events:none;z-index:0;opacity:0.6;
+}
+body>*{position:relative;z-index:1;}
+
+/* Nav */
+.cd-nav{background:#FFFFFF;border-bottom:1px solid #E2E8F0;}
+.cd-nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;}
+.cd-nav-brand{padding:14px 20px;font-size:15px;font-weight:700;color:#1A1A2E;text-decoration:none;margin-right:auto;}
+.cd-nav a.cd-nav-link{padding:14px 16px;font-size:13px;font-weight:600;color:#4A5568;text-decoration:none;border-bottom:2px solid transparent;display:inline-block;}
+.cd-nav a.cd-nav-link:hover{color:#004C82;}
+.cd-nav a.cd-nav-link.active{color:#004C82;border-bottom-color:#004C82;}
+
+/* Content */
+.cd-content{max-width:1200px;margin:0 auto;padding:32px;}
+
+.cd-section-title{
+  font-size:16px;font-weight:700;color:#FFFFFF;margin:0 0 24px 0;
+  display:flex;align-items:center;gap:8px;
+}
+.cd-section-title::before{
+  content:'';display:inline-block;width:3px;height:18px;background:#FFFFFF;border-radius:2px;flex-shrink:0;
+}
+
+/* Map container */
+.cd-map-wrap{
+  background:#FFFFFF;border-radius:8px;padding:32px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.08);
+  position:relative;overflow:hidden;
+}
+
+.cd-map-svg{width:100%;height:auto;display:block;}
+
+/* Map pins */
+.cd-pin{cursor:pointer;transition:transform 0.2s;}
+.cd-pin:hover{transform:scale(1.15);}
+.cd-pin-pulse{animation:cdPinPulse 2s infinite;}
+@keyframes cdPinPulse{
+  0%{r:16;opacity:0.3}
+  50%{r:22;opacity:0}
+  100%{r:16;opacity:0.3}
+}
+
+/* Tooltip card */
+.cd-map-tooltip{
+  position:absolute;background:#fff;border-radius:8px;padding:16px 20px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.15);border:1px solid #E2E8F0;
+  pointer-events:none;opacity:0;transition:opacity 0.2s;z-index:10;
+  min-width:200px;
+}
+.cd-map-tooltip.visible{opacity:1;}
+.cd-map-tooltip h4{font-size:14px;font-weight:700;margin-bottom:4px;}
+.cd-map-tooltip p{font-size:12px;color:#4A5568;font-weight:500;margin:0;line-height:1.5;}
+.cd-map-tooltip .cd-tt-badge{
+  display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;
+  border-radius:3px;margin-top:8px;color:#fff;
+}
+
+/* Legend */
+.cd-map-legend{
+  display:flex;gap:24px;margin-top:20px;flex-wrap:wrap;
+}
+.cd-legend-item{
+  display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#1A1A2E;
+}
+.cd-legend-dot{width:12px;height:12px;border-radius:50%;}
+
+/* Company detail cards below map */
+.cd-loc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px;}
+.cd-loc-card{
+  background:#fff;border-radius:8px;padding:20px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.08);
+  border-left:3px solid #E2E8F0;
+}
+.cd-loc-card h4{font-size:14px;font-weight:700;margin-bottom:4px;}
+.cd-loc-card p{font-size:12px;color:#4A5568;font-weight:500;margin:2px 0;line-height:1.5;}
+.cd-loc-card .cd-loc-dist{
+  font-size:11px;font-weight:600;color:#4A5568;margin-top:8px;
+  padding-top:8px;border-top:1px solid #E2E8F0;
+}
+
+/* Insight */
+.cd-insight{
+  margin-top:32px;padding:24px;border-radius:8px;
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+}
+.cd-insight-title{
+  font-size:13px;font-weight:700;color:rgba(255,255,255,0.5);
+  text-transform:uppercase;letter-spacing:0.06em;margin-bottom:16px;
+}
+.cd-insight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;}
+.cd-insight-item{
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);
+  border-radius:6px;padding:16px;
+}
+.cd-insight-item .cd-insight-label{
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;
+  margin-bottom:6px;display:inline-block;padding:2px 8px;border-radius:3px;
+}
+.cd-insight-item .cd-insight-label.chance{background:rgba(16,185,129,0.2);color:#6EE7B7;}
+.cd-insight-item .cd-insight-label.tipp{background:rgba(59,130,246,0.2);color:#93C5FD;}
+.cd-insight-item p{font-size:13px;color:rgba(255,255,255,0.8);font-weight:500;line-height:1.6;margin:0;}
+
+@media(max-width:900px){
+  .cd-loc-grid{grid-template-columns:repeat(2,1fr);}
+  .cd-nav-inner{flex-wrap:wrap;}
+  .cd-nav a.cd-nav-link{padding:10px 12px;font-size:12px;}
+}
+@media(max-width:600px){
+  .cd-loc-grid{grid-template-columns:1fr;}
+  .cd-content{padding:16px;}
+}
+</style>
+</head>
+<body>
+
+<nav class="cd-nav">
+<div class="cd-nav-inner">
+  <a href="index.html" class="cd-nav-brand">Competitor Intelligence</a>
+  <a href="index.html" class="cd-nav-link">Home</a>
+  <a href="uebersicht.html" class="cd-nav-link">Uebersicht</a>
+  <a href="social.html" class="cd-nav-link">Social Media</a>
+  <a href="blogs.html" class="cd-nav-link">Blogs</a>
+  <a href="angebot.html" class="cd-nav-link">Angebot</a>
+  <a href="kunden.html" class="cd-nav-link">Kunden</a>
+  <a href="analytics.html" class="cd-nav-link">Analytics</a>
+  <a href="map.html" class="cd-nav-link active">Standorte</a>
+  <a href="ads.html" class="cd-nav-link">Ads</a>
+</div>
+</nav>
+
+<div class="cd-content">
+
+<h2 class="cd-section-title">Standorte Zentralschweiz</h2>
+
+<div class="cd-map-wrap">
+  <!-- Tooltip -->
+  <div class="cd-map-tooltip" id="mapTooltip"></div>
+
+  <!-- Abstract Switzerland Map (SVG) -->
+  <svg class="cd-map-svg" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+    <!-- Grid pattern background -->
+    <defs>
+      <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E2E8F0" stroke-width="0.5"/>
+      </pattern>
+    </defs>
+    <rect width="800" height="500" fill="#FAFBFC"/>
+    <rect width="800" height="500" fill="url(#grid)"/>
+
+    <!-- Switzerland outline (simplified abstract) -->
+    <path d="M 120,180 C 140,140 200,100 280,90 C 340,82 400,75 460,80 C 520,85 580,95 630,120 C 670,140 700,170 710,200 C 720,240 710,280 680,310 C 650,340 610,360 560,375 C 510,390 460,395 400,390 C 340,385 280,375 230,350 C 180,325 150,300 130,270 C 110,240 105,210 120,180 Z"
+          fill="none" stroke="#004C82" stroke-width="2" stroke-dasharray="4,4" opacity="0.3"/>
+
+    <!-- Connection lines between cities -->
+    <line x1="340" y1="220" x2="430" y2="200" stroke="#004C82" stroke-width="1" opacity="0.15" stroke-dasharray="3,3"/>
+    <line x1="430" y1="200" x2="520" y2="230" stroke="#004C82" stroke-width="1" opacity="0.15" stroke-dasharray="3,3"/>
+    <line x1="340" y1="220" x2="380" y2="210" stroke="#004C82" stroke-width="1" opacity="0.15" stroke-dasharray="3,3"/>
+    <line x1="380" y1="210" x2="430" y2="200" stroke="#004C82" stroke-width="1" opacity="0.15" stroke-dasharray="3,3"/>
+
+    <!-- Region labels -->
+    <text x="200" y="160" font-family="Montserrat,sans-serif" font-size="10" fill="#4A5568" opacity="0.4" font-weight="500">AARGAU</text>
+    <text x="310" y="150" font-family="Montserrat,sans-serif" font-size="10" fill="#4A5568" opacity="0.4" font-weight="500">ZUG</text>
+    <text x="500" y="170" font-family="Montserrat,sans-serif" font-size="10" fill="#4A5568" opacity="0.4" font-weight="500">ZUERICH</text>
+    <text x="260" y="270" font-family="Montserrat,sans-serif" font-size="10" fill="#4A5568" opacity="0.4" font-weight="500">BERN</text>
+    <text x="350" y="310" font-family="Montserrat,sans-serif" font-size="10" fill="#4A5568" opacity="0.4" font-weight="500">LUZERN</text>
+
+    <!-- Lake Zurich abstract -->
+    <ellipse cx="510" cy="250" rx="40" ry="12" fill="#004C82" opacity="0.06" transform="rotate(-15,510,250)"/>
+    <!-- Vierwaldstaettersee abstract -->
+    <path d="M 300,240 Q 340,230 370,250 Q 350,270 310,260 Z" fill="#004C82" opacity="0.06"/>
+
+    <!-- === PINS === -->
+
+    <!-- HEAD IT - Emmenbruecke -->
+    <g class="cd-pin" data-company="headit" onmouseenter="showTip(evt,'headit')" onmouseleave="hideTip()">
+      <circle class="cd-pin-pulse" cx="340" cy="220" r="16" fill="#004C82" opacity="0.3"/>
+      <circle cx="340" cy="220" r="8" fill="#004C82" stroke="#fff" stroke-width="2.5"/>
+      <text x="340" y="247" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#004C82">HEAD IT</text>
+      <text x="340" y="260" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" font-weight="500" fill="#4A5568">Emmenbruecke</text>
+    </g>
+
+    <!-- Leuchter - Luzern -->
+    <g class="cd-pin" data-company="leuchter" onmouseenter="showTip(evt,'leuchter')" onmouseleave="hideTip()">
+      <circle class="cd-pin-pulse" cx="380" cy="210" r="16" fill="#E63329" opacity="0.3"/>
+      <circle cx="380" cy="210" r="8" fill="#E63329" stroke="#fff" stroke-width="2.5"/>
+      <text x="395" y="200" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#E63329">Leuchter</text>
+      <text x="395" y="213" font-family="Montserrat,sans-serif" font-size="9" font-weight="500" fill="#4A5568">Luzern</text>
+    </g>
+
+    <!-- iTrust - Cham -->
+    <g class="cd-pin" data-company="itrust" onmouseenter="showTip(evt,'itrust')" onmouseleave="hideTip()">
+      <circle class="cd-pin-pulse" cx="430" cy="200" r="16" fill="#2EA3F2" opacity="0.3"/>
+      <circle cx="430" cy="200" r="8" fill="#2EA3F2" stroke="#fff" stroke-width="2.5"/>
+      <text x="430" y="180" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#2EA3F2">iTrust</text>
+      <text x="430" y="193" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" font-weight="500" fill="#4A5568">Cham</text>
+    </g>
+
+    <!-- care4IT - Zuerich -->
+    <g class="cd-pin" data-company="care4it" onmouseenter="showTip(evt,'care4it')" onmouseleave="hideTip()">
+      <circle class="cd-pin-pulse" cx="520" cy="230" r="16" fill="#0170B9" opacity="0.3"/>
+      <circle cx="520" cy="230" r="8" fill="#0170B9" stroke="#fff" stroke-width="2.5"/>
+      <text x="545" y="225" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#0170B9">care4IT</text>
+      <text x="545" y="238" font-family="Montserrat,sans-serif" font-size="9" font-weight="500" fill="#4A5568">Zuerich</text>
+    </g>
+
+    <!-- Scale / compass -->
+    <text x="700" y="460" font-family="Montserrat,sans-serif" font-size="9" fill="#4A5568" opacity="0.4" text-anchor="end">Zentralschweiz</text>
+    <line x1="650" y1="470" x2="700" y2="470" stroke="#4A5568" stroke-width="1" opacity="0.3"/>
+    <text x="675" y="482" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" fill="#4A5568" opacity="0.3">~30 km</text>
+  </svg>
+
+  <!-- Legend -->
+  <div class="cd-map-legend">
+    <div class="cd-legend-item"><div class="cd-legend-dot" style="background:#004C82"></div> HEAD IT Solutions (Du)</div>
+    <div class="cd-legend-item"><div class="cd-legend-dot" style="background:#2EA3F2"></div> iTrust AG</div>
+    <div class="cd-legend-item"><div class="cd-legend-dot" style="background:#0170B9"></div> care4IT AG</div>
+    <div class="cd-legend-item"><div class="cd-legend-dot" style="background:#E63329"></div> Leuchter IT Solutions</div>
+  </div>
+</div>
+
+<!-- Location Detail Cards -->
+<div class="cd-loc-grid">
+  <div class="cd-loc-card" style="border-left-color:#004C82">
+    <h4 style="color:#004C82">HEAD IT Solutions AG</h4>
+    <p>Gerliswilstrasse 30</p>
+    <p>6020 Emmenbruecke (LU)</p>
+    <p style="margin-top:6px">2. Standort: Roemerstrasse 2, 5502 Hunzenschwil (AG)</p>
+    <div class="cd-loc-dist">
+      Entfernung zu iTrust: ~25 km<br>
+      Entfernung zu Leuchter: ~3 km<br>
+      Entfernung zu care4IT: ~55 km
+    </div>
+  </div>
+  <div class="cd-loc-card" style="border-left-color:#2EA3F2">
+    <h4 style="color:#2EA3F2">iTrust AG</h4>
+    <p>Gewerbestrasse 6</p>
+    <p>6330 Cham (ZG)</p>
+    <div class="cd-loc-dist">
+      Entfernung zu HEAD IT: ~25 km<br>
+      Entfernung zu Leuchter: ~28 km<br>
+      Entfernung zu care4IT: ~30 km
+    </div>
+  </div>
+  <div class="cd-loc-card" style="border-left-color:#0170B9">
+    <h4 style="color:#0170B9">care4IT AG</h4>
+    <p>Raeffelstrasse 26</p>
+    <p>8045 Zuerich</p>
+    <div class="cd-loc-dist">
+      Entfernung zu HEAD IT: ~55 km<br>
+      Entfernung zu iTrust: ~30 km<br>
+      Entfernung zu Leuchter: ~52 km
+    </div>
+  </div>
+  <div class="cd-loc-card" style="border-left-color:#E63329">
+    <h4 style="color:#E63329">Leuchter IT Solutions AG</h4>
+    <p>Winkelriedstrasse 45</p>
+    <p>6003 Luzern</p>
+    <div class="cd-loc-dist">
+      Entfernung zu HEAD IT: ~3 km<br>
+      Entfernung zu iTrust: ~28 km<br>
+      Entfernung zu care4IT: ~52 km
+    </div>
+  </div>
+</div>
+
+<!-- Insight -->
+<div class="cd-insight">
+  <div class="cd-insight-title">Handlungsempfehlungen</div>
+  <div class="cd-insight-grid">
+    <div class="cd-insight-item">
+      <span class="cd-insight-label chance">Chance</span>
+      <p>HEAD IT und Leuchter sitzen nur 3 km auseinander in Luzern. Das bedeutet direkten Wettbewerb um lokale KMU. Vorteil HEAD IT: zwei Standorte (Emmenbruecke + Hunzenschwil) decken Zentralschweiz UND Aargau ab.</p>
+    </div>
+    <div class="cd-insight-item">
+      <span class="cd-insight-label tipp">Tipp</span>
+      <p>care4IT sitzt in Zuerich und ist der einzige Competitor ausserhalb der Zentralschweiz. HEAD IT kann sich als "lokaler Partner vor Ort" positionieren. Fuer Kunden in Luzern/Zug ist die Naehe ein echtes Argument.</p>
+    </div>
+    <div class="cd-insight-item">
+      <span class="cd-insight-label tipp">Tipp</span>
+      <p>Der Standort Hunzenschwil (AG) oeffnet den Aargauer Markt. Keiner der drei Competitors hat dort Praesenz. Gezielt Unternehmen im Raum Aarau/Baden/Brugg ansprechen.</p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+var companies = {
+  headit: {
+    name: 'HEAD IT Solutions AG',
+    location: 'Emmenbruecke (LU)',
+    detail: '~15 Mitarbeitende | Gegr. 2001 | ISO 27001, 9001, 14001',
+    color: '#004C82',
+    badge: 'DU'
+  },
+  itrust: {
+    name: 'iTrust AG',
+    location: 'Cham (ZG)',
+    detail: '~53 Mitarbeitende | Gegr. 2003 | Great Place to Work',
+    color: '#2EA3F2',
+    badge: null
+  },
+  care4it: {
+    name: 'care4IT AG',
+    location: 'Zuerich',
+    detail: '21-50 Mitarbeitende | Gegr. 2003 | Cyber Security Fokus',
+    color: '#0170B9',
+    badge: null
+  },
+  leuchter: {
+    name: 'Leuchter IT Solutions AG',
+    location: 'Luzern',
+    detail: '~100 Mitarbeitende | Gegr. 1959 | ISO 27001, CyberSeal',
+    color: '#E63329',
+    badge: null
+  }
+};
+
+var tooltip = document.getElementById('mapTooltip');
+
+function showTip(evt, key) {
+  var c = companies[key];
+  var html = '<h4 style="color:' + c.color + '">' + c.name + '</h4>';
+  html += '<p>' + c.location + '</p>';
+  html += '<p style="margin-top:4px">' + c.detail + '</p>';
+  if (c.badge) {
+    html += '<span class="cd-tt-badge" style="background:' + c.color + '">' + c.badge + '</span>';
+  }
+  tooltip.innerHTML = html;
+
+  var wrap = tooltip.parentNode;
+  var rect = wrap.getBoundingClientRect();
+  var svgEl = wrap.querySelector('svg');
+  var svgRect = svgEl.getBoundingClientRect();
+
+  var x = evt.clientX - rect.left + 16;
+  var y = evt.clientY - rect.top - 60;
+
+  if (x + 220 > rect.width) x = x - 240;
+  if (y < 0) y = evt.clientY - rect.top + 20;
+
+  tooltip.style.left = x + 'px';
+  tooltip.style.top = y + 'px';
+
+  if (tooltip.className.indexOf('visible') === -1) {
+    tooltip.className += ' visible';
+  }
+}
+
+function hideTip() {
+  tooltip.className = tooltip.className.replace(' visible', '');
+}
+</script>
+
+</body>
+</html>
