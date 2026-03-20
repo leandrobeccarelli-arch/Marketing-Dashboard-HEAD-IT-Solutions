@@ -209,10 +209,10 @@
   animation:splashTextSub 5s ease forwards;
 }
 /* 5s total:
-   0-1.5s: just blue background
-   1.5-2s: main text fades in
-   2-2.5s: sub text fades in
-   2.5-4s: both hold
+   0-1s: blue background only
+   1-1.5s: main text fades in
+   1.5-2s: sub text fades in
+   2-4s: both hold
    4-5s: everything fades out */
 @keyframes splashFade{
   0%{opacity:1;}
@@ -221,15 +221,15 @@
 }
 @keyframes splashTextMain{
   0%{opacity:0;transform:translateY(8px);}
-  30%{opacity:0;transform:translateY(8px);}
-  40%{opacity:1;transform:translateY(0);}
+  20%{opacity:0;transform:translateY(8px);}
+  30%{opacity:1;transform:translateY(0);}
   80%{opacity:1;transform:translateY(0);}
   100%{opacity:0;transform:translateY(-3px);}
 }
 @keyframes splashTextSub{
   0%{opacity:0;transform:translateY(6px);}
-  40%{opacity:0;transform:translateY(6px);}
-  50%{opacity:1;transform:translateY(0);}
+  30%{opacity:0;transform:translateY(6px);}
+  40%{opacity:1;transform:translateY(0);}
   80%{opacity:1;transform:translateY(0);}
   100%{opacity:0;transform:translateY(-3px);}
 }
