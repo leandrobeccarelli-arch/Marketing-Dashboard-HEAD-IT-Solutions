@@ -66,8 +66,12 @@
 
 /* === SECTION TITLE === */
 .cd-section-title{
-  font-size:18px;font-weight:700;color:#1A1A2E;margin:0 0 24px 0;
-  padding-bottom:12px;border-bottom:1px solid #E2E8F0;
+  font-size:16px;font-weight:700;color:#1A1A2E;margin:0 0 24px 0;
+  padding-bottom:0;border-bottom:none;
+  display:flex;align-items:center;gap:8px;
+}
+.cd-section-title::before{
+  content:'';display:inline-block;width:3px;height:18px;background:#004C82;border-radius:2px;flex-shrink:0;
 }
 
 /* === CARDS === */
@@ -77,15 +81,15 @@
   position:relative;overflow:hidden;transition:border-color 0.15s;
 }
 .cd-card:hover{border-color:#004C82;}
-.cd-card-accent{position:absolute;top:0;left:0;right:0;height:3px;}
+.cd-card-accent{position:absolute;top:0;left:0;width:4px;height:100%;}
 .cd-card[data-comp="headit"] .cd-card-accent{background:#004C82;}
 .cd-card[data-comp="itrust"] .cd-card-accent{background:#2EA3F2;}
 .cd-card[data-comp="care4it"] .cd-card-accent{background:#0170B9;}
 .cd-card[data-comp="leuchter"] .cd-card-accent{background:#E63329;}
 
 .cd-card-logo{
-  width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;
-  font-weight:700;font-size:14px;color:#fff;margin-bottom:16px;
+  width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:13px;color:#fff;margin-bottom:16px;
 }
 .cd-card[data-comp="headit"] .cd-card-logo{background:#004C82;}
 .cd-card[data-comp="itrust"] .cd-card-logo{background:#2EA3F2;}
@@ -94,37 +98,39 @@
 
 .cd-card .cd-you-badge{
   position:absolute;top:16px;right:16px;background:#004C82;color:#fff;
-  font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:0.02em;
+  font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:0.05em;text-transform:uppercase;
 }
 .cd-card h3{font-size:15px;font-weight:700;color:#1A1A2E;margin-bottom:4px;}
 .cd-card .cd-card-sub{font-size:12px;color:#4A5568;font-weight:500;margin-bottom:16px;}
 .cd-card-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.cd-card-stat{background:#F5F7FA;padding:10px 12px;border-radius:6px;}
-.cd-card-stat .val{font-size:16px;font-weight:700;color:#1A1A2E;display:block;}
-.cd-card-stat .lbl{font-size:11px;color:#4A5568;font-weight:500;}
+.cd-card-stat{background:#FFFFFF;border:1px solid #E2E8F0;padding:10px 12px;border-radius:6px;}
+.cd-card-stat .val{font-size:18px;font-weight:700;color:#1A1A2E;display:block;letter-spacing:-0.02em;}
+.cd-card-stat .lbl{font-size:10px;color:#4A5568;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;margin-top:2px;}
 
 /* === TABLE === */
-.cd-table-wrap{overflow-x:auto;margin:16px 0;}
+.cd-table-wrap{overflow-x:auto;margin:16px 0;border:1px solid #E2E8F0;border-radius:8px;}
 .cd-table{width:100%;border-collapse:collapse;font-size:13px;}
 .cd-table th{
-  background:#F5F7FA;color:#1A1A2E;font-weight:700;text-align:left;
-  padding:12px 16px;border-bottom:1px solid #E2E8F0;white-space:nowrap;font-size:12px;
-  text-transform:uppercase;letter-spacing:0.04em;
+  background:#F5F7FA;color:#4A5568;font-weight:700;text-align:left;
+  padding:10px 16px;border-bottom:1px solid #E2E8F0;white-space:nowrap;font-size:11px;
+  text-transform:uppercase;letter-spacing:0.06em;
 }
-.cd-table th.cd-you{background:#004C82;color:#fff;}
+.cd-table th.cd-you{background:#004C82;color:#fff;font-size:11px;}
 .cd-table td{padding:12px 16px;border-bottom:1px solid #E2E8F0;vertical-align:top;}
-.cd-table tbody tr:nth-child(even) td{background:#F5F7FA;}
+.cd-table tbody tr:last-child td{border-bottom:none;}
+.cd-table tbody tr:nth-child(even) td{background:#FAFBFC;}
 .cd-table tbody tr:nth-child(odd) td{background:#FFFFFF;}
-.cd-table .comp-name{font-weight:600;white-space:nowrap;color:#1A1A2E;}
+.cd-table tbody tr:hover td{background:#E8F0FE !important;}
+.cd-table .comp-name{font-weight:700;white-space:nowrap;color:#1A1A2E;font-size:12px;}
 .cd-table td.cd-highlight{background:#E8F0FE !important;}
 
 /* === BADGES === */
-.cd-badge{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:0.01em;}
-.cd-badge.active{background:#ECFDF5;color:#065f46;}
-.cd-badge.moderate{background:#FFFBEB;color:#92400e;}
-.cd-badge.inactive{background:#FEF2F2;color:#991b1b;}
-.cd-badge.unknown{background:#F5F7FA;color:#4A5568;}
-.cd-badge.you{background:#004C82;color:#fff;}
+.cd-badge{display:inline-block;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:0.02em;}
+.cd-badge.active{background:#ECFDF5;color:#065f46;border:1px solid #D1FAE5;}
+.cd-badge.moderate{background:#FFFBEB;color:#92400e;border:1px solid #FEF3C7;}
+.cd-badge.inactive{background:#FEF2F2;color:#991b1b;border:1px solid #FECACA;}
+.cd-badge.unknown{background:#F5F7FA;color:#4A5568;border:1px solid #E2E8F0;}
+.cd-badge.you{background:#004C82;color:#fff;border:1px solid #004C82;}
 
 /* === LINKS === */
 .cd-link{
@@ -154,13 +160,15 @@
 
 /* === CUSTOMER GRID === */
 .cd-customer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0;}
-.cd-customer-card{border:1px solid #E2E8F0;border-radius:8px;padding:20px;}
-.cd-customer-card h4{font-size:14px;font-weight:700;margin-bottom:12px;}
+.cd-customer-card{border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#FFFFFF;}
+.cd-customer-card h4{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.cd-customer-card h4::before{content:'';width:3px;height:14px;border-radius:2px;flex-shrink:0;}
 .cd-customer-list{display:flex;flex-wrap:wrap;gap:6px;}
 .cd-customer-tag{
-  background:#F5F7FA;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:500;color:#1A1A2E;
+  background:#F5F7FA;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:500;color:#1A1A2E;
+  border:1px solid #E2E8F0;
 }
-.cd-customer-tag.highlight{background:#004C82;color:#fff;}
+.cd-customer-tag.highlight{background:#1A1A2E;color:#fff;border-color:#1A1A2E;}
 .cd-customer-tag.you{background:#E8F0FE;border:1px solid #004C82;color:#004C82;}
 
 /* === SERVICE GRID === */
@@ -467,22 +475,22 @@
       <td class="comp-name">LinkedIn</td>
       <td class="cd-highlight">
         <strong>1'288 Followers</strong>
-        <div style="font-size:0.8em;color:#666;margin-top:3px">Services, Events, Team</div>
+        <div style="font-size:12px;color:#4A5568;margin-top:3px">Services, Events, Team</div>
         <a class="cd-link" href="https://ch.linkedin.com/company/headitsolutions" target="_blank" style="margin-top:4px">&#128279; Profil</a>
       </td>
       <td>
         <strong>3'197 Followers</strong>
-        <div style="font-size:0.8em;color:#666;margin-top:3px">Thought Leadership, CEO-Talks</div>
+        <div style="font-size:12px;color:#4A5568;margin-top:3px">Thought Leadership, CEO-Talks</div>
         <a class="cd-link" href="https://ch.linkedin.com/company/itrust" target="_blank" style="margin-top:4px">&#128279; Profil</a>
       </td>
       <td>
         <strong>~1'020 Followers</strong>
-        <div style="font-size:0.8em;color:#666;margin-top:3px">M365, Cyber Security</div>
+        <div style="font-size:12px;color:#4A5568;margin-top:3px">M365, Cyber Security</div>
         <a class="cd-link" href="https://www.linkedin.com/company/care4it-ch" target="_blank" style="margin-top:4px">&#128279; Profil</a>
       </td>
       <td>
         <strong>1'277 Followers</strong>
-        <div style="font-size:0.8em;color:#666;margin-top:3px">Holding + Tochtergesellschaften</div>
+        <div style="font-size:12px;color:#4A5568;margin-top:3px">Holding + Tochtergesellschaften</div>
         <a class="cd-link" href="https://ch.linkedin.com/company/leuchter-it-solutions" target="_blank" style="margin-top:4px">&#128279; Profil</a>
       </td>
     </tr>
@@ -490,22 +498,22 @@
       <td class="comp-name">Instagram</td>
       <td class="cd-highlight">
         <strong>387 Followers</strong> &middot; ~160 Posts
-        <div style="font-size:0.8em;color:#666;margin-top:3px">IT-Beratung, Team, Events</div>
+        <div style="font-size:12px;color:#4A5568;margin-top:3px">IT-Beratung, Team, Events</div>
         <a class="cd-link" href="https://www.instagram.com/headitsolutions/" target="_blank" style="margin-top:4px">&#128279; @headitsolutions</a>
       </td>
       <td>
         <strong>122 Followers</strong> &middot; 59 Posts
-        <div style="font-size:0.8em;color:#666;margin-top:3px">Firmenkultur, Digital Transformation</div>
+        <div style="font-size:12px;color:#4A5568;margin-top:3px">Firmenkultur, Digital Transformation</div>
         <a class="cd-link" href="https://www.instagram.com/itrust.ch/" target="_blank" style="margin-top:4px">&#128279; @itrust.ch</a>
       </td>
       <td>
         <strong>166 Followers</strong> &middot; 176 Posts
-        <div style="font-size:0.8em;color:#666;margin-top:3px">Managed IT, Cloud f&uuml;r KMU</div>
+        <div style="font-size:12px;color:#4A5568;margin-top:3px">Managed IT, Cloud f&uuml;r KMU</div>
         <a class="cd-link" href="https://www.instagram.com/care4it/" target="_blank" style="margin-top:4px">&#128279; @care4it</a>
       </td>
       <td>
         <strong>379 Followers</strong> &middot; 187 Posts
-        <div style="font-size:0.8em;color:#666;margin-top:3px">Employer Branding, IT, Team</div>
+        <div style="font-size:12px;color:#4A5568;margin-top:3px">Employer Branding, IT, Team</div>
         <a class="cd-link" href="https://www.instagram.com/leuchterag.ch/" target="_blank" style="margin-top:4px">&#128279; @leuchterag.ch</a>
       </td>
     </tr>
@@ -517,7 +525,7 @@
       </td>
       <td>
         <span class="cd-badge active">Aktiv</span>
-        <div style="font-size:0.8em;color:#666;margin-top:3px">Videos, Podcast-Teaser</div>
+        <div style="font-size:12px;color:#4A5568;margin-top:3px">Videos, Podcast-Teaser</div>
         <a class="cd-link" href="https://www.facebook.com/itrust.ag/" target="_blank" style="margin-top:4px">&#128279; Seite</a>
       </td>
       <td>
@@ -534,7 +542,7 @@
       <td class="cd-highlight"><span class="cd-badge inactive">Kein Kanal</span></td>
       <td>
         <span class="cd-badge active">Aktiv</span>
-        <div style="font-size:0.8em;color:#666;margin-top:3px">Video-Talks, Podcast, Tutorials</div>
+        <div style="font-size:12px;color:#4A5568;margin-top:3px">Video-Talks, Podcast, Tutorials</div>
         <a class="cd-link" href="https://www.youtube.com/c/itrustag" target="_blank" style="margin-top:4px">&#128279; Kanal</a>
       </td>
       <td><span class="cd-badge inactive">Kein Kanal</span></td>
@@ -562,7 +570,7 @@
       <td class="cd-highlight"><span class="cd-badge inactive">Nein</span></td>
       <td>
         <span class="cd-badge active">"digital erfolgreicher arbeiten"</span>
-        <div style="font-size:0.8em;color:#666;margin-top:3px">Host: Patrick M&uuml;ller (CEO)</div>
+        <div style="font-size:12px;color:#4A5568;margin-top:3px">Host: Patrick M&uuml;ller (CEO)</div>
         <a class="cd-link" href="https://www.itrust.ch/podcast/" target="_blank" style="margin-top:4px">&#128279; Podcast</a>
       </td>
       <td><span class="cd-badge inactive">Nein</span></td>
@@ -706,8 +714,8 @@
 <div class="cd-service-grid">
 
   <div class="cd-service-card" style="border-color:#004C82">
-    <h4 style="color:#004C82">HEAD IT Solutions AG <span class="cd-badge you" style="font-size:0.7em;vertical-align:middle">DU</span></h4>
-    <p style="font-size:0.78em;color:#666;margin-bottom:12px">Fokus: Managed IT "simple.", M365, Security</p>
+    <h4 style="color:#004C82">HEAD IT Solutions AG <span class="cd-badge you" style="font-size:11px;vertical-align:middle">DU</span></h4>
+    <p style="font-size:12px;color:#4A5568;margin-bottom:12px">Fokus: Managed IT "simple.", M365, Security</p>
     <div class="cd-service-item"><span class="cd-check">&#10003;</span> simple.Cloud (Migration &amp; Management)</div>
     <div class="cd-service-item"><span class="cd-check">&#10003;</span> simple.Security (Cyber as a Service)</div>
     <div class="cd-service-item"><span class="cd-check">&#10003;</span> simple.Backup (Schweizer Rechenzentren)</div>
@@ -722,7 +730,7 @@
 
   <div class="cd-service-card">
     <h4 style="color:#2EA3F2">iTrust AG</h4>
-    <p style="font-size:0.78em;color:#666;margin-bottom:12px">Fokus: Microsoft 365, Digital Coaching</p>
+    <p style="font-size:12px;color:#4A5568;margin-bottom:12px">Fokus: Microsoft 365, Digital Coaching</p>
     <div class="cd-service-item"><span class="cd-check">&#10003;</span> Microsoft 365 Beratung</div>
     <div class="cd-service-item"><span class="cd-check">&#10003;</span> Microsoft Teams Telefonie</div>
     <div class="cd-service-item"><span class="cd-check">&#10003;</span> Copilot &amp; Copilot Agents</div>
@@ -736,7 +744,7 @@
 
   <div class="cd-service-card">
     <h4 style="color:#0170B9">care4IT AG</h4>
-    <p style="font-size:0.78em;color:#666;margin-bottom:12px">Fokus: Managed IT, Cloud, Cyber Security</p>
+    <p style="font-size:12px;color:#4A5568;margin-bottom:12px">Fokus: Managed IT, Cloud, Cyber Security</p>
     <div class="cd-service-item"><span class="cd-check">&#10003;</span> Managed Infrastructure</div>
     <div class="cd-service-item"><span class="cd-check">&#10003;</span> Managed Server &amp; Workstation</div>
     <div class="cd-service-item"><span class="cd-check">&#10003;</span> Managed Backup &amp; Firewall</div>
@@ -750,7 +758,7 @@
 
   <div class="cd-service-card">
     <h4 style="color:#E63329">Leuchter IT Solutions AG</h4>
-    <p style="font-size:0.78em;color:#666;margin-bottom:12px">Fokus: Breit aufgestellt, Holding</p>
+    <p style="font-size:12px;color:#4A5568;margin-bottom:12px">Fokus: Breit aufgestellt, Holding</p>
     <div class="cd-service-item"><span class="cd-check">&#10003;</span> IT Infrastruktur &amp; L-Cloud</div>
     <div class="cd-service-item"><span class="cd-check">&#10003;</span> Microsoft 365 / Modern Workplace</div>
     <div class="cd-service-item"><span class="cd-check">&#10003;</span> Cyber Security (SOC, ISO 27001)</div>
@@ -764,7 +772,7 @@
 
 </div>
 
-<p style="font-size:0.78em;color:#888;margin-top:6px">&#10003; = Vergleichbares Angebot &nbsp;&nbsp; &#9733; = Alleinstellungsmerkmal</p>
+<p style="font-size:12px;color:#4A5568;margin-top:6px">&#10003; = Vergleichbares Angebot &nbsp;&nbsp; &#9733; = Alleinstellungsmerkmal</p>
 
 <h2 class="cd-section-title" style="margin-top:24px">Technologie-Partner</h2>
 <div class="cd-table-wrap">
@@ -818,7 +826,7 @@
       <span class="cd-customer-tag you">Zodas</span>
       <span class="cd-customer-tag you">Job 3000 AG</span>
     </div>
-    <p style="font-size:0.76em;color:#888;margin-top:10px">Fokus: KMU Zentralschweiz &amp; Aargau</p>
+    <p style="font-size:12px;color:#4A5568;margin-top:10px">Fokus: KMU Zentralschweiz &amp; Aargau</p>
     <a class="cd-link" href="https://www.headitsolutions.ch" target="_blank" style="margin-top:6px">&#128279; Website</a>
   </div>
 
@@ -831,7 +839,7 @@
       <span class="cd-customer-tag">Balmer-Etienne AG</span>
       <span class="cd-customer-tag">Imbach &amp; CIE AG</span>
     </div>
-    <p style="font-size:0.76em;color:#888;margin-top:10px">Fokus: KMU Zentralschweiz</p>
+    <p style="font-size:12px;color:#4A5568;margin-top:10px">Fokus: KMU Zentralschweiz</p>
     <a class="cd-link" href="https://www.itrust.ch/referenzen/" target="_blank" style="margin-top:6px">&#128279; Alle Referenzen</a>
   </div>
 
@@ -842,7 +850,7 @@
       <span class="cd-customer-tag">Verity AG</span>
       <span class="cd-customer-tag">Analytica</span>
     </div>
-    <p style="font-size:0.76em;color:#888;margin-top:10px">175+ Kunden (Claim). Thales als Top-Referenz.</p>
+    <p style="font-size:12px;color:#4A5568;margin-top:10px">175+ Kunden (Claim). Thales als Top-Referenz.</p>
     <a class="cd-link" href="https://www.care4it.ch/ueber-uns/referenzen/" target="_blank" style="margin-top:6px">&#128279; Alle Referenzen</a>
   </div>
 
@@ -869,7 +877,7 @@
       <span class="cd-customer-tag">Frutt Resort</span>
       <span class="cd-customer-tag">Hotel Hermitage</span>
     </div>
-    <p style="font-size:0.76em;color:#888;margin-top:10px">St&auml;rkste Referenzliste mit Schweizer Top-Unternehmen.</p>
+    <p style="font-size:12px;color:#4A5568;margin-top:10px">St&auml;rkste Referenzliste mit Schweizer Top-Unternehmen.</p>
     <a class="cd-link" href="https://www.leuchterag.ch/referenzen" target="_blank" style="margin-top:6px">&#128279; Alle Referenzen</a>
   </div>
 
@@ -889,100 +897,100 @@
 
   <!-- HEAD IT -->
   <div style="border:1px solid #004C82;border-radius:8px;padding:20px;background:#fff">
-    <h4 style="font-size:0.92em;font-weight:700;color:#004C82;margin-bottom:14px">HEAD IT (Du)</h4>
+    <h4 style="font-size:14px;font-weight:700;color:#004C82;margin-bottom:14px">HEAD IT (Du)</h4>
     <div style="display:flex;flex-direction:column;gap:8px">
       <a href="https://www.instagram.com/headitsolutions/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#128247;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">Instagram</strong><span style="font-size:0.72em;color:#888">@headitsolutions</span></span>
-        <span style="font-size:0.7em;color:#004C82;font-weight:700">387 Followers</span>
+        <span style="font-size:18px">&#128247;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">Instagram</strong><span style="font-size:11px;color:#4A5568">@headitsolutions</span></span>
+        <span style="font-size:11px;color:#004C82;font-weight:700">387 Followers</span>
       </a>
       <a href="https://ch.linkedin.com/company/headitsolutions" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#128101;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">LinkedIn</strong><span style="font-size:0.72em;color:#888">headitsolutions</span></span>
-        <span style="font-size:0.7em;color:#004C82;font-weight:700">1'288 Followers</span>
+        <span style="font-size:18px">&#128101;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">LinkedIn</strong><span style="font-size:11px;color:#4A5568">headitsolutions</span></span>
+        <span style="font-size:11px;color:#004C82;font-weight:700">1'288 Followers</span>
       </a>
       <a href="https://www.facebook.com/headitsolutions/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#128266;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">Facebook</strong><span style="font-size:0.72em;color:#888">headitsolutions</span></span>
+        <span style="font-size:18px">&#128266;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">Facebook</strong><span style="font-size:11px;color:#4A5568">headitsolutions</span></span>
       </a>
       <a href="https://www.tiktok.com/@headitsolutions" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#127926;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">TikTok</strong><span style="font-size:0.72em;color:#888">@headitsolutions</span></span>
+        <span style="font-size:18px">&#127926;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">TikTok</strong><span style="font-size:11px;color:#4A5568">@headitsolutions</span></span>
       </a>
     </div>
   </div>
 
   <!-- iTrust -->
   <div style="border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#fff">
-    <h4 style="font-size:0.92em;font-weight:700;color:#2EA3F2;margin-bottom:14px">iTrust AG</h4>
+    <h4 style="font-size:14px;font-weight:700;color:#2EA3F2;margin-bottom:14px">iTrust AG</h4>
     <div style="display:flex;flex-direction:column;gap:8px">
       <a href="https://www.instagram.com/itrust.ch/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#128247;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">Instagram</strong><span style="font-size:0.72em;color:#888">@itrust.ch</span></span>
-        <span style="font-size:0.7em;color:#007AC2;font-weight:700">122 Followers</span>
+        <span style="font-size:18px">&#128247;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">Instagram</strong><span style="font-size:11px;color:#4A5568">@itrust.ch</span></span>
+        <span style="font-size:11px;color:#007AC2;font-weight:700">122 Followers</span>
       </a>
       <a href="https://ch.linkedin.com/company/itrust" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#128101;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">LinkedIn</strong><span style="font-size:0.72em;color:#888">itrust</span></span>
-        <span style="font-size:0.7em;color:#007AC2;font-weight:700">3'197 Followers</span>
+        <span style="font-size:18px">&#128101;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">LinkedIn</strong><span style="font-size:11px;color:#4A5568">itrust</span></span>
+        <span style="font-size:11px;color:#007AC2;font-weight:700">3'197 Followers</span>
       </a>
       <a href="https://www.facebook.com/itrust.ag/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#128266;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">Facebook</strong><span style="font-size:0.72em;color:#888">itrust.ag</span></span>
+        <span style="font-size:18px">&#128266;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">Facebook</strong><span style="font-size:11px;color:#4A5568">itrust.ag</span></span>
       </a>
       <a href="https://www.youtube.com/c/itrustag" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#127909;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">YouTube</strong><span style="font-size:0.72em;color:#888">itrustag</span></span>
+        <span style="font-size:18px">&#127909;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">YouTube</strong><span style="font-size:11px;color:#4A5568">itrustag</span></span>
       </a>
       <a href="https://www.itrust.ch/podcast/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#127911;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">Podcast</strong><span style="font-size:0.72em;color:#888">digital erfolgreicher arbeiten</span></span>
+        <span style="font-size:18px">&#127911;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">Podcast</strong><span style="font-size:11px;color:#4A5568">digital erfolgreicher arbeiten</span></span>
       </a>
     </div>
   </div>
 
   <!-- care4IT -->
   <div style="border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#fff">
-    <h4 style="font-size:0.92em;font-weight:700;color:#0170B9;margin-bottom:14px">care4IT AG</h4>
+    <h4 style="font-size:14px;font-weight:700;color:#0170B9;margin-bottom:14px">care4IT AG</h4>
     <div style="display:flex;flex-direction:column;gap:8px">
       <a href="https://www.instagram.com/care4it/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#128247;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">Instagram</strong><span style="font-size:0.72em;color:#888">@care4it</span></span>
-        <span style="font-size:0.7em;color:#216093;font-weight:700">166 Followers</span>
+        <span style="font-size:18px">&#128247;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">Instagram</strong><span style="font-size:11px;color:#4A5568">@care4it</span></span>
+        <span style="font-size:11px;color:#216093;font-weight:700">166 Followers</span>
       </a>
       <a href="https://www.linkedin.com/company/care4it-ch" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#128101;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">LinkedIn</strong><span style="font-size:0.72em;color:#888">care4it-ch</span></span>
-        <span style="font-size:0.7em;color:#216093;font-weight:700">~1'020 Followers</span>
+        <span style="font-size:18px">&#128101;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">LinkedIn</strong><span style="font-size:11px;color:#4A5568">care4it-ch</span></span>
+        <span style="font-size:11px;color:#216093;font-weight:700">~1'020 Followers</span>
       </a>
       <a href="https://www.facebook.com/care4IT.ch/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#128266;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">Facebook</strong><span style="font-size:0.72em;color:#888">care4IT.ch</span></span>
+        <span style="font-size:18px">&#128266;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">Facebook</strong><span style="font-size:11px;color:#4A5568">care4IT.ch</span></span>
       </a>
       <a href="https://x.com/care4it_ch" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#120143;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">X / Twitter</strong><span style="font-size:0.72em;color:#888">@care4it_ch</span></span>
+        <span style="font-size:18px">&#120143;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">X / Twitter</strong><span style="font-size:11px;color:#4A5568">@care4it_ch</span></span>
       </a>
     </div>
   </div>
 
   <!-- Leuchter -->
   <div style="border:1px solid #E2E8F0;border-radius:8px;padding:20px;background:#fff">
-    <h4 style="font-size:0.92em;font-weight:700;color:#E63329;margin-bottom:14px">Leuchter IT</h4>
+    <h4 style="font-size:14px;font-weight:700;color:#E63329;margin-bottom:14px">Leuchter IT</h4>
     <div style="display:flex;flex-direction:column;gap:8px">
       <a href="https://www.instagram.com/leuchterag.ch/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#128247;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">Instagram</strong><span style="font-size:0.72em;color:#888">@leuchterag.ch</span></span>
-        <span style="font-size:0.7em;color:#c42a22;font-weight:700">379 Followers</span>
+        <span style="font-size:18px">&#128247;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">Instagram</strong><span style="font-size:11px;color:#4A5568">@leuchterag.ch</span></span>
+        <span style="font-size:11px;color:#c42a22;font-weight:700">379 Followers</span>
       </a>
       <a href="https://ch.linkedin.com/company/leuchter-it-solutions" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#128101;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">LinkedIn</strong><span style="font-size:0.72em;color:#888">leuchter-it-solutions</span></span>
-        <span style="font-size:0.7em;color:#c42a22;font-weight:700">1'277 Followers</span>
+        <span style="font-size:18px">&#128101;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">LinkedIn</strong><span style="font-size:11px;color:#4A5568">leuchter-it-solutions</span></span>
+        <span style="font-size:11px;color:#c42a22;font-weight:700">1'277 Followers</span>
       </a>
       <a href="https://www.facebook.com/leuchterag/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F5F7FA;border:1px solid #E2E8F0;border-radius:6px;text-decoration:none;color:#1A1A2E;transition:all 0.15s">
-        <span style="font-size:1.3em">&#128266;</span>
-        <span style="flex:1"><strong style="font-size:0.82em;display:block">Facebook</strong><span style="font-size:0.72em;color:#888">leuchterag</span></span>
+        <span style="font-size:18px">&#128266;</span>
+        <span style="flex:1"><strong style="font-size:13px;display:block">Facebook</strong><span style="font-size:11px;color:#4A5568">leuchterag</span></span>
       </a>
     </div>
   </div>
@@ -1015,7 +1023,7 @@
       <td class="cd-highlight"><span class="cd-badge inactive">Kein Kanal</span></td>
       <td>
         <span class="cd-badge active">Aktiv</span>
-        <div style="font-size:0.8em;color:#666;margin-top:3px">CEO-Talks, Podcast, Tutorials</div>
+        <div style="font-size:12px;color:#4A5568;margin-top:3px">CEO-Talks, Podcast, Tutorials</div>
         <a class="cd-link" href="https://www.youtube.com/c/itrustag" target="_blank" style="margin-top:4px">&#128279; Kanal</a>
       </td>
       <td><span class="cd-badge inactive">Kein Kanal</span></td>
